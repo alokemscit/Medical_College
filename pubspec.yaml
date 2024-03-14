@@ -35,6 +35,7 @@ dependencies:
   connectivity: ^3.0.6
   share: ^2.0.4
   flutter_cached_pdfview: ^0.4.2
+  super_context_menu: ^0.8.5
 
 dev_dependencies:
   flutter_test:

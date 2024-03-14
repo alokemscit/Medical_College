@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:agmc/config/data_api.dart';
+import 'package:agmc/core/config/data_api.dart';
 
 class Menu {
   String? id;

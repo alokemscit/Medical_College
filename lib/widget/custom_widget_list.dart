@@ -2,22 +2,35 @@
 
 import 'dart:convert';
 
-import 'package:agmc/config/const.dart';
+import 'package:agmc/core/config/const.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/model/user_model.dart';
  
  
+class PoppupMenu extends StatelessWidget {
+  const PoppupMenu({super.key, required this.child, required this.menuList});
+  final Widget? child;
+  final List<PopupMenuItem> menuList;
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      itemBuilder: ((context) => menuList),
+      child: child,
+    );
+  }
+}
 
-Widget headerAppLogo() => const Padding(
-      padding: EdgeInsets.only(left: 36, top: 30),
+
+Widget headerAppLogo([String logo="logo_aamc.png",double width=180]) =>  Padding(
+      padding: const EdgeInsets.only(left: 36, top: 30),
       child: Row(
         children: [
           Image(
             image: AssetImage(
-              'assets/icons/aamc_logo.png',
+              'assets/icons/$logo',
             ),
             fit: BoxFit.fill,
-            height: 55,
-            width: 300,
+            height: 50,
+            width: width,
           )
         ],
       ),

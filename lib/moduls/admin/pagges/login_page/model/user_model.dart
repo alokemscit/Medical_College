@@ -1,4 +1,6 @@
 // ignore: camel_case_types
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 
 class User_Model {
@@ -21,6 +23,7 @@ class User_Model {
   String? iMAGE;
   String? iSDROP;
   Image? pHOTO;
+  String? comID;
   User_Model(
       {this.sTATUS,
       this.sMSG,
@@ -40,7 +43,8 @@ class User_Model {
       this.hOD1NAME,
       this.iMAGE,
       this.iSDROP,
-      this.pHOTO}
+      this.pHOTO,
+      this.comID}
       );
   User_Model.fromJson(Map<String, dynamic> json) {
     sTATUS = json['STATUS'];

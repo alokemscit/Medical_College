@@ -1,6 +1,5 @@
- 
-
-import 'package:agmc/config/colors.dart';
+import 'package:agmc/core/config/colors.dart';
+import 'package:agmc/core/config/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +35,7 @@ class CustomTextBox extends StatelessWidget {
   final FocusNode? focusNode;
   final bool isCapitalization;
   final bool iSAutoCorrected;
-
+  final Color disableBackColor;
   CustomTextBox(
       {super.key,
       required this.caption,
@@ -61,12 +60,14 @@ class CustomTextBox extends StatelessWidget {
       this.focusedBorderWidth = 0.3,
       this.enabledBorderColor = Colors.grey,
       this.enabledBorderwidth = 0.4,
+      this.disableBackColor=appColorGrayLight,
       this.surfixIconColor = appColorLogo,
       void Function(String)? onSubmitted,
       void Function()? onEditingComplete,
+
       this.focusNode,
       this.isCapitalization = false,
-      this.iSAutoCorrected=false})
+      this.iSAutoCorrected = false})
       : onSubmitted = onSubmitted ?? ((String v) {}),
         onEditingComplete = onEditingComplete ?? (() {});
 
@@ -81,7 +82,7 @@ class CustomTextBox extends StatelessWidget {
           //padding: EdgeInsets.zero,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(borderRadious),
-              color: Colors.white,
+              color: isDisable ? disableBackColor : Colors.white,
               boxShadow: [
                 BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
               ]),
@@ -98,7 +99,7 @@ class CustomTextBox extends StatelessWidget {
                 isObsText = state.isShow;
               }
               return TextField(
-                autocorrect:iSAutoCorrected,
+                autocorrect: iSAutoCorrected,
                 textCapitalization: isCapitalization == true
                     ? TextCapitalization.characters
                     : TextCapitalization.none,
@@ -111,7 +112,7 @@ class CustomTextBox extends StatelessWidget {
                 },
 
                 onEditingComplete: () {
-                  print("12121");
+                  // print("12121");
                   onEditingComplete();
                 },
                 keyboardType: textInputType,

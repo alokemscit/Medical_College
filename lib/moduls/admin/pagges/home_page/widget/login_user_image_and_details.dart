@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:agmc/config/colors.dart';
+import 'package:agmc/core/config/colors.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/controller/parent_page_controller.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/login_page.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/notifires/aughtprovider.dart';
-import 'package:agmc/shared/user_data.dart';
+import 'package:agmc/core/shared/user_data.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

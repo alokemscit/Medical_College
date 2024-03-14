@@ -1,10 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:agmc/config/const.dart';
-import 'package:agmc/config/responsive.dart';
+import 'package:agmc/core/config/const.dart';
+import 'package:agmc/core/config/responsive.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/controller/login_controller.dart';
+import 'package:agmc/widget/custom_dropdown.dart';
 import 'package:agmc/widget/custom_textbox.dart';
 import 'package:agmc/widget/custom_widget_list.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
@@ -20,7 +22,23 @@ class LoginPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          headerAppLogo(),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: controller.company_list
+                  .map((element) => Padding(
+                        padding: const EdgeInsets.only(right: 12),
+                        child: headerAppLogo(
+                            element.logo!,
+                            element.id == "1"
+                                ? 110
+                                : element.id == "2"
+                                    ? 170
+                                    : 280),
+                      ))
+                  .toList(),
+            ),
+          ),
           Expanded(
             child: Responsive(
               mobile: Center(child: rightpart(controller)),
@@ -40,8 +58,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-
 
 Widget leftPanel() => Expanded(
       flex: 3,
@@ -108,6 +124,18 @@ Widget rightpart(LoginConroller controller) {
                         fontStyle: FontStyle.italic,
                         color: kWebHeaderColor),
                   ),
+                  12.heightBox,
+                  CustomDropDown(
+                    labeltext: "Company",
+                    width: double.infinity,
+                      id: controller.com_id.value,
+                      list: controller.company_list
+                          .map((element) => DropdownMenuItem<String>(
+                              value: element.id, child: Text(element.name!,style: customTextStyle.copyWith(fontSize: 11,fontWeight: FontWeight.w500),)))
+                          .toList(),
+                      onTap: (v) {
+                        controller.com_id.value = v!;
+                      }),
                   8.heightBox,
                   CustomTextBox(
                       borderRadious: 8,
@@ -116,18 +144,17 @@ Widget rightpart(LoginConroller controller) {
                       width: double.infinity,
                       maxlength: 4,
                       caption: "Emp ID",
-                      fontColor : Colors.black,
+                      fontColor: Colors.black,
                       controller: controller.txt_empid,
                       onChange: (v) {}),
                   8.heightBox,
                   CustomTextBox(
-
                       borderRadious: 8,
                       labelTextColor: Colors.black54,
                       width: double.infinity,
                       surfixIconColor: kWebHeaderColor.withOpacity(0.5),
                       maxlength: 15,
-                       fontColor : Colors.black,
+                      fontColor: Colors.black,
                       isFilled: true,
                       isPassword: true,
                       caption: "Password",

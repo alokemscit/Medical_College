@@ -1,7 +1,6 @@
- 
-import 'package:agmc/core/config/const.dart';
+// ignore_for_file: file_names
 
- 
+import 'package:agmc/core/config/const.dart';
 
 class CustomPanel extends StatefulWidget {
   const CustomPanel({
@@ -9,12 +8,7 @@ class CustomPanel extends StatefulWidget {
     required this.children,
     required this.title,
     this.isExpanded = true,
-    this.borderRadius = 4.0,
-    this.splashColor = appColorPista,
-    this.openIcon = Icons.folder_open_sharp,
-    this.closeIcon = Icons.folder,
-    this.isLeadingIcon = false,  this.iconColor=Colors.black87,  this.iconSize=18,  
-    this.isSurfixIcon=true,  this.isSelectedColor=true,
+    this.borderRadius = 4.0,  this.splashColor=appColorPista,
   });
 
   final List<Widget> children;
@@ -22,13 +16,6 @@ class CustomPanel extends StatefulWidget {
   final bool isExpanded;
   final double borderRadius;
   final Color splashColor;
-  final IconData openIcon;
-  final IconData closeIcon;
-  final bool isLeadingIcon;
-  final bool isSurfixIcon;
-  final bool isSelectedColor;
-  final Color iconColor;
-  final double iconSize;
   @override
   State<CustomPanel> createState() => _CustomPanelState();
 }
@@ -78,45 +65,36 @@ class _CustomPanelState extends State<CustomPanel>
       children: [
         InkWell(
           borderRadius: BorderRadius.circular(widget.borderRadius),
-          splashColor: widget.isSelectedColor? widget.splashColor:Colors.transparent,
-          hoverColor: widget.isSelectedColor? widget.splashColor:Colors.transparent,
+          splashColor:widget.splashColor,
+          hoverColor:widget.splashColor,
           onTap: _toggleExpand,
           child: Container(
-            decoration: _isExpanded
-                ? BoxDecoration(
-                    borderRadius: BorderRadius.circular(widget.borderRadius),
-                    color: widget.isSelectedColor? widget.splashColor:Colors.transparent,
-                    boxShadow: const [
-                        BoxShadow(
-                            blurRadius: 3, spreadRadius: 1, color: Colors.white)
-                      ])
-                : null,
-            // padding: const EdgeInsets.all(4),
+            decoration: _isExpanded? BoxDecoration(
+              borderRadius: BorderRadius.circular(widget.borderRadius),
+              color: widget.splashColor,
+              boxShadow: const [
+                BoxShadow(
+                  blurRadius: 3,
+                  spreadRadius: 1,
+                  color: Colors.white
+                )
+              ]
+            ):null,
+           // padding: const EdgeInsets.all(4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Row(
-                    children: [
-                      widget.isLeadingIcon?Row(
-                        children: [
-                          Icon( _isExpanded? widget.openIcon:widget.closeIcon,size: widget.iconSize,color: widget.iconColor,),
-                          6.widthBox,
-                        ],
-                      ):const SizedBox(),
-                      widget.title,
-                    ],
-                  ),
+                  child: widget.title,
                 ),
                 const SizedBox(
                   width: 4,
                 ),
-              widget.isSurfixIcon?   RotationTransition(
+                RotationTransition(
                   turns: _animation,
-                  child:  Icon(!_isExpanded
-                      ? Icons.arrow_drop_down
-                      : Icons.arrow_drop_up),
-                ):const SizedBox(),
+                  child: Icon(
+                      !_isExpanded ? Icons.arrow_drop_down : Icons.arrow_drop_up),
+                ),
               ],
             ),
           ),
@@ -126,7 +104,7 @@ class _CustomPanelState extends State<CustomPanel>
           curve: Curves.fastOutSlowIn,
           child: _isExpanded
               ? Column(children: widget.children)
-              : SizedBox(height: 0),
+              : const SizedBox(height: 0),
         ),
       ],
     );

@@ -1,6 +1,6 @@
  
 
-import 'package:agmc/config/const.dart';
+import 'package:agmc/core/config/const.dart';
 
 import 'package:agmc/moduls/admin/pagges/home_page/controller/parent_page_controller.dart';
 
@@ -81,7 +81,17 @@ _headerContent(ParentPageController controller, BuildContext context) => Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: context.width < 650 ? const SizedBox() : headerAppLogo(),
+          child: context.width < 650 ? const SizedBox() : 
+          
+          headerAppLogo(
+                            controller.company.value.logo!,
+                            controller.company.value.id == "1"
+                                ? 110
+                                : controller.company.value.id == "2"
+                                    ? 170
+                                    : 280)
+          
+          ,
         ),
         user_login_details(controller.user.value, () {
           controller.logOut();

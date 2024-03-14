@@ -1,6 +1,6 @@
  
-import 'package:agmc/config/colors.dart';
-import 'package:agmc/config/function.dart';
+import 'package:agmc/core/config/colors.dart';
+import 'package:agmc/core/config/function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';

@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:agmc/config/const.dart';
+import 'package:agmc/core/config/const.dart';
 
 Widget CustomButton(
  @required IconData icon,

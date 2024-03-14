@@ -2,8 +2,8 @@
 
 import 'dart:convert';
 
-import 'package:agmc/config/const.dart';
-import 'package:agmc/config/responsive.dart';
+import 'package:agmc/core/config/const.dart';
+import 'package:agmc/core/config/responsive.dart';
  
 import 'package:agmc/model/model_sub_menu.dart';
 
@@ -12,7 +12,7 @@ import 'package:agmc/moduls/admin/pagges/home_page/model/model_menu_list.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/login_page.dart';
  
 import 'package:agmc/moduls/admin/pagges/login_page/notifires/aughtprovider.dart';
-import 'package:agmc/shared/user_data.dart';
+import 'package:agmc/core/shared/user_data.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
  

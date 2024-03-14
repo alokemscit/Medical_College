@@ -1,6 +1,6 @@
-import 'package:agmc/config/const.dart';
+import 'package:agmc/core/config/const.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/model/user_model.dart';
-import 'package:agmc/shared/user_data.dart';
+import 'package:agmc/core/shared/user_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -21,6 +21,7 @@ class AuthProvider with ChangeNotifier {
     final dSGID = prefs.getString('dSGID');
     final dSGNAME = prefs.getString('dSGNAME');
     final iMAGE = prefs.getString('iMAGE');
+     final comID = prefs.getString('comID');
 
     if (eMPID != null && eMPNAME != null) {
       _user = User_Model(eMPID:eMPID,
@@ -31,7 +32,8 @@ class AuthProvider with ChangeNotifier {
       uNAME:uNAME,
       dSGID:dSGID,
       dSGNAME:dSGNAME,
-      iMAGE:iMAGE
+      iMAGE:iMAGE,
+      comID: comID
       );
 
         DataStaticUser.eid = eMPID;
@@ -43,7 +45,7 @@ class AuthProvider with ChangeNotifier {
         DataStaticUser.uid = uID!;
         DataStaticUser.uname =uNAME!;
         DataStaticUser.img = iMAGE;
-
+        DataStaticUser.comID = comID;
 
       notifyListeners();
     }
@@ -59,7 +61,9 @@ class AuthProvider with ChangeNotifier {
   String uNAME,
   String dSGID,
   String dSGNAME,
-  String iMAGE) async {
+  String iMAGE,
+  String comID,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('eMPID', eMPID);
     await prefs.setString('eMPNAME', eMPNAME);
@@ -70,7 +74,7 @@ class AuthProvider with ChangeNotifier {
     await prefs.setString('dSGID', dSGID);
     await prefs.setString('dSGNAME', dSGNAME);
     await prefs.setString('iMAGE', iMAGE);
-
+   await prefs.setString('comID', comID);
     _user = User_Model(eMPID:eMPID,
       eMPNAME:eMPNAME,
       dEPTID:dEPTID,
@@ -79,7 +83,8 @@ class AuthProvider with ChangeNotifier {
       uNAME:uNAME,
       dSGID:dSGID,
       dSGNAME:dSGNAME,
-      iMAGE:iMAGE);
+      iMAGE:iMAGE,
+      comID: comID);
 
   DataStaticUser.eid = eMPID;
         DataStaticUser.name = eMPNAME;
@@ -90,7 +95,7 @@ class AuthProvider with ChangeNotifier {
         DataStaticUser.uid = uID;
         DataStaticUser.uname =uNAME;
         DataStaticUser.img = iMAGE;
-
+        DataStaticUser.comID = comID;
 
     notifyListeners();
   }
@@ -98,6 +103,7 @@ class AuthProvider with ChangeNotifier {
   // Log out a user and clear their data from SharedPreferences.
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('comID');
     await prefs.remove('eMPID');
     await prefs.remove('eMPNAME');
     await prefs.remove('dEPTID');
@@ -117,7 +123,7 @@ class AuthProvider with ChangeNotifier {
         DataStaticUser.uid = '';
         DataStaticUser.uname ='';
         DataStaticUser.img = '';
-
+        DataStaticUser.comID = '';
 
     _user = null;
     notifyListeners();

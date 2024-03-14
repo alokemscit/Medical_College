@@ -1,9 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
-import 'package:agmc/config/const.dart';
-import 'package:agmc/config/responsive.dart';
-import 'package:agmc/config/router.dart';
+import 'package:agmc/core/config/const.dart';
+import 'package:agmc/core/config/responsive.dart';
+import 'package:agmc/core/config/router.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/model/model_menu_list.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/widget/login_user_image_and_details.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/widget/parent_background_widget.dart';

@@ -1,6 +1,6 @@
  
  
-import 'package:agmc/config/colors.dart';
+import 'package:agmc/core/config/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomExpansionTitle extends StatelessWidget {

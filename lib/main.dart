@@ -1,4 +1,4 @@
-import 'package:agmc/config/const.dart';
+import 'package:agmc/core/config/const.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/login_page.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/notifires/aughtprovider.dart';
 import 'package:flutter/foundation.dart';
