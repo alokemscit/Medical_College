@@ -166,7 +166,7 @@ class _CustomAccordionContainerState extends State<CustomAccordionContainer> {
           ),
           widget.height > 0
               ? Container(
-                
+                width: double.infinity,
                   decoration: CustomCaptionDecoration().copyWith(
                     borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(4),
@@ -177,6 +177,7 @@ class _CustomAccordionContainerState extends State<CustomAccordionContainer> {
                   child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: widget.children,
                       )))
               : b
@@ -194,6 +195,7 @@ class _CustomAccordionContainerState extends State<CustomAccordionContainer> {
                           child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                 children: widget.children,
                               ))),
                     )

@@ -1,16 +1,9 @@
-import 'package:agmc/widget/custom_accordion.dart';
-import 'package:agmc/widget/custom_body.dart';
-import 'package:agmc/widget/custom_panel.dart';
-import 'package:agmc/widget/custom_textbox.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+ 
+ 
+ 
 
-import 'package:get/get.dart';
-
-import '../../../core/config/const.dart';
-import '../../../widget/custom_dialog.dart';
-import '../../../widget/custom_widget_list.dart';
+import '../../../core/config/const.dart'; 
+import '../../../core/config/const_widget.dart';
 import 'controller/ledger_master_controller.dart';
 import 'model/model_ledger_master.dart';
 
@@ -35,7 +28,7 @@ class LedgerMasterPage extends StatelessWidget {
             controller.isLoading.value,
             controller.isError.value,
             controller.errorMessage.value,
-            Container(),
+             _desktop(controller),
             _desktop(controller),
             _desktop(controller))),
       ),
@@ -44,7 +37,7 @@ class LedgerMasterPage extends StatelessWidget {
 }
 
 _desktop(LedgerMasterController controller) => CustomAccordionContainer(
-      headerName: "Legder Master",
+      headerName: "Chart of Account",
       height: 0,
       isExpansion: false,
       children: [
@@ -67,10 +60,17 @@ Widget _chartAccount(LedgerMasterController controller, ModelLedgerMaster e) =>
       padding: const EdgeInsets.only(bottom: 8),
       child: _node(
           0,
-          Text(
-           '${e.cODE!} - ${e.nAME!}',
-            style: customTextStyle.copyWith(
-                fontSize: 16, fontWeight: FontWeight.bold),
+          Row(
+            children: [
+              Text(
+               '${e.cODE!} - ${e.nAME!}',
+                style: customTextStyle.copyWith(
+                    fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              10.widthBox,
+               Text('(Chart of Acc)',
+               style: _style())
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(right: 27.0),
@@ -93,18 +93,29 @@ Widget _chartAccount(LedgerMasterController controller, ModelLedgerMaster e) =>
               .toList()),
     );
 
-Widget _groupPart(LedgerMasterController controller, ModelLedgerMaster e) =>
+   
+
+
+   Widget _subGroupPart(LedgerMasterController controller, ModelLedgerMaster e) =>
     Padding(
       padding: const EdgeInsets.only(bottom: 0),
       child: _node(
           26,
-          Text('${e.cODE!} - ${e.nAME!}',
-              style: customTextStyle.copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: appColorLogo,
-              )),
-           Padding(
+          Row(
+            children: [
+              Text('${e.cODE!} - ${e.nAME!}',
+                  style: customTextStyle.copyWith(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: appFontMuli
+                    //color: appColorLogo,
+                  )),
+                   10.widthBox,
+               Text('(Sub Group)',
+               style: _style())
+            ],
+          ),
+            Padding(
             padding: const EdgeInsets.only(right: 20),
             child: PoppupMenu(
                 menuList: [
@@ -114,6 +125,64 @@ Widget _groupPart(LedgerMasterController controller, ModelLedgerMaster e) =>
                     trailing: Icon(Icons.add_rounded),
                   ),
                    onTap: ( )=> controller.ledgerPopup(e)
+                  ),
+                  const PopupMenuItem(
+                      child: ListTile(
+                    title: Text("Edit Sub Group"),
+                    trailing: Icon(Icons.edit_rounded),
+                  )),
+                ],
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.construction_sharp,
+                    size: 22,
+                    color: appColorBlue,
+                  ),
+                )),
+          ),
+          controller.ledger_list
+              .where((p0) => p0.pARENTID == e.iD)
+              .map(
+                (e) => _ledgerPart(e),
+              )
+              .toList()),
+    );
+
+
+
+
+
+
+Widget _groupPart(LedgerMasterController controller, ModelLedgerMaster e) =>
+    Padding(
+      padding: const EdgeInsets.only(bottom: 0),
+      child: _node(
+          26,
+          Row(
+            children: [
+              Text('${e.cODE!} - ${e.nAME!}',
+                  style: customTextStyle.copyWith(
+                    fontSize: 16,
+                    fontFamily: appFontMuli,
+                    fontWeight: FontWeight.bold,
+                   // color: appColorLogoDeep,
+                  )),
+                   10.widthBox,
+               Text('(Group)',
+               style: _style(),)
+            ],
+          ),
+           Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: PoppupMenu(
+                menuList: [
+                  PopupMenuItem(
+                      child: const ListTile(
+                    title: Text("Add Sub Group"),
+                    trailing: Icon(Icons.add_rounded),
+                  ),
+                   onTap: ( )=> controller.subGroupPopup(e)
                   ),
                   const PopupMenuItem(
                       child: ListTile(
@@ -133,10 +202,14 @@ Widget _groupPart(LedgerMasterController controller, ModelLedgerMaster e) =>
           controller.ledger_list
               .where((p0) => p0.pARENTID == e.iD)
               .map(
-                (e) => _ledgerPart(e),
+                (e) => _subGroupPart(controller,e),
               )
               .toList()),
     );
+
+
+_style()=>customTextStyle.copyWith(fontSize: 10,
+               fontWeight: FontWeight.normal,color: Colors.black,fontStyle: FontStyle.italic);
 
 Widget _ledgerPart(ModelLedgerMaster e) => Padding(
       padding: const EdgeInsets.only(
@@ -156,9 +229,9 @@ Widget _ledgerPart(ModelLedgerMaster e) => Padding(
                   Text(
                    '${e.cODE!} - ${e.nAME!}',
                     style: customTextStyle.copyWith(
-                        fontSize: 14,
+                        fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: appColorPrimary),
+                        color: appColorLogoDeep),
                   ),
                 ],
               ),
@@ -188,18 +261,20 @@ Widget _node(@required double leftPad, @required Widget name,
         @required Widget event, @required List<Widget> children) =>
     Padding(
         padding: EdgeInsets.only(left: leftPad),
-        child: CustomPanel(
-          isSelectedColor: false,
-          isSurfixIcon: false,
-          isLeadingIcon: true,
-          isExpanded: false,
-          title: Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [name, event],
+        
+          child: CustomPanel(
+            isSelectedColor: false,
+            isSurfixIcon: false,
+            isLeadingIcon: true,
+            isExpanded: false,
+            title: Expanded(
+              child: Row(
+                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [name, 15.widthBox, event],
+              ),
             ),
+          
+            /// Ledger-------
+            children: children,
           ),
-
-          /// Ledger-------
-          children: children,
-        ));
+        );

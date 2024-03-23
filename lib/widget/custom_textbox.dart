@@ -1,6 +1,5 @@
-import 'package:agmc/core/config/colors.dart';
 import 'package:agmc/core/config/const.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,6 +35,7 @@ class CustomTextBox extends StatelessWidget {
   final bool isCapitalization;
   final bool iSAutoCorrected;
   final Color disableBackColor;
+   
   CustomTextBox(
       {super.key,
       required this.caption,
@@ -60,11 +60,10 @@ class CustomTextBox extends StatelessWidget {
       this.focusedBorderWidth = 0.3,
       this.enabledBorderColor = Colors.grey,
       this.enabledBorderwidth = 0.4,
-      this.disableBackColor=appColorGrayLight,
+      this.disableBackColor = appColorGrayLight,
       this.surfixIconColor = appColorLogo,
       void Function(String)? onSubmitted,
       void Function()? onEditingComplete,
-
       this.focusNode,
       this.isCapitalization = false,
       this.iSAutoCorrected = false})
@@ -99,6 +98,7 @@ class CustomTextBox extends StatelessWidget {
                 isObsText = state.isShow;
               }
               return TextField(
+                textDirection:  textAlign == TextAlign.right?  TextDirection.rtl:TextDirection.ltr,
                 autocorrect: iSAutoCorrected,
                 textCapitalization: isCapitalization == true
                     ? TextCapitalization.characters
@@ -118,7 +118,7 @@ class CustomTextBox extends StatelessWidget {
                 keyboardType: textInputType,
                 obscureText: !isObsText ? isPassword : false,
                 inputFormatters: isCapitalization
-                    ? [UpperCaseTextFormatter()]
+                    ? [upperCaseTextFormatter()]
                     : textInputType == TextInputType.multiline
                         ? []
                         : textInputType == TextInputType.emailAddress
@@ -208,7 +208,7 @@ class CustomTextBox extends StatelessWidget {
   }
 }
 
-class UpperCaseTextFormatter extends TextInputFormatter {
+class upperCaseTextFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,

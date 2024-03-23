@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:agmc/core/config/colors.dart';
+import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/entity/entity_age.dart';
 import 'package:agmc/widget/custom_bysy_loader.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -13,6 +15,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../model/model_status.dart';
 import '../../widget/custom_awesome_dialog.dart';
@@ -140,7 +143,6 @@ class CustomScrollBehavior extends MaterialScrollBehavior {
 Future<ModelStatus> getStatusWithDialog(
   List<dynamic> jsonData,
   CustomAwesomeDialog dialog,
-  
 ) async {
   //print(jsonData);
   if (jsonData.isEmpty) {
@@ -174,3 +176,98 @@ Future<ModelStatus> getStatusWithDialog(
   }
   return list;
 }
+
+Map<int, TableColumnWidth> CustomColumnWidthGenarator(List<int> columnWidth) {
+  final Map<int, TableColumnWidth> columnWidthMap = {};
+
+  for (int i = 0; i < columnWidth.length; i++) {
+    columnWidthMap[i] = FlexColumnWidth(columnWidth[i].toDouble());
+  }
+
+  return columnWidthMap;
+}
+
+const _kDefaultDecoration = BoxDecoration(
+  color: kBgDarkColor,
+);
+
+CustomTableRow(
+  List<String> col, [
+  Decoration decoration = _kDefaultDecoration,
+]) {
+  return TableRow(
+    decoration: decoration,
+    children: col
+        .map((e) => TableCell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                child: Text(
+                                  e,
+                                  style: const TextStyle(
+                  fontSize: 12, fontWeight: FontWeight.w600),
+                                ),
+              ),
+            ))
+        .toList(),
+  );
+}
+
+
+CustomTableRowWithWidget(
+  List<Widget> col, [
+  Decoration decoration = _kDefaultDecoration,
+]) {
+  return TableRow(
+    decoration: decoration,
+    children: col
+        .map((e) => TableCell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                child: e,
+              ),
+            ))
+        .toList(),
+  );
+}
+
+
+CustomTableEditCell(Function() onTap) => TableCell(
+      verticalAlignment: TableCellVerticalAlignment.middle,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+        child: Center(
+            child: InkWell(
+          onTap: () {
+            onTap();
+          },
+          child: const Icon(
+            Icons.edit,
+            color: kWebHeaderColor,
+            size: 12,
+          ),
+        )),
+      ),
+    );
+
+CustomTableCell2(String? text,[isCenter=false,double fintSize=12]) => TableCell(
+  verticalAlignment: TableCellVerticalAlignment.middle,
+      child:   Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+        child:  isCenter? Center(
+          child: Text(
+            text!,
+            style: customTextStyle.copyWith(fontSize: fintSize),
+          ),
+        ):Text(
+          text!,
+          style:  customTextStyle.copyWith(fontSize: fintSize),
+        ),
+      ),
+    );
+
+
+
+  String generateUniqueId() {
+    var uuid = const Uuid();
+    return uuid.v4();
+  }

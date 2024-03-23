@@ -1,5 +1,6 @@
  
 import 'package:agmc/core/config/const.dart';
+import 'package:flutter/cupertino.dart';
 
  
 
@@ -86,6 +87,9 @@ class _CustomPanelState extends State<CustomPanel>
                 ? BoxDecoration(
                     borderRadius: BorderRadius.circular(widget.borderRadius),
                     color: widget.isSelectedColor? widget.splashColor:Colors.transparent,
+                   
+ 
+                    
                     boxShadow: const [
                         BoxShadow(
                             blurRadius: 3, spreadRadius: 1, color: Colors.white)

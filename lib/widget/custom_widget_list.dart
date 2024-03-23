@@ -13,6 +13,7 @@ class PoppupMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+      
       itemBuilder: ((context) => menuList),
       child: child,
     );
@@ -36,7 +37,38 @@ Widget headerAppLogo([String logo="logo_aamc.png",double width=180]) =>  Padding
       ),
     );
 
-
+RoundedButton(void Function() Function, IconData icon, [double iconSize = 18]) {
+  bool b = true;
+  return InkWell(
+    onTap: () {
+      if (b) {
+        b = false;
+        Function();
+        Future.delayed(const Duration(seconds: 2), () {
+          b = true;
+        });
+      }
+    },
+    child: Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+          color: kWebBackgroundDeepColor,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              spreadRadius: 2,
+              blurRadius: 1,
+            ),
+          ]),
+      child: Icon(
+        icon,
+        size: iconSize,
+        color: kWebHeaderColor,
+      ),
+    ),
+  );
+}
 
    
  Widget user_login_details(User_Model user,Function() onTap)=>Column(

@@ -8,3 +8,4 @@ import '../entity/company.dart';
  list.add(Company(id: '3',name: "Asgar Ali Medical College",logo: "logo_aamc.png"));
  return list;
 }
+

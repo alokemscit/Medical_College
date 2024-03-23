@@ -87,7 +87,7 @@ CustomTableCell(String text,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+        style: style,
       ),
     );
 
