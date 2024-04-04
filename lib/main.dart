@@ -3,13 +3,16 @@ import 'package:agmc/moduls/admin/pagges/login_page/login_page.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/notifires/aughtprovider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+ 
 import 'package:provider/provider.dart';
 
 import 'moduls/admin/pagges/home_page/parent_page.dart';
 import 'moduls/admin/pagges/login_page/controller/connection_controller.dart';
 
 void main() async {
+
+
+  
   WidgetsFlutterBinding.ensureInitialized();
    Get.reset();
    Get.deleteAll();

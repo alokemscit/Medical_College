@@ -1,0 +1,43 @@
+
+.modal.modal-fullscreen .modal-dialog,
+.modal.modal-fullscreen .modal-content{
+bottom: 0;
+left:0;
+position: absolute;
+right:0;
+top:0;
+ 
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.modal.modal-fullscreen .modal-dialog{
+  
+margin:0;
+width:100%;
+height: 100%;
+animation-duration:0.6s;
+}
+
+.modal.modal-fullscreen.force-fullscreen .modal-body{padding:0;}
+.modal.modal-fullscreen.force-fullscreen .modal-header,
+
+.modal.modal-fullscreen.force-fullscreen .modal-footer{
+position:absolut;
+bottom:0;
+}
+
+.modal.modal-fullscreen.force-fullscreen .modal-header{
+top:0;
+}
+.modal-body{
+height:90%;
+width: 100%;
+
+
+}

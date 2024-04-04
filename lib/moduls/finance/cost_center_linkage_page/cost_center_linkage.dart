@@ -182,10 +182,17 @@ Widget _chartAccount(
       padding: const EdgeInsets.only(bottom: 8),
       child: _node(
           0,
-          Text(
-            '${e.cODE!} - ${e.nAME!}',
-            style: customTextStyle.copyWith(
-                fontSize: 16, fontWeight: FontWeight.bold),
+          Row(
+            children: [
+              Text(
+                '${e.cODE!} - ${e.nAME!}',
+                style: customTextStyle.copyWith(
+                    fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+               10.widthBox,
+               Text('(Chart of Acc)',
+               style: _style())
+            ],
           ),
           const SizedBox(),
           controller.ledger_list
@@ -199,13 +206,49 @@ Widget _groupPart(CostCenterLinkageController controller, ModelLedgerMaster e) =
       padding: const EdgeInsets.only(bottom: 0),
       child: _node(
           26,
-          Text('${e.cODE!} - ${e.nAME!}',
-              style: customTextStyle.copyWith(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: appColorLogo,
-              )),
+          Row(
+            children: [
+              Text('${e.cODE!} - ${e.nAME!}',
+                  style: customTextStyle.copyWith(
+                    fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+               10.widthBox,
+               Text('(Group)',
+               style: _style())
+            ],
+          ),
           const SizedBox(),
+          controller.ledger_list
+              .where((p0) => p0.pARENTID == e.iD)
+              .map(
+                (e) => _subGroupPart(controller, e),
+              )
+              .toList()),
+    );
+
+  _style()=>customTextStyle.copyWith(fontSize: 10,
+               fontWeight: FontWeight.normal,color: Colors.black,fontStyle: FontStyle.italic);
+
+Widget _subGroupPart(CostCenterLinkageController controller, ModelLedgerMaster e) =>
+    Padding(
+      padding: const EdgeInsets.only(bottom: 0,),
+      child: _node(
+          26,
+          Row(
+            children: [
+              Text('${e.cODE!} - ${e.nAME!}',
+                  style: customTextStyle.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: appFontMuli
+                    //color: appColorLogo,
+                  )),
+                   10.widthBox,
+               Text('(Sub Group)',
+               style: _style())
+            ],
+          ),
+            const SizedBox(),
           controller.ledger_list
               .where((p0) => p0.pARENTID == e.iD)
               .map(
@@ -213,6 +256,9 @@ Widget _groupPart(CostCenterLinkageController controller, ModelLedgerMaster e) =
               )
               .toList()),
     );
+
+
+
 
 Widget _ledgerPart(
         CostCenterLinkageController controller, ModelLedgerMaster e) =>
@@ -241,13 +287,18 @@ Widget _ledgerPart(
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                '${e.cODE!} - ${e.nAME!}',
-                                overflow: TextOverflow.ellipsis,
-                                style: customTextStyle.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: appColorPrimary),
+                              Row(
+                                children: [
+                                  Text(
+                                    '${e.cODE!} - ${e.nAME!}',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: customTextStyle.copyWith(
+                    fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+               10.widthBox,
+               Text('(Ledger)',
+               style: _style())
+                                ],
                               ),
                                Expanded(
                                     child: Container(
@@ -304,11 +355,12 @@ Widget _ledgerPart(
                                     children: [
                                       Text(e11.cCCode == null
                                           ? ''
-                                          : e11.cCCode!),
-                                      const Text(' - '),
+                                          : e11.cCCode!,style: customTextStyle.copyWith(fontSize: 13,fontWeight: FontWeight.bold,fontFamily: appFontMuli,color: appColorLogoDeep)),
+                                      const Text(' - ',style: TextStyle(color: appColorLogoDeep),),
                                       Text(
                                         e11.cCNAME!,
                                         overflow: TextOverflow.ellipsis,
+                                        style: customTextStyle.copyWith(fontSize: 13,fontWeight: FontWeight.bold,fontFamily: appFontMuli,color: appColorLogoDeep)
                                       ),
                                     ],
                                   ),
@@ -322,7 +374,7 @@ Widget _ledgerPart(
               Padding(
                 padding: const EdgeInsets.only(
                     left: 8, top: 0, bottom: 8, right: 25),
-                child: e.isCC=="1"? PoppupMenu(
+                child:  PoppupMenu(
                     menuList: [
                       PopupMenuItem(
                         child: const ListTile(
@@ -340,7 +392,7 @@ Widget _ledgerPart(
                       Icons.construction_sharp,
                       size: 18,
                       color: appColorPrimary,
-                    )):const SizedBox(),
+                    )),
               )
             ],
           ),

@@ -249,18 +249,18 @@ CustomTableEditCell(Function() onTap) => TableCell(
       ),
     );
 
-CustomTableCell2(String? text,[isCenter=false,double fintSize=12]) => TableCell(
+CustomTableCell2(String? text,[isCenter=false,double fintSize=12, FontWeight fontweight=FontWeight.w400]) => TableCell(
   verticalAlignment: TableCellVerticalAlignment.middle,
       child:   Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
         child:  isCenter? Center(
           child: Text(
             text!,
-            style: customTextStyle.copyWith(fontSize: fintSize),
+            style: customTextStyle.copyWith(fontSize: fintSize,fontWeight: fontweight),
           ),
         ):Text(
           text!,
-          style:  customTextStyle.copyWith(fontSize: fintSize),
+          style:  customTextStyle.copyWith(fontSize: fintSize,fontWeight: fontweight),
         ),
       ),
     );
@@ -271,3 +271,18 @@ CustomTableCell2(String? text,[isCenter=false,double fintSize=12]) => TableCell(
     var uuid = const Uuid();
     return uuid.v4();
   }
+
+
+
+  // Fetch PDF file from the remote URL
+  Future<Uint8List> fetchPdfBytes(String url) async {
+  final response = await http.get(Uri.parse(url));
+  
+  if (response.statusCode == 200) {
+    // Convert response body (PDF content) to a byte array (Uint8List)
+    return Uint8List.fromList(response.bodyBytes);
+  } else {
+    throw Exception('Failed to load PDF: ${response.statusCode}');
+  }
+}
+

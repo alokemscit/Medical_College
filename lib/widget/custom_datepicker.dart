@@ -1,4 +1,3 @@
- 
 import 'package:agmc/core/config/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +23,8 @@ class CustomDatePicker extends StatefulWidget {
   final Color enabledBorderColor;
   final double enabledBorderwidth;
   final bool isInputMode;
-   
+  final bool isShowCurrentDate;
+
   final FocusNode? focusNode;
   const CustomDatePicker(
       {super.key,
@@ -47,7 +47,8 @@ class CustomDatePicker extends StatefulWidget {
       this.enabledBorderColor = Colors.grey,
       this.enabledBorderwidth = 0.4,
       this.isInputMode = false,
-      this.focusNode});
+      this.focusNode,
+      this.isShowCurrentDate = false});
 
   @override
   State<CustomDatePicker> createState() => _CustomDatePickerState();
@@ -57,9 +58,10 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   @override
   void initState() {
     super.initState();
-
-    // widget.date_controller.text =
-    //     DateFormat('dd/MM/yyyy').format(DateTime.now());
+    if (widget.isShowCurrentDate) {
+      widget.date_controller.text =
+          DateFormat('dd/MM/yyyy').format(DateTime.now());
+    }
   }
 
   @override

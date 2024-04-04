@@ -2,10 +2,7 @@
 
 import 'package:agmc/moduls/finance/voucher_entry_page/controller/voucher_entry_controller.dart';
 import 'package:agmc/widget/custom_datepicker.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
+ 
 import '../../../core/config/const.dart';
 import '../../../core/config/const_widget.dart';
 
@@ -217,7 +214,7 @@ _maintryHeader(VoucherEntryController controller) => Row(
                           isFilled: true,
                           isBackDate: true,
                           width: 150,
-                          date_controller: TextEditingController()),
+                          date_controller: controller.txt_vdate),
                       8.widthBox,
                       //Text("Voucher No : ",style: customTextStyle.copyWith(fontSize: 13,fontWeight: FontWeight.bold),),
                       6.widthBox,
@@ -227,10 +224,12 @@ _maintryHeader(VoucherEntryController controller) => Row(
                               caption: "Voucher No",
                               width: 150,
                               isCapitalization: true,
-                              controller: TextEditingController(),
+                              controller: controller.txt_vno,
                               onChange: (v) {}),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              controller.showVoucher();
+                            },
                             child: const Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Icon(
@@ -279,7 +278,9 @@ _mainTableEntryPart(VoucherEntryController controller) => Expanded(
                       columnWidths: CustomColumnWidthGenarator(_tableCol),
                       children: [
                         ...controller.list_voucher
-                            .map((e) => TableRow(children: [
+                            .map((e) => TableRow(
+                              decoration: CustomTableHeaderRowDecorationnew.copyWith(color: Colors.white),
+                              children: [
                                   CustomTableCell(e.drcrName!),
                                   CustomTableCell(e.ledgerName!),
                                   CustomTableCell(e.subLedgerName!),
@@ -502,6 +503,7 @@ _mainEntryControll(VoucherEntryController controller) => Row(
                               fontColor: Colors.black,
                               caption: "Amount",
                               width: double.infinity,
+                              labelTextColor : Colors.grey,
                               textAlign: TextAlign.right,
                               textInputType: TextInputType.number,
                               controller: controller.txt_amount,
@@ -511,7 +513,7 @@ _mainEntryControll(VoucherEntryController controller) => Row(
                       TableCell(
                           child: CustomTextBox(
                               //labelTextColor: appColorGrayDark,
-
+                            labelTextColor : Colors.grey,
                               caption: "Narration",
                               controller: controller.txt_narration,
                               onChange: (v) {
@@ -559,6 +561,16 @@ _tableFooter(VoucherEntryController controller) => Padding(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          Expanded(
+              child: CustomTextBox(
+                  caption: "Summarized narration",
+                  maxLine: 2,
+                  height: 48,
+                  maxlength: 500,
+                  textInputType: TextInputType.multiline,
+                  controller: controller.txt_narration_summery,
+                  onChange: (v) {})),
+          8.widthBox,
           Text(
             "Dr. Amount : ",
             style: customTextStyle.copyWith(
@@ -612,9 +624,12 @@ _tableFooter(VoucherEntryController controller) => Padding(
           24.widthBox,
           CustomButton(Icons.undo, "Undo", () {
             controller.clearAll();
+            controller.voucherTypeID.value = '';
           }, Colors.white, Colors.white, appColorGrayDark),
           18.widthBox,
-          CustomButton(Icons.save, "Save", () {})
+          CustomButton(Icons.save, "Save", () async {
+            controller.save();
+          })
         ],
       ),
     );

@@ -1,51 +1,79 @@
-
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/moduls/finance/cost_center_linkage_page/cost_center_linkage.dart';
 import 'package:agmc/moduls/finance/cost_center_page/cost_center_page.dart';
 import 'package:agmc/moduls/finance/sub_ledger_linkage_page/sub_ledger_linkage_page.dart';
- 
+
 import 'package:agmc/moduls/finance/sub_ledger_master/sub_ledger_master_page.dart';
+import 'package:agmc/moduls/finance/voucher_approver_page/voucher_approver.dart';
 import 'package:agmc/moduls/finance/voucher_entry_page/voucher_entry_page.dart';
 
+import '../../moduls/finance/fin_dashboard/fin_datshboadr.dart';
 import '../../moduls/finance/ledger_master_page/ledger_master_page.dart';
+import '../../moduls/finance/testing_page.dart';
 
-Widget getPage( String id) {
+Widget getPage(String id) {
   switch (id) {
     case "212":
       {
-        return  const LedgerMasterPage();
+        return const LedgerMasterPage();
       }
     case "208":
       {
-        return  const LedgerMasterPage();
+        return const LedgerMasterPage();
       }
     case "206":
       {
-        return  const SubLedgerMaster();
+        return const SubLedgerMaster();
       }
-      case "207":
+    case "207":
       {
-        return  const ConstcenterPage();
+        return const ConstcenterPage();
       }
-      case "209":
+    case "209":
       {
-        return  const SubLeaderLinkageMaster();
+        return const SubLeaderLinkageMaster();
       }
-        case "211":
+    case "211":
       {
-        return  const VoucherEntryPage();
+        return const VoucherEntryPage();
       }
-      case "1289":
+    case "218":
       {
-        return  const CostCeneterLinkagePage();
+        return TestPage();
       }
-      case "":
+
+    case "1289":
+      {
+        return const CostCeneterLinkagePage();
+      }
+
+    case "1290":
+      {
+        return const VoucherApprover();
+      }
+
+    case "":
       return const SizedBox(
-        //child: Text("Under Construction!"),
-      );
+          //child: Text("Under Construction!"),
+          );
     default:
       return const Center(
-        child: Text("Under Construction!",style: TextStyle(fontSize: 30,color: Colors.blue),),
+        child: Text(
+          "Under Construction!",
+          style: TextStyle(fontSize: 30, color: Colors.blue),
+        ),
       );
+  }
+}
+
+Widget getDashBoard(String id) {
+  switch (id) {
+    case "198":
+      {
+        return const FinDashBoard();
+      }
+
+    default:
+      return const Center();
   }
 }

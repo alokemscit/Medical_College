@@ -101,6 +101,19 @@ class LedgerMasterController extends GetxController with MixInController {
     dialog = CustomAwesomeDialog(context: context);
     try {
       loader.show();
+
+      print({
+        "tag": "71",
+        "p_cid": user.value.comID,
+        "p_id": "0",
+        "p_name": txt_subgroup_name.text,
+        "p_pid": pid,
+        "p_code": txt_subgeroup_code.text,
+        "p_sl": txt_subgroup_Serial.text,
+        "p_isgroup": "2",
+        "p_is_cc": "0",
+        "p_is_sl": "0"
+      });
       var x = await api.createLead([
         {
           "tag": "71",
@@ -387,7 +400,7 @@ class LedgerMasterController extends GetxController with MixInController {
         //   ..message = s.msg!
         //   ..show()
         //   ..onTap = () => Navigator.pop(context);
-         Navigator.pop(context);
+        Navigator.pop(context);
         CustomSnackbar(
             context: context, message: s.msg!, type: MsgType.success);
       }
@@ -437,11 +450,10 @@ class LedgerMasterController extends GetxController with MixInController {
         txt_geroup_code.text = '';
         txt_geroup_name.text = '';
         txt_group_Serial.text = '';
-        dialog
-          ..dialogType = DialogType.success
-          ..message = s.msg!
-          ..show()
-          ..onTap = () => Navigator.pop(context);
+
+        Navigator.pop(context);
+        CustomSnackbar(
+            context: context, message: s.msg!, type: MsgType.success);
       }
       //print(x);
     } catch (e) {

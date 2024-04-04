@@ -80,6 +80,9 @@ TableBorder CustomTableBorder() =>
     TableBorder.all(width: 0.5, color: const Color.fromARGB(255, 89, 92, 92));
 
  
+TableBorder  CustomTableBorderNew =
+    TableBorder.all(width: 0.5, color: appColorGrayDark);
+
 CustomTableCell(String text,
         [TextStyle style =
             const TextStyle(fontSize: 12, fontWeight: FontWeight.w400)]) =>
@@ -102,6 +105,18 @@ Decoration CustomTableHeaderRowDecoration() => BoxDecoration(
               color: Colors.black.withOpacity(0.1),
               spreadRadius: 2,
               blurRadius: 3)
+        ]);
+
+BoxDecoration CustomTableHeaderRowDecorationnew = BoxDecoration(
+        color: kBgLightColor,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(4),
+        ),
+        boxShadow: [
+          BoxShadow(
+              color: appColorGrayDark.withOpacity(0.8),
+              spreadRadius: .2,
+              blurRadius: .1)
         ]);
 
 

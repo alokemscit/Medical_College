@@ -7,12 +7,13 @@ import 'package:agmc/core/config/router.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/model/model_menu_list.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/widget/login_user_image_and_details.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/widget/parent_background_widget.dart';
- 
+
 import 'package:agmc/widget/menubutton.dart';
 import 'package:agmc/widget/sidemenu.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -116,7 +117,9 @@ Widget _mobile(
       ),
     ),
 
-    body: const TabAndBodyWidget(),
+    body: TabAndBodyWidget(
+      moduleId: module.id.toString(),
+    ),
     //     body: TabAndBodyWidget(
     //   module: module,
     // ),
@@ -225,7 +228,10 @@ class DesktopWidget extends StatelessWidget {
           },
         ),
 
-        const Expanded(child: TabAndBodyWidget()),
+        Expanded(
+            child: TabAndBodyWidget(
+          moduleId: module.id.toString(),
+        )),
       ],
     );
   }
@@ -242,48 +248,56 @@ class DesktopWidget extends StatelessWidget {
 //   }
 
 class TabAndBodyWidget extends StatelessWidget {
-  const TabAndBodyWidget({super.key});
-
-  
+  const TabAndBodyWidget({super.key, required this.moduleId});
+  final String moduleId;
   @override
   Widget build(BuildContext context) {
     //print('Render Main Body ..........main00000000');
     // Size size = MediaQuery.of(context).size;
-    return context.width<650
-      ? Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const DrawerBackIconWithTabEvent(),
-            Expanded(
-              child: BlocBuilder<CurrentIDBloc, CurrentIdState>(
-                  builder: (context, state) {
-                var id = state.id;
-        
-                Get.reset();
-                Get.deleteAll();
-                // print(id);
-                //Get.to(getPage(module, id));
-                return getPage(id);
-              }),
-            )
-          ],
-        )
-      : Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const DrawerBackIconWithTabEvent(),
-          Expanded(
-            child: BlocBuilder<CurrentIDBloc, CurrentIdState>(
-                builder: (context, state) {
-              var id = state.id;
-              print('-------------' + id);
-              return getPage(id);
-            }),
+    return context.width < 650
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const DrawerBackIconWithTabEvent(),
+              Expanded(
+                child: BlocBuilder<CurrentIDBloc, CurrentIdState>(
+                    builder: (context, state) {
+                  var id = state.id;
+
+                  Get.reset();
+                  Get.deleteAll();
+                  // print(id);
+                  //Get.to(getPage(module, id));
+                  if (id.trim() == '' )  {
+                   // print(moduleId);
+                  return  getDashBoard(moduleId);
+                  }
+                  return getPage(id);
+                }),
+              )
+            ],
           )
-        ],
-      );
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const DrawerBackIconWithTabEvent(),
+              Expanded(
+                child: BlocBuilder<CurrentIDBloc, CurrentIdState>(
+                    builder: (context, state) {
+                  var id = state.id;
+
+               //   print('A-------------' + id);
+                  if (id.trim() == '' )  {
+                   // print(moduleId);
+                  return  getDashBoard(moduleId);
+                  }
+                  return getPage(id);
+                }),
+              )
+            ],
+          );
   }
 }
 
@@ -295,7 +309,7 @@ class DrawerBackIconWithTabEvent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool b = Responsive.isMobile(context);
-    return Container(
+    return  b?const SizedBox():Container(
       //margin: EdgeInsets.only(top: 100),
       color: b ? Colors.transparent : kWebBackgroundDeepColor,
       width: double.infinity,
@@ -307,11 +321,11 @@ class DrawerBackIconWithTabEvent extends StatelessWidget {
           const DrawerMenueIcon(),
           SizedBox(
             width: b
-                ? MediaQuery.of(context).size.width
-                : MediaQuery.of(context).size.width - 252,
-            child: const SingleChildScrollView(
+                ? context.width
+                : context.width  - 252,
+            child: b?const SizedBox():  const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: TabMenuWithEvent(),
+              child:  TabMenuWithEvent(),
             ),
           ),
         ],
@@ -331,7 +345,7 @@ class TabMenuWithEvent extends StatelessWidget {
           final itemList = state.menuitem;
           return BlocBuilder<CurrentIDBloc, CurrentIdState>(
             builder: (context1, state1) {
-              return ListView.builder(
+              return  ListView.builder(
                   padding: const EdgeInsets.only(left: 2),
                   shrinkWrap: true,
                   physics: const ScrollPhysics(),

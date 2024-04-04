@@ -10,7 +10,7 @@ import 'package:agmc/moduls/admin/pagges/home_page/widget/parent_page_module_lis
 import 'package:agmc/widget/custom_widget_list.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:get/get.dart';
+ 
 
 class ParentPage extends StatelessWidget {
   const ParentPage({super.key});

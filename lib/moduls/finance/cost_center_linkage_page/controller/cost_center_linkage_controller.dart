@@ -4,6 +4,7 @@ import 'package:agmc/moduls/finance/cost_center_page/model/model_costcenter_mast
 
 import '../../../../core/shared/user_data.dart';
 import '../../../../model/model_status.dart';
+import '../../../../widget/custom_snakbar.dart';
 import '../../ledger_master_page/model/model_ledger_master.dart';
 import '../model/model_gl_with_cc_master.dart';
  
@@ -58,10 +59,8 @@ dialog = CustomAwesomeDialog(context: context);
           return;
         }
 
-        dialog
-          ..dialogType = DialogType.success
-          ..message = s.msg!
-          ..show();
+         CustomSnackbar(
+            context: context, message: s.msg!, type: MsgType.success);
 
         link_list_main.add(ModelGlCCLinkageMaster(
             gLCode: selectedLedger.value.cODE,
@@ -123,10 +122,8 @@ dialog = CustomAwesomeDialog(context: context);
           return;
         }
 
-        dialog
-          ..dialogType = DialogType.success
-          ..message = s.msg!
-          ..show();
+         CustomSnackbar(
+            context: context, message: s.msg!, type: MsgType.success);
           link_list_main.removeWhere(
         (element) => element.gLID == e.gLID && element.cCID == e.cCID);
     link_list_temp.clear();

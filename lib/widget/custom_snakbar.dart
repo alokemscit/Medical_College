@@ -30,17 +30,19 @@ class CustomSnackbar {
             ? Colors.red
             : type.name == "warning"
                 ? Colors.yellow
-                : Colors.green,
+                :appColorBlue,
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.only(
             bottom: context.height - 120,
             left: context.width<700 ? context.width -100:  context.width * .4,
             right: context.width<700 ? context.width -100:  context.width * .4,),
-        content: Text(message,
-            style: TextStyle(
-                color: type.name == "warning"
-                    ? const Color.fromARGB(255, 32, 2, 201)
-                    : Colors.black)),
+        content: Center(
+          child: Text(message,
+              style: TextStyle(
+                  color: type.name == "warning"
+                      ? const Color.fromARGB(255, 32, 2, 201)
+                      : Colors.white)),
+        ),
         duration: const Duration(seconds: 2),
         
       ),

@@ -1,6 +1,7 @@
 import 'package:agmc/core/config/const_widget.dart';
 import 'package:agmc/model/model_status.dart';
 import 'package:agmc/moduls/finance/sub_ledger_linkage_page/model/model_gl_sl_linkage_master.dart';
+import 'package:agmc/widget/custom_snakbar.dart';
 
 import '../../../../core/config/const.dart';
 import '../../../../core/shared/user_data.dart';
@@ -10,7 +11,7 @@ import '../../sub_ledger_master/model/model_subledger_master.dart';
 
 class SubLedgerLinkageController extends GetxController with MixInController {
   var ledger_list = <ModelLedgerMaster>[].obs;
-  
+
   final TextEditingController txt_search = TextEditingController();
 
   //var is_cc = false.obs;
@@ -65,27 +66,27 @@ class SubLedgerLinkageController extends GetxController with MixInController {
           return;
         }
 
-        dialog
-          ..dialogType = DialogType.success
-          ..message = s.msg!
-          ..show();
-          link_list_main.removeWhere(
-        (element) => element.gLID == e11.gLID && element.sLID == e11.sLID);
-    link_list_temp.clear();
-    link_list_temp.addAll(link_list_main);
+        // dialog
+        //   ..dialogType = DialogType.success
+        //   ..message = s.msg!
+        //   ..show();
+        CustomSnackbar(
+            context: context, message: s.msg!, type: MsgType.success);
 
-    selectedLedger.value = ModelLedgerMaster();
+        link_list_main.removeWhere(
+            (element) => element.gLID == e11.gLID && element.sLID == e11.sLID);
+        link_list_temp.clear();
+        link_list_temp.addAll(link_list_main);
 
+        selectedLedger.value = ModelLedgerMaster();
       });
     } catch (e) {
-       loader.close();
+      loader.close();
       dialog
         ..dialogType = DialogType.error
         ..message = e.toString()
         ..show();
     }
-
-    
   }
 
   void add(ModelSubledgerMaster e) async {
@@ -121,10 +122,12 @@ class SubLedgerLinkageController extends GetxController with MixInController {
           return;
         }
 
-        dialog
-          ..dialogType = DialogType.success
-          ..message = s.msg!
-          ..show();
+        // dialog
+        //   ..dialogType = DialogType.success
+        //   ..message = s.msg!
+        //   ..show();
+         CustomSnackbar(
+            context: context, message: s.msg!, type: MsgType.success);
 
         link_list_main.add(ModelGlSlLinkageMaster(
             gLCode: selectedLedger.value.cODE,
@@ -196,7 +199,7 @@ class SubLedgerLinkageController extends GetxController with MixInController {
       ]);
       link_list_main.addAll(z.map((e) => ModelGlSlLinkageMaster.fromJson(e)));
       link_list_temp.addAll(link_list_main);
-     // print(z);
+      // print(z);
       //  sl_list_temp.addAll(sl_list_main);
 
       isLoading.value = false;

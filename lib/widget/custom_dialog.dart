@@ -1,9 +1,12 @@
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:agmc/core/config/const.dart';
 
 Future<void> CustomDialog(BuildContext context, Widget title,
     Widget bodyContent, void Function() onPress,
-    {bool scrollable = true}) {
+    [bool scrollable = true,bool isSaveButton=true]
+    ) {
   final GlobalKey buttonKey = GlobalKey();
   bool isButtonDisabled = false;
   void disableButton() {
@@ -70,14 +73,14 @@ Future<void> CustomDialog(BuildContext context, Widget title,
               Navigator.of(context).pop();
             },
           ),
-          TextButton(
+         isSaveButton? TextButton(
             key: buttonKey,
             style: TextButton.styleFrom(
               textStyle: Theme.of(context).textTheme.labelLarge,
             ),
             onPressed: _onButtonPressed,
             child: const Text('Save'),
-          ),
+          ):const SizedBox(),
         ],
       );
     },
