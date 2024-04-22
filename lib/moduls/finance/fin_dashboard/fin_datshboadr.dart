@@ -160,14 +160,14 @@ _mainWidget(FinDashBoardContrller controller) {
                         //18.widthBox,
                       ],
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Expanded(
                           flex: 5,
                           child: SizedBox(
                             height: 400,
                             
-                            child: const LineChartSample1()),
+                            child: LineChartSample1()),
                         ),
                         Expanded(
                           flex: 5,

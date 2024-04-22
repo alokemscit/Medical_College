@@ -317,12 +317,12 @@ class LineChartSample1State extends State<LineChartSample1> {
               const Text(
                 'Monthly Sales',
                 style: TextStyle(
-                  color: AppColors.primary,
-                  fontSize: 32,
+                  color: appColorGrayDark,
+                  fontSize: 22,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2,
                 ),
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.left,
               ),
               const SizedBox(
                 height: 37,

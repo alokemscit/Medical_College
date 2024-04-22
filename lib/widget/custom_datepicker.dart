@@ -153,9 +153,13 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       initialEntryMode: widget.isInputMode
           ? DatePickerEntryMode.input
           : DatePickerEntryMode.calendar,
+
+
+          
     );
 
     if (pickedDate != null) {
+     // print(pickedDate);
       String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
       setState(() {
         widget.date_controller.text = formattedDate;

@@ -12,7 +12,7 @@ import 'package:agmc/widget/menubutton.dart';
 import 'package:agmc/widget/sidemenu.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
+ 
 
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -288,7 +288,7 @@ class TabAndBodyWidget extends StatelessWidget {
                     builder: (context, state) {
                   var id = state.id;
 
-               //   print('A-------------' + id);
+                  print('A-------------' + id);
                   if (id.trim() == '' )  {
                    // print(moduleId);
                   return  getDashBoard(moduleId);
@@ -363,7 +363,7 @@ class TabMenuWithEvent extends StatelessWidget {
                         context1
                             .read<CurrentIDBloc>()
                             .add(SetCurrentId(id: menuitem.id));
-                        //  print(state1.id);
+                          //print(state1.id);
                         //print(menuitem.id);
                       },
                       crossButtonClick: () {

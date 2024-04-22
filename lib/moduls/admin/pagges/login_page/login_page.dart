@@ -3,12 +3,10 @@
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/config/responsive.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/controller/login_controller.dart';
-import 'package:agmc/widget/custom_dropdown.dart';
-import 'package:agmc/widget/custom_textbox.dart';
-import 'package:agmc/widget/custom_widget_list.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+ 
 
+import '../../../../core/config/const_widget.dart';
+ 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
   @override

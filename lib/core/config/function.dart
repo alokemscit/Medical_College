@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:share/share.dart';
@@ -202,16 +203,15 @@ CustomTableRow(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                 child: Text(
-                                  e,
-                                  style: const TextStyle(
-                  fontSize: 12, fontWeight: FontWeight.w600),
-                                ),
+                  e,
+                  style: const TextStyle(
+                      fontSize: 12, fontWeight: FontWeight.w600),
+                ),
               ),
             ))
         .toList(),
   );
 }
-
 
 CustomTableRowWithWidget(
   List<Widget> col, [
@@ -229,7 +229,6 @@ CustomTableRowWithWidget(
         .toList(),
   );
 }
-
 
 CustomTableEditCell(Function() onTap) => TableCell(
       verticalAlignment: TableCellVerticalAlignment.middle,
@@ -249,35 +248,39 @@ CustomTableEditCell(Function() onTap) => TableCell(
       ),
     );
 
-CustomTableCell2(String? text,[isCenter=false,double fintSize=12, FontWeight fontweight=FontWeight.w400]) => TableCell(
-  verticalAlignment: TableCellVerticalAlignment.middle,
-      child:   Padding(
+CustomTableCell2(String? text,
+        [isCenter = false,
+        double fintSize = 12,
+        FontWeight fontweight = FontWeight.w400]) =>
+    TableCell(
+      verticalAlignment: TableCellVerticalAlignment.middle,
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        child:  isCenter? Center(
-          child: Text(
-            text!,
-            style: customTextStyle.copyWith(fontSize: fintSize,fontWeight: fontweight),
-          ),
-        ):Text(
-          text!,
-          style:  customTextStyle.copyWith(fontSize: fintSize,fontWeight: fontweight),
-        ),
+        child: isCenter
+            ? Center(
+                child: Text(
+                  text!,
+                  style: customTextStyle.copyWith(
+                      fontSize: fintSize, fontWeight: fontweight),
+                ),
+              )
+            : Text(
+                text!,
+                style: customTextStyle.copyWith(
+                    fontSize: fintSize, fontWeight: fontweight),
+              ),
       ),
     );
 
+String generateUniqueId() {
+  var uuid = const Uuid();
+  return uuid.v4();
+}
 
-
-  String generateUniqueId() {
-    var uuid = const Uuid();
-    return uuid.v4();
-  }
-
-
-
-  // Fetch PDF file from the remote URL
-  Future<Uint8List> fetchPdfBytes(String url) async {
+// Fetch PDF file from the remote URL
+Future<Uint8List> fetchPdfBytes(String url) async {
   final response = await http.get(Uri.parse(url));
-  
+
   if (response.statusCode == 200) {
     // Convert response body (PDF content) to a byte array (Uint8List)
     return Uint8List.fromList(response.bodyBytes);
@@ -286,3 +289,22 @@ CustomTableCell2(String? text,[isCenter=false,double fintSize=12, FontWeight fon
   }
 }
 
+bool isValidDateRange(String fdate, String tdate) {
+  // Define the date format
+  DateFormat format = DateFormat('dd/MM/yyyy');
+
+  // Parse the string into a DateTime object
+  DateTime fromDate = format.parse(fdate);
+  //print(fromDate);
+
+  DateTime toDate = format.parse(tdate);
+  // print(toDate);
+  if (toDate.isBefore(fromDate)) {
+    //print('abcd');
+    return false;
+  }
+  // Duration difference = fromDate.difference(toDate);
+
+  //print(difference);
+  return true;
+}
