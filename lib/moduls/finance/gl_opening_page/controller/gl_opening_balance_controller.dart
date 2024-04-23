@@ -68,7 +68,7 @@ class GlOpeningBalanceController extends GetxController with MixInController {
           "cr": TextEditingController(text: e.cR!.toString())
         });
       }
-      print(x);
+     // print(x);
       isLoading.value = false;
     } catch (e) {
       isError.value = true;

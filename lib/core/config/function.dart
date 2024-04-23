@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:agmc/core/config/colors.dart';
+ 
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/entity/entity_age.dart';
 import 'package:agmc/widget/custom_bysy_loader.dart';
@@ -10,7 +10,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+ 
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
