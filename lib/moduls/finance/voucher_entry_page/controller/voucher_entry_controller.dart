@@ -560,6 +560,8 @@ class VoucherEntryController extends GetxController with MixInController {
     cc_list_temp
         .addAll(cc_list_main.where((p0) => p0.gLID == selectedLedgerID.value));
     cc_list_search.addAll(cc_list_temp);
+
+    
   }
 
   void loadCostCenter() {

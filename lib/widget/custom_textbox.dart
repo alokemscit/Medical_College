@@ -75,133 +75,130 @@ class CustomTextBox extends StatelessWidget {
     bool isObsText = false;
     return BlocProvider(
       create: (context) => PasswordShowBloc(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Container(
-          //padding: EdgeInsets.zero,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadious),
-              color: isDisable ? disableBackColor : Colors.white,
-              boxShadow: [
-                BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
-              ]),
-          //  padding: const EdgeInsets.only(top: 4),
-          // color: Colors.amber,
-          width: width,
-          height: height,
-
-          // padding: const EdgeInsets.only(bottom: 12),
-          // color:Colors.amber, // const Color.fromARGB(255, 255, 255, 255),
-          child: BlocBuilder<PasswordShowBloc, PasswordIconState>(
-            builder: (context, state) {
-              if (state is PasswordIconShowState) {
-                isObsText = state.isShow;
-              }
-              return TextField(
-                textDirection:  textAlign == TextAlign.right?  TextDirection.rtl:TextDirection.ltr,
-                autocorrect: iSAutoCorrected,
-                textCapitalization: isCapitalization == true
-                    ? TextCapitalization.characters
-                    : TextCapitalization.none,
-                focusNode: focusNode,
-                enabled: !isDisable,
-                readOnly: isReadonly,
-                onChanged: (value) => onChange(value),
-                onSubmitted: (v) {
-                  onSubmitted(v);
-                },
-
-                onEditingComplete: () {
-                  // print("12121");
-                  onEditingComplete();
-                },
-                keyboardType: textInputType,
-                obscureText: !isObsText ? isPassword : false,
-                inputFormatters: isCapitalization
-                    ? [upperCaseTextFormatter()]
-                    : textInputType == TextInputType.multiline
-                        ? []
-                        : textInputType == TextInputType.emailAddress
-                            ? []
-                            : textInputType == TextInputType.text
-                                ? []
-                                : [
-                                    textInputType == TextInputType.number
-                                        ? FilteringTextInputFormatter.allow(
-                                            RegExp(r'^\d+\.?\d*'))
-                                        : FilteringTextInputFormatter.digitsOnly
-                                  ],
-                maxLength: maxlength,
-                // canRequestFocus : false,
-                maxLines: maxLine,
-                //   textCapitalization : TextCapitalization.none,
-                // keyboardType: TextInputType.number,
-                style: TextStyle(
-                    fontFamily: "Muli",
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: fontColor),
-                textAlignVertical: TextAlignVertical.center,
-
-                textAlign: textAlign!,
-                decoration: InputDecoration(
-                    fillColor: !isDisable
-                        ? Colors.white
-                        : Colors
-                            .white70, // Color.fromARGB(255, 253, 253, 255), //Colors.white,
-                    filled: isFilled,
-                    labelText: caption,
-                    labelStyle: TextStyle(
-                        color: labelTextColor,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 13),
-                    hintStyle: TextStyle(
-                        color: hintTextColor, fontWeight: FontWeight.w300),
-                    counterText: '',
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(borderRadious),
-                      borderSide: BorderSide(
-                          color: enabledBorderColor.withOpacity(0.8),
-                          width: enabledBorderwidth),
-                    ),
-                    border: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(borderRadious)),
-                        borderSide: const BorderSide(color: Colors.white)),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(borderRadious),
-                      borderSide: BorderSide(
-                          color: focusedBorderColor, width: focusedBorderWidth),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(borderRadious),
-                      borderSide: BorderSide(
-                          color: enabledBorderColor, width: enabledBorderwidth),
-                    ),
-                    suffixIcon: isPassword
-                        ? InkWell(
-                            onTap: () {
-                              context.read<PasswordShowBloc>().add(
-                                  PasswordShowSetEvent(isShow: !isObsText));
-                            },
-                            child: Icon(
-                              !isObsText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              size: 20,
-                              color: surfixIconColor,
-                            ),
-                          )
-                        : null,
-                    contentPadding: const EdgeInsets.only(
-                        bottom: 8,
-                        left: 6,
-                        right: 6) //.symmetric(vertical: 8, horizontal: 6),
-                    ),
-                controller: controller,
-              );
-            },
-          ),
+      child: Container(
+        //padding: EdgeInsets.zero,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(borderRadious),
+            color: isDisable ? disableBackColor : Colors.white,
+            boxShadow: [
+              BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
+            ]),
+        //  padding: const EdgeInsets.only(top: 4),
+        // color: Colors.amber,
+        width: width,
+        height: height,
+      
+        // padding: const EdgeInsets.only(bottom: 12),
+        // color:Colors.amber, // const Color.fromARGB(255, 255, 255, 255),
+        child: BlocBuilder<PasswordShowBloc, PasswordIconState>(
+          builder: (context, state) {
+            if (state is PasswordIconShowState) {
+              isObsText = state.isShow;
+            }
+            return TextField(
+              textDirection:  textAlign == TextAlign.right?  TextDirection.rtl:TextDirection.ltr,
+              autocorrect: iSAutoCorrected,
+              textCapitalization: isCapitalization == true
+                  ? TextCapitalization.characters
+                  : TextCapitalization.none,
+              focusNode: focusNode,
+              enabled: !isDisable,
+              readOnly: isReadonly,
+              onChanged: (value) => onChange(value),
+              onSubmitted: (v) {
+                onSubmitted(v);
+              },
+      
+              onEditingComplete: () {
+                // print("12121");
+                onEditingComplete();
+              },
+              keyboardType: textInputType,
+              obscureText: !isObsText ? isPassword : false,
+              inputFormatters: isCapitalization
+                  ? [upperCaseTextFormatter()]
+                  : textInputType == TextInputType.multiline
+                      ? []
+                      : textInputType == TextInputType.emailAddress
+                          ? []
+                          : textInputType == TextInputType.text
+                              ? []
+                              : [
+                                  textInputType == TextInputType.number
+                                      ? FilteringTextInputFormatter.allow(
+                                          RegExp(r'^\d+\.?\d*'))
+                                      : FilteringTextInputFormatter.digitsOnly
+                                ],
+              maxLength: maxlength,
+              // canRequestFocus : false,
+              maxLines: maxLine,
+              //   textCapitalization : TextCapitalization.none,
+              // keyboardType: TextInputType.number,
+              style: TextStyle(
+                  fontFamily: "Muli",
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: fontColor),
+              textAlignVertical: TextAlignVertical.center,
+      
+              textAlign: textAlign!,
+              decoration: InputDecoration(
+                  fillColor: !isDisable
+                      ? Colors.white
+                      : Colors
+                          .white70, // Color.fromARGB(255, 253, 253, 255), //Colors.white,
+                  filled: isFilled,
+                  labelText: caption,
+                  labelStyle: TextStyle(
+                      color: labelTextColor,
+                      fontWeight: FontWeight.w300,
+                      fontSize: 13),
+                  hintStyle: TextStyle(
+                      color: hintTextColor, fontWeight: FontWeight.w300),
+                  counterText: '',
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(borderRadious),
+                    borderSide: BorderSide(
+                        color: enabledBorderColor.withOpacity(0.8),
+                        width: enabledBorderwidth),
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(borderRadious)),
+                      borderSide: const BorderSide(color: Colors.white)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(borderRadious),
+                    borderSide: BorderSide(
+                        color: focusedBorderColor, width: focusedBorderWidth),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(borderRadious),
+                    borderSide: BorderSide(
+                        color: enabledBorderColor, width: enabledBorderwidth),
+                  ),
+                  suffixIcon: isPassword
+                      ? InkWell(
+                          onTap: () {
+                            context.read<PasswordShowBloc>().add(
+                                PasswordShowSetEvent(isShow: !isObsText));
+                          },
+                          child: Icon(
+                            !isObsText
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            size: 20,
+                            color: surfixIconColor,
+                          ),
+                        )
+                      : null,
+                  contentPadding: const EdgeInsets.only(
+                      bottom: 8,
+                      left: 6,
+                      right: 6) //.symmetric(vertical: 8, horizontal: 6),
+                  ),
+              controller: controller,
+            );
+          },
         ),
       ),
     );

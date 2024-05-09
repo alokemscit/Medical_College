@@ -75,110 +75,107 @@ class CustomSearchBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(borderRadious),
+          color:   Colors.white,
+          boxShadow: [
+            BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
+          ]),
+      //  padding: const EdgeInsets.only(top: 4),
+      // color: Colors.amber,
+    
+      // padding: const EdgeInsets.only(bottom: 12),
+      // color:Colors.amber, // const Color.fromARGB(255, 255, 255, 255),
+    
+      child: TextField(
+        
+        onTap:()=> onTap,
+        textCapitalization: isCapitalization == true
+            ? TextCapitalization.characters
+            : TextCapitalization.none,
+        focusNode: focusNode,
+        enabled: !isDisable,
+        readOnly: isReadonly,
+        onChanged: (value) => onChange(value),
+        onSubmitted: (v) {
+          onSubmitted(v);
+        },
+    
+        onEditingComplete: () {
+          // print("12121");
+          onEditingComplete();
+        },
+        keyboardType: textInputType,
+        // obscureText: !isObsText ? isPassword : false,
+        inputFormatters: isCapitalization
+            ? [UpperCaseTextFormatter()]
+            : textInputType == TextInputType.multiline
+                ? []
+                : textInputType == TextInputType.emailAddress
+                    ? []
+                    : textInputType == TextInputType.text
+                        ? []
+                        : [
+                            textInputType == TextInputType.number
+                                ? FilteringTextInputFormatter.allow(
+                                    RegExp(r'^\d+\.?\d*'))
+                                : FilteringTextInputFormatter.digitsOnly
+                          ],
+        maxLength: maxlength,
+        // canRequestFocus : false,
+        maxLines: maxLine,
+        //   textCapitalization : TextCapitalization.none,
+        // keyboardType: TextInputType.number,
+        style: TextStyle( fontFamily: "Muli",
+          fontSize: 13, fontWeight: FontWeight.w500, color: fontColor),
+        textAlignVertical: TextAlignVertical.center,
+    
+        textAlign: textAlign!,
+        decoration: InputDecoration(
+          fillColor: !isDisable
+              ? Colors.white
+              : Colors
+                  .white70, // Color.fromARGB(255, 253, 253, 255), //Colors.white,
+          filled: isFilled,
+          labelText: caption,
+          labelStyle: TextStyle(
+              color: labelTextColor, fontWeight: FontWeight.w300, fontSize: 13),
+          hintStyle:
+              TextStyle(color: hintTextColor, fontWeight: FontWeight.w300),
+          counterText: '',
+          disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadious),
-            color:   Colors.white,
-            boxShadow: [
-              BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
-            ]),
-        //  padding: const EdgeInsets.only(top: 4),
-        // color: Colors.amber,
-      
-        // padding: const EdgeInsets.only(bottom: 12),
-        // color:Colors.amber, // const Color.fromARGB(255, 255, 255, 255),
-      
-        child: TextField(
-          
-          onTap:()=> onTap,
-          textCapitalization: isCapitalization == true
-              ? TextCapitalization.characters
-              : TextCapitalization.none,
-          focusNode: focusNode,
-          enabled: !isDisable,
-          readOnly: isReadonly,
-          onChanged: (value) => onChange(value),
-          onSubmitted: (v) {
-            onSubmitted(v);
-          },
-      
-          onEditingComplete: () {
-            // print("12121");
-            onEditingComplete();
-          },
-          keyboardType: textInputType,
-          // obscureText: !isObsText ? isPassword : false,
-          inputFormatters: isCapitalization
-              ? [UpperCaseTextFormatter()]
-              : textInputType == TextInputType.multiline
-                  ? []
-                  : textInputType == TextInputType.emailAddress
-                      ? []
-                      : textInputType == TextInputType.text
-                          ? []
-                          : [
-                              textInputType == TextInputType.number
-                                  ? FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+\.?\d*'))
-                                  : FilteringTextInputFormatter.digitsOnly
-                            ],
-          maxLength: maxlength,
-          // canRequestFocus : false,
-          maxLines: maxLine,
-          //   textCapitalization : TextCapitalization.none,
-          // keyboardType: TextInputType.number,
-          style: TextStyle( fontFamily: "Muli",
-            fontSize: 13, fontWeight: FontWeight.w500, color: fontColor),
-          textAlignVertical: TextAlignVertical.center,
-      
-          textAlign: textAlign!,
-          decoration: InputDecoration(
-            fillColor: !isDisable
-                ? Colors.white
-                : Colors
-                    .white70, // Color.fromARGB(255, 253, 253, 255), //Colors.white,
-            filled: isFilled,
-            labelText: caption,
-            labelStyle: TextStyle(
-                color: labelTextColor, fontWeight: FontWeight.w300, fontSize: 13),
-            hintStyle:
-                TextStyle(color: hintTextColor, fontWeight: FontWeight.w300),
-            counterText: '',
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadious),
-              borderSide: BorderSide(
-                  color: enabledBorderColor.withOpacity(0.8),
-                  width: enabledBorderwidth),
-            ),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(borderRadious)),
-                borderSide: const BorderSide(color: Colors.white)),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadious),
-              borderSide: BorderSide(
-                  color: focusedBorderColor, width: focusedBorderWidth),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadious),
-              borderSide: BorderSide(
-                  color: enabledBorderColor, width: enabledBorderwidth),
-            ),
-            prefixIcon: Icon(
-              Icons.search_rounded,
-              size: 20,
-              color: surfixIconColor,
-            ),
-             contentPadding: const EdgeInsets.only(
-                        bottom: 8,
-                        left: 6,
-                        right: 6) 
+            borderSide: BorderSide(
+                color: enabledBorderColor.withOpacity(0.8),
+                width: enabledBorderwidth),
           ),
-          controller: controller,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(borderRadious)),
+              borderSide: const BorderSide(color: Colors.white)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderRadious),
+            borderSide: BorderSide(
+                color: focusedBorderColor, width: focusedBorderWidth),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderRadious),
+            borderSide: BorderSide(
+                color: enabledBorderColor, width: enabledBorderwidth),
+          ),
+          prefixIcon: Icon(
+            Icons.search_rounded,
+            size: 20,
+            color: surfixIconColor,
+          ),
+           contentPadding: const EdgeInsets.only(
+                      bottom: 8,
+                      left: 6,
+                      right: 6) 
         ),
+        controller: controller,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:agmc/core/config/const.dart';
+import 'package:agmc/core/config/fun_excel.dart';
 
 import '../../../../core/shared/user_data.dart';
 import '../model/model_ledger_opening_balance.dart';
@@ -34,9 +35,19 @@ class GlOpeningBalanceController extends GetxController with MixInController {
   }
 
   void test() {
-    for (var e in list_lg_opening_bal_temp) {
-      print(e.iD! + e.nAME! + '  ' + e.dR!.toString());
-    }
+    List<Map<String, dynamic>> jsonData = [];
+   for (int i = 0; i < list_lg_opening_bal_temp.length; i++) {
+  ModelLedgerOpeningBalance row = list_lg_opening_bal_temp[i];
+  jsonData.add(row.toJson());
+}
+   // print(jsonData);
+    //var x = list_lg_opening_bal_temp.toJson();
+    //print(x);
+    exportJsonToExcel(jsonData);
+
+    //for (var e in list_lg_opening_bal_temp) {
+    //print(e.iD! + e.nAME! + '  ' + e.dR!.toString());
+    //}
   }
 
   @override
@@ -68,7 +79,7 @@ class GlOpeningBalanceController extends GetxController with MixInController {
           "cr": TextEditingController(text: e.cR!.toString())
         });
       }
-     // print(x);
+      // print(x);
       isLoading.value = false;
     } catch (e) {
       isError.value = true;

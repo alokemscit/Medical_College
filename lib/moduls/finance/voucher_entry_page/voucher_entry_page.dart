@@ -93,6 +93,8 @@ _popUpTable(VoucherEntryController controller) => controller
                             controller.allSearchClose();
                             controller.selectedLedgerID.value = v!;
                             controller.loadSubLedger();
+                            controller.setIsAddEnable();
+
                           }, () {
                             controller.allSearchClose();
                           }, 'Ledger Search')
@@ -110,6 +112,7 @@ _popUpTable(VoucherEntryController controller) => controller
                             controller.selectedSubLedgerID.value = v!;
                             controller.allSearchClose();
                             controller.txt_SubLedgerSearch.text = '';
+                            controller.setIsAddEnable();
                           }, () {
                             controller.allSearchClose();
                             controller.txt_SubLedgerSearch.text = '';
@@ -128,6 +131,7 @@ _popUpTable(VoucherEntryController controller) => controller
                             controller.selectedCostCenterID.value = v!;
                             controller.allSearchClose();
                             controller.txt_CostCenterSearch.text = '';
+                            controller.setIsAddEnable();
                           }, () {
                             controller.allSearchClose();
                             controller.txt_CostCenterSearch.text = '';

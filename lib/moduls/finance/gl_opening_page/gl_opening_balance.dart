@@ -1,8 +1,10 @@
 import '../../../core/config/const.dart';
 import '../../../core/config/const_widget.dart';
 
+ 
 import '../../../core/config/fun_excel.dart';
 import '../../../widget/custom_datepicker.dart';
+ 
 import 'controller/gl_opening_balance_controller.dart';
 
 class GlOpeningBalance extends StatelessWidget {
@@ -58,7 +60,10 @@ Widget _panelHeader(GlOpeningBalanceController controller) => Padding(
               controller.test();
             }, Colors.white),
             12.widthBox,
-            CustomButton(Icons.upload, "Excel Import", () {}, Colors.white),
+            CustomButton(Icons.upload, "Excel Import", () async {
+              // printContentTesting();
+              //await PdfInvoiceApi.testing();
+            }, Colors.white),
             12.widthBox,
             CustomDatePicker(
                 borderRadious: 4,
@@ -75,6 +80,7 @@ Widget _panelHeader(GlOpeningBalanceController controller) => Padding(
               () async {
                 var x = await excelFilePicker(); //exportExcelData([]);
                 print(x);
+                // exportJsonToExcel(x);
               },
               appColorGrayLight,
               appColorGrayLight,

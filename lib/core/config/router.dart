@@ -1,4 +1,5 @@
 import 'package:agmc/core/config/const.dart';
+import 'package:agmc/moduls/finance/balance_sheet_page/fin_balancesheet_page.dart';
 import 'package:agmc/moduls/finance/cost_center_linkage_page/cost_center_linkage.dart';
 import 'package:agmc/moduls/finance/cost_center_page/cost_center_page.dart';
 import 'package:agmc/moduls/finance/sub_ledger_linkage_page/sub_ledger_linkage_page.dart';
@@ -7,6 +8,7 @@ import 'package:agmc/moduls/finance/sub_ledger_master/sub_ledger_master_page.dar
 import 'package:agmc/moduls/finance/trail_balance_page/trail_balance.dart';
  
 import 'package:agmc/moduls/finance/voucher_entry_page/voucher_entry_page.dart';
+import 'package:agmc/moduls/pms_fnb/goods_formula_setup/pages/goods_formula_setup.dart';
 
 import '../../moduls/finance/fin_dashboard/fin_datshboadr.dart';
 import '../../moduls/finance/fin_default_setup/fin_default_setup_page.dart';
@@ -59,7 +61,25 @@ Widget getPage(String id) {
       {
         return const FinDefaultPageSetup();
       }
-        
+           case "1300":
+      {
+        return const BalanceSgeetPage();
+      }
+
+
+
+
+
+
+
+
+
+ // for pms fnb
+      case "1305":
+      {
+        return  GoodsFormulaSetup();
+      }
+
 
     case "":
       return const SizedBox(

@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_overrides, use_build_context_synchronously
 
 import 'package:agmc/core/config/const.dart';
-import 'package:agmc/core/config/mixin_attr_for_controller.dart';
+ 
 import 'package:agmc/core/entity/company.dart';
 import 'package:agmc/core/shared/custom_list.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/model/model_menu_list.dart';
@@ -10,7 +10,7 @@ import 'package:agmc/moduls/admin/pagges/login_page/notifires/aughtprovider.dart
 import 'package:agmc/core/shared/user_data.dart';
 import 'package:agmc/widget/custom_awesome_dialog.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:get/get.dart';
+ 
 
 class ParentPageController extends GetxController with MixInController {
   ParentPageController(BuildContext context) {

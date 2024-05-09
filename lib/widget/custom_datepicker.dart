@@ -24,6 +24,8 @@ class CustomDatePicker extends StatefulWidget {
   final double enabledBorderwidth;
   final bool isInputMode;
   final bool isShowCurrentDate;
+  final FontWeight textfontWeight;
+  final double textfontSize;
 
   final FocusNode? focusNode;
   const CustomDatePicker(
@@ -48,7 +50,10 @@ class CustomDatePicker extends StatefulWidget {
       this.enabledBorderwidth = 0.4,
       this.isInputMode = false,
       this.focusNode,
-      this.isShowCurrentDate = false});
+      this.isShowCurrentDate = false,
+      this.textfontWeight=FontWeight.w500,
+      this.textfontSize=13,
+      });
 
   @override
   State<CustomDatePicker> createState() => _CustomDatePickerState();
@@ -85,8 +90,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         controller: widget.date_controller,
         style: TextStyle(
             fontFamily: "Muli",
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
+            fontSize: widget.textfontSize,
+            fontWeight: widget.textfontWeight,
             color: widget.fontColor),
         textAlignVertical: TextAlignVertical.center,
         textAlign: widget.textAlign!,
@@ -153,13 +158,10 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       initialEntryMode: widget.isInputMode
           ? DatePickerEntryMode.input
           : DatePickerEntryMode.calendar,
-
-
-          
     );
 
     if (pickedDate != null) {
-     // print(pickedDate);
+      // print(pickedDate);
       String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
       setState(() {
         widget.date_controller.text = formattedDate;

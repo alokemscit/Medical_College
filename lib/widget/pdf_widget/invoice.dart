@@ -207,7 +207,7 @@ class PdfInvoiceApi {
     // final bytesData = await fetchPdfBytes(urls);
     //  String base64Data = base64Encode(bytesData);
     String dataUri = 'data:application/pdf;base64,$base64Data';
-   // print(dataUri);
+    // print(dataUri);
 //report-title
     final h4 = html.window.document.getElementById('report-title');
     if (h4 != null) {
@@ -261,11 +261,26 @@ class PdfInvoiceApi {
       }
     }
   }
+
+static Future<void> generatePDF(Widget header,List<Widget> body,Widget footer,[bool isLandScape=false]) async {
+  final pdf = Document();
+ 
+    PdfPageFormat pageFormat =isLandScape? PdfPageFormat( 297 * PdfPageFormat.mm,210 * PdfPageFormat.mm):PdfPageFormat(210 * PdfPageFormat.mm, 297 * PdfPageFormat.mm);
+  pdf.addPage(
+    MultiPage(
+      orientation:isLandScape? PageOrientation.landscape:PageOrientation.portrait,
+      pageFormat: pageFormat,
+      header: (context) =>header,
+      build: (context) => body,
+      footer: (context) =>  footer
+    ),
+  );
+  final bytes = await pdf.save();
+  final base64 = base64Encode(bytes);
+   PdfInvoiceApi.openPdfBase64(base64);
 }
 
-
-
-
+}
 
 
 

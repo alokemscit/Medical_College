@@ -226,8 +226,8 @@ Widget _groupPart(CostCenterLinkageController controller, ModelLedgerMaster e) =
               .toList()),
     );
 
-  _style()=>customTextStyle.copyWith(fontSize: 10,
-               fontWeight: FontWeight.normal,color: Colors.black,fontStyle: FontStyle.italic);
+  _style([Color fontColor= Colors.black])=>customTextStyle.copyWith(fontSize: 10,
+               fontWeight: FontWeight.normal,color: fontColor,fontStyle: FontStyle.italic);
 
 Widget _subGroupPart(CostCenterLinkageController controller, ModelLedgerMaster e) =>
     Padding(
@@ -252,19 +252,46 @@ Widget _subGroupPart(CostCenterLinkageController controller, ModelLedgerMaster e
           controller.ledger_list
               .where((p0) => p0.pARENTID == e.iD)
               .map(
-                (e) => _ledgerPart(controller, e),
+                (e) => _ledgerCategoryPart(controller, e),
               )
               .toList()),
     );
 
-
+Widget _ledgerCategoryPart(CostCenterLinkageController controller, ModelLedgerMaster e) =>
+    Padding(
+      padding: const EdgeInsets.only(bottom: 0),
+      child: _node(
+          26,
+          Row(
+            children: [
+              Text('${e.cODE!} - ${e.nAME!}',
+                  style: customTextStyle.copyWith(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: appFontMuli,
+                   // color: kTextColor,
+                  )),
+                   10.widthBox,
+               Text('(Ledger Category)',
+               style: _style())
+            ],
+          ),
+           const SizedBox(),
+         
+          controller.ledger_list
+              .where((p0) => p0.pARENTID == e.iD)
+              .map(
+                (e) => _ledgerPart(controller,e),
+              )
+              .toList()),
+    );
 
 
 Widget _ledgerPart(
         CostCenterLinkageController controller, ModelLedgerMaster e) =>
     Padding(
       padding: const EdgeInsets.only(
-        left: 36,
+        left: 22,
       ),
       child: Container(
         color: Colors.white,
@@ -297,7 +324,7 @@ Widget _ledgerPart(
               ),
                10.widthBox,
                Text('(Ledger)',
-               style: _style())
+               style: _style(appColorBlue))
                                 ],
                               ),
                                Expanded(

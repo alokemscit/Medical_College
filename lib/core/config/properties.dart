@@ -146,3 +146,93 @@ BoxDecoration BoxDecorationTopRounded = const BoxDecoration(
         spreadRadius: 3.1,
       )
     ]);
+
+
+
+
+    Widget oneColumnCellBody(String leftString,
+        [double fontSize = 12, Alignment alignment = Alignment.centerLeft,FontWeight? fontWeight= FontWeight.w400,EdgeInsets? padding=const EdgeInsets.all(4)]) =>
+    Row(children: [
+      Expanded(
+        child: Container(
+             
+            decoration: const BoxDecoration(
+                //borderRadius: BorderRadius.circular(0),
+                // color: Colors.white,
+                border: Border(
+                    // top: BorderSide(color: borderColor, width: 0.2),
+                    right: BorderSide(color: appColorGrayDark, width: 0.5))),
+            padding: padding,
+            child: Align(
+                alignment: alignment,
+                child: Text(
+                  leftString,
+                  style: customTextStyle.copyWith(
+                      fontSize: fontSize, fontWeight: fontWeight),
+                ))),
+      ),
+    ]);
+
+Widget twoColumnCellBody(String leftString, String rightString,
+        [double fontSize = 12]) =>
+    Row(
+      children: [
+        Expanded(
+          flex: 5,
+          child: Container(
+              decoration: const BoxDecoration(
+                  //  color: Colors.white,
+                  border: Border(
+                      // top: BorderSide(color: borderColor, width: 0.2),
+                      right: BorderSide(color: appColorGrayDark, width: 0.5))),
+              padding: const EdgeInsets.all(4),
+              child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    leftString,
+                    style: customTextStyle.copyWith(
+                        fontSize: fontSize, fontWeight: FontWeight.w400),
+                  ))),
+        ),
+        Expanded(
+          flex: 5,
+          child: Container(
+              decoration: const BoxDecoration(
+                  // color: Colors.white,
+                  border: Border(
+                      //  top: BorderSide(color: borderColor, width: 0.2),
+                      right: BorderSide(color: appColorGrayDark, width: 0.5))),
+              padding: EdgeInsets.all(4),
+              child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    rightString,
+                    style: customTextStyle.copyWith(
+                        fontSize: fontSize, fontWeight: FontWeight.w400),
+                  ))),
+        )
+      ],
+    );
+
+
+
+    Widget tableBodyGenerator(List<int> _col, List<TableRow> children) => Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(0),
+            border: Border.all(color: appColorGrayDark, width: 0.5)),
+        child: Table(
+          // border: CustomTableBorderNew,
+          columnWidths: customColumnWidthGenarator(_col),
+          children: children,
+        ),
+      );
+
+      Map<int, TableColumnWidth> customColumnWidthGenarator(List<int> columnWidth) {
+  final Map<int, TableColumnWidth> columnWidthMap = {};
+
+  for (int i = 0; i < columnWidth.length; i++) {
+    columnWidthMap[i] = FlexColumnWidth(columnWidth[i].toDouble());
+  }
+
+  return columnWidthMap;
+}
