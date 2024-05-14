@@ -7,7 +7,7 @@ class BaseController extends GetxController with MixInController {
   Future<void> init() async {
     super.onInit();
     isError.value = false;
-    isLoading.value = false;
+    isLoading.value = true;
     api = data_api();
     try {
      

@@ -22,10 +22,10 @@ class BalanceSgeetPage extends StatelessWidget {
     BalanceSheetController controller = Get.put(BalanceSheetController());
     controller.context = context;
     return Obx(() => CommonBody(
-          controller: controller,
-          mobile: _desktop(controller),
-          tablet: _desktop(controller),
-          desktop: _desktop(controller),
+           controller,
+           _desktop(controller),
+           _desktop(controller),
+           _desktop(controller),
         ));
   }
 }

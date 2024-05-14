@@ -14,6 +14,11 @@ import '../../moduls/finance/fin_dashboard/fin_datshboadr.dart';
 import '../../moduls/finance/fin_default_setup/fin_default_setup_page.dart';
 import '../../moduls/finance/gl_opening_page/gl_opening_balance.dart';
 import '../../moduls/finance/ledger_master_page/ledger_master_page.dart';
+import '../../moduls/pms_fnb/plan_approval/pages/plan_approval_page.dart';
+import '../../moduls/pms_fnb/pms_reports/pages/pms_report_page.dart';
+import '../../moduls/pms_fnb/production_plan/pages/production_plan_page.dart';
+import '../../moduls/pms_fnb/production_process/pages/production_process.dart';
+import '../../moduls/pms_fnb/row_material_analyser/pages/material_needs_analysis.dart';
  
 
 Widget getPage(String id) {
@@ -77,10 +82,32 @@ Widget getPage(String id) {
  // for pms fnb
       case "1305":
       {
-        return  GoodsFormulaSetup();
+        return  const GoodsFormulaSetup();
+      }
+        case "1306":
+      {
+        return  const ProductionPlan();
+      }
+
+  case "1307":
+      {
+        return  const PlanApproval();
       }
 
 
+  case "1308":
+      {
+        return  const MaterialNeedsAnalysis();
+      }
+      case "1309":
+      {
+        return  const ProductionProcess();
+      }
+       case "1310":
+      {
+        return  const PmsReportsPage();
+      }
+//
     case "":
       return const SizedBox(
           //child: Text("Under Construction!"),

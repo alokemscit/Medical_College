@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 import 'dart:io';
- 
+
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/entity/entity_age.dart';
 import 'package:agmc/widget/custom_bysy_loader.dart';
@@ -10,7 +10,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
- 
+
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -230,17 +230,19 @@ CustomTableRowWithWidget(
   );
 }
 
-CustomTableEditCell(Function() onTap) => TableCell(
+CustomTableEditCell(Function() onTap, [IconData icon = Icons.edit]) =>
+    TableCell(
       verticalAlignment: TableCellVerticalAlignment.middle,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         child: Center(
             child: InkWell(
           onTap: () {
+           // print('object');
             onTap();
           },
-          child: const Icon(
-            Icons.edit,
+          child: Icon(
+            icon,
             color: kWebHeaderColor,
             size: 12,
           ),
@@ -271,6 +273,26 @@ CustomTableCell2(String? text,
               ),
       ),
     );
+
+
+Widget CustomTableCellTableBody(String text,
+    [double fontSize = 13,
+    FontWeight fontWeight = FontWeight.bold,
+    AlignmentGeometry? alignment = Alignment.centerLeft,
+    EdgeInsets? padding = const EdgeInsets.all(8)]) {
+  return Container(
+   // decoration: BoxDecoration(
+        //border: Border.all(color:Colors.black, width: 0.5)),
+    alignment: alignment,
+    padding: padding,
+    child: Text(
+      text,
+      style: TextStyle(fontWeight: fontWeight, fontSize: fontSize),
+    ),
+  );
+}
+
+
 
 String generateUniqueId() {
   var uuid = const Uuid();
@@ -308,5 +330,3 @@ bool isValidDateRange(String fdate, String tdate) {
   //print(difference);
   return true;
 }
-
-

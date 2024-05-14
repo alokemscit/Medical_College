@@ -2,10 +2,12 @@ class ModelFinishedGoodsList {
   String? fOODID;
   String? fOODNAME;
   double? rATE;
-  int? sUBPLLAMOUNT;
-  int? vAT;
-  int? dISC;
-  int? qTY;
+  double? sUBPLLAMOUNT;
+  double? vAT;
+  double? dISC;
+  double? qTY;
+  String? sTATUS;
+  String? uNAME;
 
   ModelFinishedGoodsList(
       {this.fOODID,
@@ -14,7 +16,9 @@ class ModelFinishedGoodsList {
       this.sUBPLLAMOUNT,
       this.vAT,
       this.dISC,
-      this.qTY});
+      this.qTY,
+      this.sTATUS,
+      this.uNAME});
 
   ModelFinishedGoodsList.fromJson(Map<String, dynamic> json) {
     fOODID = json['FOOD_ID'];
@@ -24,6 +28,8 @@ class ModelFinishedGoodsList {
     vAT = json['VAT'];
     dISC = json['DISC'];
     qTY = json['QTY'];
+    sTATUS = json['STATUS'];
+    uNAME = json['UNAME'];
   }
 
   // Map<String, dynamic> toJson() {
