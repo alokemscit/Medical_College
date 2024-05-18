@@ -155,7 +155,8 @@ class CustomTwoPanelWindow extends StatelessWidget {
     this.roghtPanelHeight = 0,
     this.minDesktopWidth = 1000,
     this.isLeftPanelExtention = false,
-    this.isRighttPanelExtention = false,  this.pading=const EdgeInsets.all(0.0),
+    this.isRighttPanelExtention = false,
+    this.pading = const EdgeInsets.all(0.0),
   });
 
   @override
@@ -234,7 +235,7 @@ class CustomTwoPanelWindow extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Padding(
-                                padding:pading,
+                                padding: pading,
                                 child: Column(
                                   children: rightChildren,
                                 ),
@@ -282,8 +283,6 @@ class CustomFilterButton extends StatelessWidget {
   }
 }
 
-
-
 class CustomTableHeaderWeb extends StatelessWidget {
   const CustomTableHeaderWeb(
       {super.key, required this.colWidtList, required this.children});
@@ -292,17 +291,83 @@ class CustomTableHeaderWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Table(
-     // border: CustomTableBorderNew ,
+      // border: CustomTableBorderNew ,
       columnWidths: CustomColumnWidthGenarator(colWidtList),
       children: [
         TableRow(
             decoration: CustomTableHeaderRowDecorationnew.copyWith(
                 color: kBgColorG,
-                borderRadius: const BorderRadiusDirectional.only(topStart: Radius.circular(4),topEnd: Radius.circular(4))
-                
-                ),
+                borderRadius: const BorderRadiusDirectional.only(
+                    topStart: Radius.circular(4), topEnd: Radius.circular(4))),
             children: children)
       ],
+    );
+  }
+}
+
+class CustomGroupBox extends StatelessWidget {
+  const CustomGroupBox(
+      {super.key, required this.groupHeaderText, required this.child});
+  final String groupHeaderText;
+  final Widget child;
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Container(
+                  padding: const EdgeInsets.only(left: 12, right: 8, top: 12),
+                  decoration: customBoxDecoration.copyWith(
+                    border: Border.all(
+                      width: 0.4,
+                      color: appColorGrayDark.withOpacity(0.28),
+                    ),
+                    // color: kWebBackgroundColor,
+                    borderRadius: BorderRadiusDirectional.circular(3),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: child,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Positioned(
+            left: 6,
+            top: 0.5,
+            child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                color: kWebBackgroundColor,
+                child: Text(
+                  groupHeaderText,
+                  style: customTextStyle.copyWith(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontStyle: FontStyle.italic),
+                ))),
+      ],
+    );
+  }
+}
+
+class CustomTextHeader extends StatelessWidget {
+  const CustomTextHeader(
+      {super.key, required this.text,  this.textSize=13});
+  final String text;
+  final double textSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: customTextStyle.copyWith(fontWeight: FontWeight.bold,fontSize: textSize),
     );
   }
 }

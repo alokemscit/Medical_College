@@ -1,5 +1,5 @@
- 
 import 'package:agmc/widget/custom_datepicker.dart';
+ 
 import '../../../../core/config/const.dart';
 import '../controller/production_plan_controller.dart';
 
@@ -18,8 +18,8 @@ class ProductionPlan extends StatelessWidget {
     controller.context = context;
     return Obx(() => CommonBody2(
           controller,
-        //  _mainWidget(controller),
-        //  _mainWidget(controller),
+          //  _mainWidget(controller),
+          //  _mainWidget(controller),
           _mainWidget(controller),
         ));
   }
@@ -46,8 +46,6 @@ Widget _mainWidget(ProductionPlanController controller) =>
         ? _desktop(controller)
         : _mobileTabs(controller);
 
-
-        
 _headerEntryPart(ProductionPlanController controller) => Row(
       children: [
         Expanded(
@@ -111,7 +109,17 @@ Widget _masterPanel(ProductionPlanController controller) => Stack(
                           Expanded(
                             child: Container(
                               padding: const EdgeInsets.all(8),
-                              decoration: customBoxDecoration,
+                              decoration: customBoxDecoration.copyWith(
+                                // color: appColorGrayLight,
+                                // boxShadow: [
+                                //   BoxShadow(color: Colors.black12,
+                                //   spreadRadius: 0.3,
+                                //   blurRadius: 4,
+                                //   offset: Offset(0, 0)
+                                //   ),
+                                
+                                // ]
+                                ),
                               child: _headerPart(controller),
                             ),
                           ),
@@ -145,8 +153,9 @@ Widget _masterPanel(ProductionPlanController controller) => Stack(
             : Positioned(
                 bottom: 22,
                 right: 26,
-                child: CustomButton(Icons.save, 'Save', () {}, Colors.white,
-                    Colors.white, appColorBlue)))
+                child: CustomButton(Icons.save, 'Save', () {
+                  controller.saveData();
+                }, Colors.white, Colors.white, appColorBlue)))
       ],
     );
 
@@ -364,7 +373,7 @@ Widget _peviousPanel(ProductionPlanController controller) =>
 
 _tablePrevoious(ProductionPlanController controller) => Expanded(
       child: Padding(
-        padding: const EdgeInsets.only(left: 8,right: 8,top: 8),
+        padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
         child: Container(
             width: double.infinity,
             decoration: customBoxDecoration.copyWith(
@@ -381,22 +390,54 @@ _tablePrevoious(ProductionPlanController controller) => Expanded(
                       TableRow(
                           decoration: CustomTableHeaderRowDecorationnew,
                           children: [
+                            CustomTableCellTableBody("Plan No"),
                             CustomTableCellTableBody("Entry Date"),
                             CustomTableCellTableBody("Prod. Date"),
                             CustomTableCellTableBody("Note"),
-                            CustomTableCellTableBody("Status",13,FontWeight.bold,Alignment.center),
-                            CustomTableCellTableBody("*",13,FontWeight.bold,Alignment.center),
-                           // CustomTableEditCell(() {}, Icons.search_rounded)
+                            CustomTableCellTableBody("Status", 13,
+                                FontWeight.bold, Alignment.center),
+                            CustomTableCellTableBody(
+                                "*", 13, FontWeight.bold, Alignment.center),
+                            // CustomTableEditCell(() {}, Icons.search_rounded)
                           ])
                     ],
+                  ),
+                 
+                
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Table(
+                        columnWidths: customColumnWidthGenarator(_col2),
+                        border: CustomTableBorderNew,
+                        children: 
+                       controller.lis_plan_master.map((e) => TableRow(
+                        decoration:BoxDecoration(color: Colors.white) ,
+                        children:[
+                          
+                         // CustomTableColumnCellBody(text)
+                          CustomTableColumnCellBody(e.pno),
+                          CustomTableColumnCellBody(e.edate),
+                          CustomTableColumnCellBody(e.pdate),
+                          CustomTableColumnCellBody(e.note),
+                          CustomTableColumnCellBody(e.status),
+                          CustomTableEditCell((){},Icons.search_sharp)
+                      
+                        ] 
+                       )).toList()
+                      ,),
+                    ),
                   )
+
+                 
+
+
                 ],
               ),
             )),
       ),
     );
 
-List<int> _col2 = [50, 50, 150, 50, 30];
+List<int> _col2 = [50, 50, 50, 150, 50, 30];
 
 _datePartPrevious(ProductionPlanController controller) => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -434,10 +475,15 @@ _toDate(ProductionPlanController controller) => Row(children: [
             customTextStyle.copyWith(fontSize: 13, fontWeight: FontWeight.bold),
       ),
       6.widthBox,
-      CustomDatePicker(date_controller: controller.txt_fdate),
+      CustomDatePicker(
+         isOnleClickDate: true,
+          isBackDate: true,
+          isShowCurrentDate: true,
+          date_controller: controller.txt_tdate),
       12.widthBox,
-      CustomButton(
-          Icons.search, 'Show', () {}, Colors.white, Colors.white, appColorLogo)
+      CustomButton(Icons.search, 'Show', () {
+        controller.viewPlanList();
+      }, Colors.white, Colors.white, appColorLogo)
     ]);
 _fromDate(ProductionPlanController controller) => Row(children: [
       Text(
@@ -446,7 +492,11 @@ _fromDate(ProductionPlanController controller) => Row(children: [
             customTextStyle.copyWith(fontSize: 13, fontWeight: FontWeight.bold),
       ),
       6.widthBox,
-      CustomDatePicker(date_controller: controller.txt_fdate),
+      CustomDatePicker(
+         isOnleClickDate: true,
+          isBackDate: true,
+          isShowCurrentDate: true,
+          date_controller: controller.txt_fdate),
     ]);
 
 Widget _headerPart(ProductionPlanController controller) => Column(

@@ -16,7 +16,7 @@ class GoodsFormulaSetupController extends GetxController with MixInController {
   var list_entry_item = <_tempItem>[].obs;
 
   var list_formulated_item = <ModelFormulatedItem>[].obs;
-  var list_formulated_item_temp = <ModelFormulatedItem>[].obs;
+  //var list_formulated_item_temp = <ModelFormulatedItem>[].obs;
 
   final TextEditingController txt_qty = TextEditingController();
   var rawmaterialId = ''.obs;
@@ -25,6 +25,19 @@ class GoodsFormulaSetupController extends GetxController with MixInController {
   final TextEditingController txt_search_goods = TextEditingController();
   final TextEditingController txt_search_rawMaterials = TextEditingController();
   final selectedID = ''.obs;
+  final FocusNode focusNode1 = FocusNode();
+
+
+
+  void setupItem() {
+    list_entry_item.clear();
+    var x = list_formulated_item.where((p0) => p0.fOODID == selectedID.value);
+    list_entry_item.addAll(x.map((element) => _tempItem(
+        id: element.iTEMID!,
+        name: element.iTEMNAME!,
+        unit: element.uNITNAME!,
+        qty: element.qTY!.toString())));
+  }
 
   void save() async {
     dialog = CustomAwesomeDialog(context: context);
@@ -82,6 +95,9 @@ class GoodsFormulaSetupController extends GetxController with MixInController {
         .toUpperCase()
         .contains(txt_search_rawMaterials.text.toUpperCase())));
   }
+
+
+
 
   void addItem() {
     dialog = CustomAwesomeDialog(context: context);
@@ -179,7 +195,7 @@ class GoodsFormulaSetupController extends GetxController with MixInController {
         {"tag": "93"}
       ]);
       list_formulated_item
-         .addAll(x.map((e) => ModelFormulatedItem.fromJson(e)));
+          .addAll(x.map((e) => ModelFormulatedItem.fromJson(e)));
 
       isLoading.value = false;
     } catch (e) {

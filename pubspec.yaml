@@ -49,6 +49,7 @@ dependencies:
   fl_chart: ^0.67.0
   excel: ^4.0.2
   file_picker: ^8.0.2
+  collection: ^1.18.0
   #excel: ^4.0.2
 
 dev_dependencies:

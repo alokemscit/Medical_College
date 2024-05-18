@@ -108,11 +108,13 @@ Widget _leftTableBody(GoodsFormulaSetupController controller) => Expanded(
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         // alignment: Alignment.centerLeft,
-                        child: CustomTableCell(e.sTATUS=='0'? 'Not Setup':'Done'),
+                        child: CustomTableCell(
+                            e.sTATUS == '0' ? 'Not Setup' : 'Done'),
                       ),
                       CustomTableEditCell(() {
+                        // controller.list_entry_item.clear();
                         controller.selectedID.value = e.fOODID!;
-                        controller.list_entry_item.clear();
+                        controller.setupItem();
                         //print(e.fOODID!);
                       }, Icons.launch_outlined)
                     ]))
@@ -310,6 +312,7 @@ _entryPart(GoodsFormulaSetupController controller) => Padding(
                                     .toList(),
                                 onTap: (v) {
                                   controller.rawmaterialId.value = v!;
+                                  controller.focusNode1.requestFocus();
                                 })),
                         InkWell(
                           onTap: () {
@@ -319,10 +322,17 @@ _entryPart(GoodsFormulaSetupController controller) => Padding(
                         ),
                         6.widthBox,
                         CustomTextBox(
-                            caption: "Qty",
-                            textInputType: TextInputType.number,
-                            controller: controller.txt_qty,
-                            onChange: (v) {}),
+                          focusNode: controller.focusNode1,
+                          caption: "Qty",
+                          textInputType: TextInputType.number,
+                          controller: controller.txt_qty,
+                          onChange: (v) {},
+                          onSubmitted: (p0) {
+                            if (p0.isNotEmpty) {
+                              controller.addItem();
+                            }
+                          },
+                        ),
                         12.widthBox,
                         RoundedButton(() {
                           controller.addItem();
@@ -414,6 +424,8 @@ Widget _searchItem(GoodsFormulaSetupController controller) => !controller
                                                     element.iTEMID!;
                                                 controller.isSearch.value =
                                                     false;
+                                                controller.focusNode1
+                                                    .requestFocus();
                                               },
                                               child: Row(
                                                 children: [

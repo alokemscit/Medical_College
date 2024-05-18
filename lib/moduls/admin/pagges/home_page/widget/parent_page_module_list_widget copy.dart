@@ -13,9 +13,9 @@ import '../home_page.dart';
 class ParentMainModuleListWidget extends StatelessWidget {
   List<ModelModuleList> list;
   ParentMainModuleListWidget({
-    Key? key,
+    super.key,
     required this.list,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

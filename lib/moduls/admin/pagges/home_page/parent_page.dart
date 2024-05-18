@@ -7,7 +7,7 @@ import 'package:agmc/moduls/admin/pagges/home_page/controller/parent_page_contro
 import 'package:agmc/moduls/admin/pagges/home_page/widget/parent_page_module_list_widget.dart';
  
 
-import 'package:agmc/widget/custom_widget_list.dart';
+ 
 import 'package:flutter/cupertino.dart';
 
  
