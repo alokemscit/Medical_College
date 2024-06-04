@@ -3,7 +3,7 @@
 
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/config/responsive.dart';
-import 'package:agmc/moduls/admin/pagges/home_page/model/model_menu_list.dart';
+import 'package:agmc/moduls/admin/pagges/home_page/shared/model_menu_list.dart';
  
 import 'package:google_fonts/google_fonts.dart';
  
@@ -13,9 +13,9 @@ import '../home_page.dart';
 class ParentMainModuleListWidget extends StatelessWidget {
   List<ModelModuleList> list;
   ParentMainModuleListWidget({
-    Key? key,
+    super.key,
     required this.list,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

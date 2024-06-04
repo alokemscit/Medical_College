@@ -35,7 +35,9 @@ class CustomTextBox extends StatelessWidget {
   final bool isCapitalization;
   final bool iSAutoCorrected;
   final Color disableBackColor;
-   
+  final Color fillColor;
+  final String hintText;
+
   CustomTextBox(
       {super.key,
       required this.caption,
@@ -48,14 +50,14 @@ class CustomTextBox extends StatelessWidget {
       this.textAlign = TextAlign.start,
       required this.onChange,
       this.borderRadious = 2.0,
-      this.fontColor = Colors.black87,
+      this.fontColor = Colors.black,
       this.borderColor = Colors.black,
       this.isPassword = false,
       this.isFilled = false,
       this.isReadonly = false,
       this.isDisable = false,
       this.hintTextColor = Colors.black,
-      this.labelTextColor = Colors.black,
+      this.labelTextColor = Colors.black87,
       this.focusedBorderColor = Colors.black,
       this.focusedBorderWidth = 0.3,
       this.enabledBorderColor = Colors.grey,
@@ -65,6 +67,8 @@ class CustomTextBox extends StatelessWidget {
       void Function(String)? onSubmitted,
       void Function()? onEditingComplete,
       this.focusNode,
+      this.hintText='',
+      this.fillColor = Colors.white,
       this.isCapitalization = false,
       this.iSAutoCorrected = false})
       : onSubmitted = onSubmitted ?? ((String v) {}),
@@ -87,7 +91,7 @@ class CustomTextBox extends StatelessWidget {
         // color: Colors.amber,
         width: width,
         height: height,
-      
+
         // padding: const EdgeInsets.only(bottom: 12),
         // color:Colors.amber, // const Color.fromARGB(255, 255, 255, 255),
         child: BlocBuilder<PasswordShowBloc, PasswordIconState>(
@@ -96,7 +100,9 @@ class CustomTextBox extends StatelessWidget {
               isObsText = state.isShow;
             }
             return TextField(
-              textDirection:  textAlign == TextAlign.right?  TextDirection.rtl:TextDirection.ltr,
+              textDirection: textAlign == TextAlign.right
+                  ? TextDirection.rtl
+                  : TextDirection.ltr,
               autocorrect: iSAutoCorrected,
               textCapitalization: isCapitalization == true
                   ? TextCapitalization.characters
@@ -108,7 +114,7 @@ class CustomTextBox extends StatelessWidget {
               onSubmitted: (v) {
                 onSubmitted(v);
               },
-      
+
               onEditingComplete: () {
                 // print("12121");
                 onEditingComplete();
@@ -140,11 +146,11 @@ class CustomTextBox extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   color: fontColor),
               textAlignVertical: TextAlignVertical.center,
-      
+
               textAlign: textAlign!,
               decoration: InputDecoration(
                   fillColor: !isDisable
-                      ? Colors.white
+                      ? fillColor
                       : Colors
                           .white70, // Color.fromARGB(255, 253, 253, 255), //Colors.white,
                   filled: isFilled,
@@ -153,8 +159,10 @@ class CustomTextBox extends StatelessWidget {
                       color: labelTextColor,
                       fontWeight: FontWeight.w300,
                       fontSize: 13),
+                  hintText: hintText,
                   hintStyle: TextStyle(
-                      color: hintTextColor, fontWeight: FontWeight.w300),
+                      color: hintTextColor.withOpacity(0.3),
+                      fontWeight: FontWeight.w300),
                   counterText: '',
                   disabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(borderRadious),
@@ -179,8 +187,9 @@ class CustomTextBox extends StatelessWidget {
                   suffixIcon: isPassword
                       ? InkWell(
                           onTap: () {
-                            context.read<PasswordShowBloc>().add(
-                                PasswordShowSetEvent(isShow: !isObsText));
+                            context
+                                .read<PasswordShowBloc>()
+                                .add(PasswordShowSetEvent(isShow: !isObsText));
                           },
                           child: Icon(
                             !isObsText

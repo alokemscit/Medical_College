@@ -57,7 +57,7 @@ class CustomSearchBox extends StatelessWidget {
       this.isReadonly = false,
       this.isDisable = false,
       this.hintTextColor = Colors.black,
-      this.labelTextColor = Colors.black,
+      this.labelTextColor = Colors.black87,
       this.focusedBorderColor = Colors.black,
       this.focusedBorderWidth = 0.3,
       this.enabledBorderColor = Colors.grey,

@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_linux
   irondash_engine_context
   printing
+  rive_common
   super_native_extensions
 )
 

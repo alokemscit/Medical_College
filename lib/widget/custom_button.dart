@@ -19,7 +19,7 @@ Widget CustomButton(@required IconData icon, @required String caption,
             isClick = state.isClick;
           }
           return InkWell(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8),
             mouseCursor: MouseCursor.defer,
             splashColor: buttonColor.withBlue(100),
             //hoverColor: buttonColor.withOpacity(2),
@@ -39,18 +39,18 @@ Widget CustomButton(@required IconData icon, @required String caption,
               opacity: isClick ? 0.3 : 1.0,
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
                     color: buttonColor,
                     boxShadow: [
                       BoxShadow(
-                          spreadRadius: 3,
-                          blurRadius: 1,
-                          color: Colors.black.withOpacity(0.05))
+                          spreadRadius: 0,
+                          blurRadius: 3,
+                          color: Colors.black.withOpacity(0.25))
                     ]),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     caption.text
                         .fontFamily(appFontMuli)
@@ -58,7 +58,7 @@ Widget CustomButton(@required IconData icon, @required String caption,
                         .sm
                         .fontWeight(FontWeight.w400)
                         .make(),
-                    14.widthBox,
+                    8.widthBox,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [

@@ -50,3 +50,5 @@ const appColorGray200 = Color(0xFFEEEEEE);
 const appColorGrayLight = Color(0xFFFAFAFA);
 const appColorGrayDark = Color(0xFF757575);
 const appColorIndigoA100 = Color(0xFF8C9EFF);
+Color appGray100 = Colors.grey[100]!;
+ Color appGray50 = Colors.grey[50]!;

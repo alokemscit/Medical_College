@@ -4,12 +4,13 @@ import 'dart:async';
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/config/responsive.dart';
 import 'package:agmc/core/config/router.dart';
-import 'package:agmc/moduls/admin/pagges/home_page/model/model_menu_list.dart';
+import 'package:agmc/moduls/admin/pagges/home_page/shared/model_menu_list.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/widget/login_user_image_and_details.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/widget/parent_background_widget.dart';
 
 import 'package:agmc/widget/menubutton.dart';
 import 'package:agmc/widget/sidemenu.dart';
+ 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
  
@@ -17,9 +18,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-// ignore: must_be_immutable
-
-// ignore: non_constant_identifier_names
+ 
 NextIndex(List<ItemModel> list, int index) {
   if (list.length > 1) {
     ItemModel k = list[list.length - 1 > index ? (index + 1) : (index - 1)];
@@ -55,8 +54,8 @@ class HomePage extends StatelessWidget {
         backgroundColor: kWebBackgroundDeepColor,
         body: Stack(
           children: [
-            const ParentPageBackground(imageOpacity: 0.03),
-            HomePagebodyWidget(module: module),
+            const ParentPageBackground(imageOpacity: 0.02),
+             HomePagebodyWidget(module: module),
           ],
         ),
       ),
@@ -165,15 +164,11 @@ class AppBarMobile extends StatelessWidget {
               ),
             ),
           )),
-      actions: const [
-        Padding(
-          padding: EdgeInsets.only(right: 8, bottom: 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(child: LoginUsersImageAndDetails()),
-            ],
+      actions:  const [
+        Flexible(
+          child: Padding(
+            padding: EdgeInsets.only(right: 8, bottom: 0,top: 4),
+            child: LoginUsersImageAndDetails(),
           ),
         ),
       ],
@@ -310,6 +305,10 @@ class DrawerBackIconWithTabEvent extends StatelessWidget {
   Widget build(BuildContext context) {
     bool b = Responsive.isMobile(context);
     return  b?const SizedBox():Container(
+      // decoration: customBoxDecoration.copyWith(
+      //   borderRadius: BorderRadiusDirectional.circular(0),
+      //   color: b ? Colors.transparent : kWebBackgroundDeepColor,
+      //   ),
       //margin: EdgeInsets.only(top: 100),
       color: b ? Colors.transparent : kWebBackgroundDeepColor,
       width: double.infinity,

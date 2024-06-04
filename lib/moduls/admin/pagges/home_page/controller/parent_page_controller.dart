@@ -4,12 +4,10 @@ import 'package:agmc/core/config/const.dart';
  
 import 'package:agmc/core/entity/company.dart';
 import 'package:agmc/core/shared/custom_list.dart';
-import 'package:agmc/moduls/admin/pagges/home_page/model/model_menu_list.dart';
+import 'package:agmc/moduls/admin/pagges/home_page/shared/model_menu_list.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/login_page.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/notifires/aughtprovider.dart';
 import 'package:agmc/core/shared/user_data.dart';
-import 'package:agmc/widget/custom_awesome_dialog.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
  
 
 class ParentPageController extends GetxController with MixInController {

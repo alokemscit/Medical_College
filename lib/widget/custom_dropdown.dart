@@ -16,7 +16,7 @@ class CustomDropDown extends StatelessWidget {
       this.borderColor = Colors.black38,
       this.labeltext = 'Select',
       this.borderRadious = 2,
-      this.fontColor = Colors.black87,
+      this.fontColor = Colors.black,
       this.isFilled = true,
       this.dropdownColor = Colors.white,
       this.fillColor = Colors.white,
@@ -25,7 +25,7 @@ class CustomDropDown extends StatelessWidget {
       this.enabledBorderColor=Colors.grey,
        this.enabledBorderwidth= 0.4, 
        this.hintTextColor= Colors.black,
-        this.labelTextColor= Colors.black,
+        this.labelTextColor= Colors.black87,
        this.focusNode
       });
 
