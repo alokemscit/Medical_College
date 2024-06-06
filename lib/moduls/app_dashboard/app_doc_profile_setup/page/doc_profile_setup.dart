@@ -1,4 +1,6 @@
- import '../../../../core/config/const.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+
+import '../../../../core/config/const.dart';
 import '../controller/doc_profile_setup_controller.dart';
 
 class DoctorProfileSeup extends StatelessWidget {
@@ -14,6 +16,7 @@ class DoctorProfileSeup extends StatelessWidget {
     final DoctorProfileSeupController controller =
         Get.put(DoctorProfileSeupController());
     controller.context = context;
+   // print(context.width);
     return Obx(() => CommonBody2(controller, _mainWidget(controller)));
   }
 }
@@ -27,50 +30,161 @@ _mainWidget(DoctorProfileSeupController controller) => CustomAccordionContainer(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-            
-             SizedBox(
-             
-              width: 700,
-               child: SingleChildScrollView(
-                 child: Column(
-                 
-                  children: [
-                  controller.context.width > 1050
-                      ? Row(
-                          children: [
-                             _imagePart(controller),
-                            8.widthBox,
-                           Flexible(child:    _entryPart(controller),)
-                           
-                          
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            _imagePart(controller),
-                            8.heightBox,
-                            _entryPart(controller),
-                          ],
-                        ),
-                       Align(
-                         alignment: Alignment.topLeft,
-                         child: _descPart(controller),)
-                 ],),
-               ),
-             ),
-                 
-                controller.context.width>1320?  Expanded(
-                 
-                  child: Row(
-                    children: [
-                    8.widthBox,   Expanded(child: CustomGroupBox(groupHeaderText: "Doctor List", child: Column(children: [],))),
-                    ],
-                  )):const SizedBox()
-            ],),
+                // Flexible(
+
+                // child:
+                controller.context.width > 955
+                    ? _topPart(controller)
+                    : Flexible(child: _topPart(controller)),
+                // ),
+                controller.context.width > 1320
+                    ? _tablePart(controller)
+                    : const SizedBox()
+              ],
+            ),
           )
-          
         ]);
-// 
+
+_topPart(DoctorProfileSeupController controller) => SizedBox(
+      width: 700,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            controller.context.width > 1050
+                ? Row(
+                    children: [
+                      _imagePart(controller),
+                      8.widthBox,
+                      Flexible(
+                        child: _entryPart(controller),
+                      )
+                    ],
+                  )
+                : Column(
+                    children: [
+                      _imagePart(controller),
+                      8.heightBox,
+                      _entryPart(controller),
+                    ],
+                  ),
+            _descPart(controller)
+          ],
+        ),
+      ),
+    );
+_tablePart(DoctorProfileSeupController controller) => Expanded(
+        child: Row(
+      children: [
+        8.widthBox,
+        Expanded(
+            child: CustomGroupBox(
+                groupHeaderText: "Doctor List",
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CustomSearchBox(
+                            width: 300,
+                            caption: "Search",
+                            controller: controller.txt_search,
+                            onChange: (v) {}),
+                      ],
+                    ),
+                    8.heightBox,
+                    Table(
+                      border: CustomTableBorderNew,
+                      columnWidths: customColumnWidthGenarator(_col),
+                      children: [
+                        TableRow(
+                            decoration: CustomTableHeaderRowDecorationnew,
+                            children: [
+                              //30,100,50,50,50,20
+                              CustomTableClumnHeader("ID", Alignment.center),
+                              CustomTableClumnHeader(
+                                "Name",
+                                Alignment.centerLeft,
+                              ),
+                              CustomTableClumnHeader(
+                                "Photo",
+                                Alignment.centerLeft,
+                              ),
+                              CustomTableClumnHeader(
+                                "Designation",
+                                Alignment.centerLeft,
+                              ),
+
+                              CustomTableClumnHeader(
+                                "Department",
+                                Alignment.centerLeft,
+                              ),
+                              CustomTableClumnHeader(
+                                "*",
+                                Alignment.center,
+                              ),
+                            ])
+                      ],
+                    ),
+                    Expanded(
+                        child: SingleChildScrollView(
+                      child: Table(
+                        border: CustomTableBorderNew,
+                        columnWidths: customColumnWidthGenarator(_col),
+                        children: controller.list_doctor_temp
+                            .map((f) => TableRow(
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white),
+                                    children: [
+                                      _customCell(f.docId, true),
+                                      _customCell(f.docName),
+                                      TableCell(
+                                          verticalAlignment:
+                                              TableCellVerticalAlignment.middle,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Image.network(
+                                                'https://web.asgaralihospital.com/pub/doc_image/${f.imagePath!}',
+                                                width:
+                                                    50.0, // Adjust width as needed
+                                                height: 60.0,
+                                                fit: BoxFit
+                                                    .fitHeight, // Adjust height as needed
+                                              ),
+                                            ),
+                                          )),
+                                      _customCell(f.desig),
+                                      _customCell(f.deptName),
+                                      CustomTableEditCell(() {
+                                        controller.setEdit(f);
+                                      })
+                                    ]))
+                            .toList(),
+                      ),
+                    ))
+                  ],
+                ))),
+      ],
+    ));
+
+_customCell(String? text, [bool isCenter = false]) => TableCell(
+      verticalAlignment: TableCellVerticalAlignment.middle,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Align(
+            alignment: isCenter ? Alignment.center : Alignment.centerLeft,
+            child: Text(
+              text!,
+              style: customTextStyle.copyWith(
+                  fontSize: 12, fontWeight: FontWeight.w600),
+            )),
+      ),
+    );
+
+List<int> _col = [20, 100, 20, 50, 50, 20];
+
 _descPart(DoctorProfileSeupController controller) => SizedBox(
       width: 700,
       height: 400,
@@ -78,28 +192,144 @@ _descPart(DoctorProfileSeupController controller) => SizedBox(
           groupHeaderText: "Description",
           child: Column(
             children: [
+//  QuillHtmlEditor(
+//         text: "<h1>Hello</h1>This is a quill html editor example 😊",
+//         hintText: 'Hint text goes here',
+//         controller: controller.qController,
+//         isEnabled: true,
+//         minHeight: 300,
+//        // textStyle: _editorTextStyle,
+//        // hintTextStyle: _hintTextStyle,
+//         hintTextAlign: TextAlign.start,
+//         padding: const EdgeInsets.only(left: 10, top: 5),
+//         hintTextPadding: EdgeInsets.zero,
+//       //  backgroundColor: _backgroundColor,
+//         onFocusChanged: (hasFocus) => debugPrint('has focus $hasFocus'),
+//         onTextChanged: (text) => debugPrint('widget text change $text'),
+//         onEditorCreated: () => debugPrint('Editor has been loaded'),
+//         onEditingComplete: (s) => debugPrint('Editing completed $s'),
+//         onEditorResized: (height) =>
+//         debugPrint('Editor resized $height'),
+//         onSelectionChanged: (sel) =>
+//         debugPrint('${sel.index},${sel.length}'),
+//         loadingBuilder: (context) {
+//             return const Center(
+//             child: CircularProgressIndicator(
+//             strokeWidth: 0.4,
+//             ));},
+//       ),
 
- 
- 
-
-              
+              QuillToolbar.simple(
+                configurations: QuillSimpleToolbarConfigurations(
+                  decoration: customBoxDecoration.copyWith(color: kBgColorG),
+                  toolbarIconAlignment: WrapAlignment.start,
+                  toolbarIconCrossAlignment: WrapCrossAlignment.start,
+                  showDirection: false,
+                  showSearchButton: false,
+                  showSubscript: false,
+                  showSuperscript: false,
+                  showClipboardCut: false,
+                  showClipboardCopy: false,
+                  showClipboardPaste: false,
+                  showCodeBlock: false,
+                  showQuote: false,
+                  showIndent: false,
+                  showLink: false,
+                  showDividers: false,
+                  showListCheck: false,
+                  showInlineCode: false,
+                  showClearFormat: false,
+                  showUndo: false,
+                  showRedo: false,
+                  showHeaderStyle: false,
+                  controller: controller.qController,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: customBoxDecoration.copyWith(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(4)),
+                  child: QuillEditor.basic(
+                    configurations: QuillEditorConfigurations(
+                      controller: controller.qController,
+                      //  readOnly: false,
+                      // sharedConfigurations: const QuillSharedConfigurations(
+                      //   locale: Locale('en'),
+                      // ),
+                    ),
+                  ),
+                ),
+              )
             ],
           )),
     );
 
-_imagePart(DoctorProfileSeupController controller) => const SizedBox(
+_imagePart(DoctorProfileSeupController controller) => SizedBox(
       width: 240,
-      height: 270,
+      height: 290,
       child: CustomGroupBox(
           groupHeaderText: "Photo",
           child: Column(
-            children: [],
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Obx(() {
+                return controller.imageFile.value.path != ''
+                    ? Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            controller.imageFile.value.path,
+                            //  width: 100.0, // Adjust width as needed
+                            //height: 100.0,
+                            fit: BoxFit.fitHeight, // Adjust height as needed
+                          ),
+                        ),
+                      )
+                    : const Expanded(
+                        child: Center(
+                          child: Icon(
+                            Icons.people_alt_sharp,
+                            size: 52,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      );
+              }),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () async {
+                      var file = await getImage();
+
+                      if (file != null) {
+                        // ignore: use_build_context_synchronously
+
+                        controller.imageFile.value = file;
+                        // econtroller.isImageUpdate.value = true;
+                      }
+                    },
+                    child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: customBoxDecoration.copyWith(
+                            borderRadius: BorderRadiusDirectional.circular(50),
+                            color: appColorLogoDeep),
+                        child: const Icon(
+                          Icons.photo,
+                          color: appColorGrayLight,
+                          size: 18,
+                        )),
+                  )
+                ],
+              )
+            ],
           )),
     );
 
 _entryPart(DoctorProfileSeupController controller) => SizedBox(
       width: 450,
-      height: 270,
+      height: 290,
       child: CustomGroupBox(
           groupHeaderText: "Entry",
           child: Padding(
@@ -171,18 +401,19 @@ _entryPart(DoctorProfileSeupController controller) => SizedBox(
                     Expanded(
                         child: CustomTextBox(
                             caption: "Speciality",
-                            controller: controller.txt_designation,
+                            controller: controller.txt_speciality,
                             onChange: (v) {})),
                   ],
                 ),
-                10.heightBox,
+                8.heightBox,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButton(Icons.save,
                         controller.editDocID.value == '' ? "Save" : "Update",
                         () {
-                      // controller.saveUpdate();
+                      controller.saveUpdateData();
+                     
                     }),
                     controller.editDocID.value == ''
                         ? const SizedBox()
@@ -192,14 +423,14 @@ _entryPart(DoctorProfileSeupController controller) => SizedBox(
                               controller.editDocID.value = '';
                             },
                             child: Container(
-                                padding: const EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(6),
                                 child: const Icon(
                                   Icons.undo,
                                   size: 18,
                                 )),
                           )
                   ],
-                ),
+                )
               ],
             ),
           )),
