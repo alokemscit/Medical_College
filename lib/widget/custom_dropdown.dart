@@ -66,13 +66,13 @@ final Color fillColor;
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(borderRadious),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 0,
-              spreadRadius: 0.01,
-              color: borderColor
-            )
-          ]
+          // boxShadow: [
+          //   BoxShadow(
+          //     blurRadius: 0,
+          //     spreadRadius: 0.01,
+          //     color: borderColor
+          //   )
+          // ]
         ),
       // margin: const EdgeInsets.only(left: 12,top: 12),
       width: width,

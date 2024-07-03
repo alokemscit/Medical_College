@@ -16,3 +16,8 @@ mixin MixInController{
   var errorMessage = "".obs;
   var statusList = <ModelStatus>[].obs;
 }
+
+
+mixin MixinMethod {
+  void disposeController();
+}

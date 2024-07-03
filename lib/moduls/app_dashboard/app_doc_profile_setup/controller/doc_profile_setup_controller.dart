@@ -36,7 +36,9 @@ class DoctorProfileSeupController extends GetxController with MixInController {
     list_doctor_temp.clear();
     list_doctor_temp.addAll(list_doctor_master.where((e) =>
         e.docId == txt_search.text ||
-        e.docName!.toUpperCase().contains(txt_search.text.toUpperCase())));
+        e.docName!.toUpperCase().contains(txt_search.text.toUpperCase())||
+         e.deptName!.toUpperCase().contains(txt_search.text.toUpperCase())
+        ));
   }
 
   void deleteProfile(ModelDoctorMobMaster e) async {

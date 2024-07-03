@@ -12,7 +12,7 @@ class CustomTextBox extends StatelessWidget {
   final int? maxLine;
   final double? height;
   final TextAlign? textAlign;
-  final Function(String value) onChange;
+  
   //final Function(RawKeyEvent event) onKey;
   final double borderRadious;
   final Color fontColor;
@@ -29,6 +29,7 @@ class CustomTextBox extends StatelessWidget {
   final Color enabledBorderColor;
   final double enabledBorderwidth;
   final Color surfixIconColor;
+  final void Function(String v) onChange;
   final void Function(String) onSubmitted;
   final void Function() onEditingComplete;
   final FocusNode? focusNode;
@@ -73,6 +74,7 @@ class CustomTextBox extends StatelessWidget {
       this.iSAutoCorrected = false})
       : onSubmitted = onSubmitted ?? ((String v) {}),
         onEditingComplete = onEditingComplete ?? (() {});
+         
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +86,10 @@ class CustomTextBox extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadious),
             color: isDisable ? disableBackColor : Colors.white,
-            boxShadow: [
-              BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
-            ]),
+            // boxShadow: [
+            //   BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
+            // ]
+            ),
         //  padding: const EdgeInsets.only(top: 4),
         // color: Colors.amber,
         width: width,

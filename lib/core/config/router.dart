@@ -14,6 +14,9 @@ import 'package:agmc/moduls/pms_fnb/goods_formula_setup/pages/goods_formula_setu
 
 import '../../moduls/app_dashboard/app_banner/page/app_banner_page.dart';
 import '../../moduls/app_dashboard/app_department/page/app_department_page.dart';
+import '../../moduls/app_dashboard/app_health_package_config/pages/app_health_packahe_config_page.dart';
+import '../../moduls/app_dashboard/app_health_package_master/pages/app_health_package_master_page.dart';
+import '../../moduls/app_dashboard/app_investigation_attr/pages/app_investigation_attribute_page.dart';
 import '../../moduls/app_dashboard/app_top_doctor/pages/app_top_doctor_list.dart';
 import '../../moduls/diet_management/diet_assign/pages/diet_assign_page.dart';
 import '../../moduls/diet_management/diet_category/pages/diet_category_page.dart';
@@ -24,6 +27,9 @@ import '../../moduls/finance/fin_dashboard/fin_datshboadr.dart';
 import '../../moduls/finance/fin_default_setup/fin_default_setup_page.dart';
 import '../../moduls/finance/gl_opening_page/gl_opening_balance.dart';
 import '../../moduls/finance/ledger_master_page/ledger_master_page.dart';
+import '../../moduls/mc_fee_management/mc_account_enrollment/pages/mc_account_enroll_page.dart';
+import '../../moduls/mc_fee_management/mc_default_setup/pages/mc_default_setup.dart';
+import '../../moduls/mc_fee_management/mc_head_setup/pages/mc_fees_head_page.dart';
 import '../../moduls/pms_fnb/plan_approval/pages/plan_approval_page.dart';
 import '../../moduls/pms_fnb/pms_reports/pages/pms_report_page.dart';
 import '../../moduls/pms_fnb/production_plan/pages/production_plan_page.dart';
@@ -130,8 +136,21 @@ Widget getPage(String id) {
       return const AppBanner();
     case "1328":
       return const AppTopDoctorList();
+    case "1335":
+      return const HealthPackageMaster();
+    case "1337":
+      return const AppInvAttrMaster();
+    case "1336":
+      return const HealthPackageConfig();
 //##############################################################################################
-
+    // MC Fee Management
+    case '1344':
+      return const McDefaultSetup();
+    case '1342':
+      return const McFeesHeadMaster();
+    case '1347':
+      return const McAccountEnrollMent();
+    // #############################################################################################
     case "":
       return const SizedBox(
           //child: Text("Under Construction!"),

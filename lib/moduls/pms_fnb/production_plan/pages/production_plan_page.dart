@@ -476,7 +476,7 @@ _toDate(ProductionPlanController controller) => Row(children: [
       ),
       6.widthBox,
       CustomDatePicker(
-         isOnleClickDate: true,
+         isOnClickDate: true,
           isBackDate: true,
           isShowCurrentDate: true,
           date_controller: controller.txt_tdate),
@@ -493,7 +493,7 @@ _fromDate(ProductionPlanController controller) => Row(children: [
       ),
       6.widthBox,
       CustomDatePicker(
-         isOnleClickDate: true,
+         isOnClickDate: true,
           isBackDate: true,
           isShowCurrentDate: true,
           date_controller: controller.txt_fdate),

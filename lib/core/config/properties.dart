@@ -148,25 +148,30 @@ Widget oneColumnCellBody(String leftString,
         Alignment alignment = Alignment.centerLeft,
         FontWeight? fontWeight = FontWeight.w400,
         EdgeInsets? padding = const EdgeInsets.all(4)]) =>
-    Row(children: [
-      Expanded(
-        child: Container(
-            decoration: const BoxDecoration(
-                //borderRadius: BorderRadius.circular(0),
-                // color: Colors.white,
-                border: Border(
-                    // top: BorderSide(color: borderColor, width: 0.2),
-                    right: BorderSide(color: appColorGrayDark, width: 0.5))),
-            padding: padding,
-            child: Align(
-                alignment: alignment,
-                child: Text(
-                  leftString,
-                  style: customTextStyle.copyWith(
-                      fontSize: fontSize, fontWeight: fontWeight),
-                ))),
-      ),
-    ]);
+    TableCell(
+      verticalAlignment:TableCellVerticalAlignment.middle,
+      child: Row(
+       
+        children: [
+        Expanded(
+          child: Container(
+              decoration: const BoxDecoration(
+                  //borderRadius: BorderRadius.circular(0),
+                  // color: Colors.white,
+                  border: Border(
+                      // top: BorderSide(color: borderColor, width: 0.2),
+                      right: BorderSide(color: appColorGrayDark, width: 0.5))),
+              padding: padding,
+              child: Align(
+                  alignment: alignment,
+                  child: Text(
+                    leftString,
+                    style: customTextStyle.copyWith(
+                        fontSize: fontSize, fontWeight: fontWeight),
+                  ))),
+        ),
+      ]),
+    );
     Widget CustomTableColumnCellBody(String leftString,
         [double fontSize = 12,
         Alignment alignment = Alignment.centerLeft,

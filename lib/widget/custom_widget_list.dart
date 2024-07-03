@@ -289,14 +289,11 @@ class CustomTableHeaderWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Table(
-      // border: CustomTableBorderNew ,
+       border: CustomTableBorderNew ,
       columnWidths: CustomColumnWidthGenarator(colWidtList),
       children: [
         TableRow(
-            decoration: CustomTableHeaderRowDecorationnew.copyWith(
-                color: kBgColorG,
-                borderRadius: const BorderRadiusDirectional.only(
-                    topStart: Radius.circular(4), topEnd: Radius.circular(4))),
+            decoration: CustomTableHeaderRowDecorationnew,
             children: children)
       ],
     );
@@ -309,9 +306,9 @@ class CustomGroupBox extends StatelessWidget {
       required this.groupHeaderText,
       required this.child,
       this.textColor = Colors.black,
-      this.borderWidth = 0.6,
+      this.borderWidth = 0.8,
       this.bgColor = kWebBackgroundColor,
-      this.borderRadius = 3});
+      this.borderRadius = 6});
   final String groupHeaderText;
   final Color textColor;
   final Widget child;
@@ -407,3 +404,6 @@ class CustomTextHeader extends StatelessWidget {
     );
   }
 }
+
+Widget CommonBody3(dynamic controller,List<Widget> children,[String title='',Color bgColor = kWebBackgroundColor])=> CommonBody2(controller,
+CustomAccordionContainer(headerName: title,height: 0, bgColor :bgColor,  isExpansion: false, children: children));

@@ -30,6 +30,7 @@ _TablePart(AppDocDepartmentController controller) => Expanded(
           Expanded(
               flex: 4,
               child: CustomGroupBox(
+            //    bgColor: kWebBackgroundDeepColor,
                   groupHeaderText: "Department List",
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -108,6 +109,7 @@ _entryPart(AppDocDepartmentController controller) => Row(
         Expanded(
             flex: 4,
             child: CustomGroupBox(
+           //   bgColor: kWebBackgroundDeepColor,
                 groupHeaderText: "Entry",
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

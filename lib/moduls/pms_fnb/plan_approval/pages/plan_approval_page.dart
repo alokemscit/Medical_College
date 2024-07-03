@@ -49,7 +49,7 @@ List<Widget> _leftPanl(PlanApprovalController controller) => [
                       4.widthBox,
                       CustomDatePicker(
                           width: 120,
-                          isOnleClickDate: true,
+                          isOnClickDate: true,
                           isBackDate: true,
                           isShowCurrentDate: true,
                           date_controller: controller.txt_fdate),
@@ -59,7 +59,7 @@ List<Widget> _leftPanl(PlanApprovalController controller) => [
                       4.widthBox,
                       Flexible(
                           child: CustomDatePicker(
-                              isOnleClickDate: true,
+                              isOnClickDate: true,
                               width: 120,
                               isBackDate: true,
                               isShowCurrentDate: true,

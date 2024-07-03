@@ -10,7 +10,7 @@ class ModelModuleList {
 }
 
 Future<List<ModelModuleList>> get_module() async {
-  User_Model user=await getUserInfo();
+  User_Model user = await getUserInfo();
 
   List<ModelModuleList> list = [];
   list.add(ModelModuleList(
@@ -33,22 +33,32 @@ Future<List<ModelModuleList>> get_module() async {
           "This Module is specifically designed to optimize the production processes within the FnB Departmet",
       img: "housekeeping"));
 
-      if(user.comID=='1'){
-        list.add(ModelModuleList(
-      id: "1313",
-      name: "Diet Management System",
-      desc:
-          "This Module is help to manage Patients dietary",
-      img: "diet"));
+  if (user.comID == '1') {
+    list.add(ModelModuleList(
+        id: "1313",
+        name: "Diet Management System",
+        desc: "This Module is help to manage Patients dietary",
+        img: "diet"));
 
-list.add(ModelModuleList(
-      id: "1323",
-      name: "App Dashboard",
-      desc:
-          "This Module is help to manage Doctor profile for mobile App",
-      img: "doctor"));
-
-      }
+    //if(user.eMPID)
+    if (l_user.contains(user.eMPID)) {
+      list.add(ModelModuleList(
+          id: "1323",
+          name: "App Dashboard",
+          desc: "This Module is help to manage Doctor profile for mobile App",
+          img: "doctor"));
+    }
+  } 
+  if(user.comID=='3') {
+    //Fee Management System
+    list.add(ModelModuleList(
+          id: "1338",
+          name: "Fee Management",
+          desc: "This Module is help to manage student fees ",
+          img: "bill"));
+  }
 
   return list;
 }
+
+List<String> l_user = ["3097", "4543", "5184", "1530"];

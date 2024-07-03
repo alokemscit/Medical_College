@@ -81,9 +81,10 @@ class CustomSearchBox extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadious),
           color:   Colors.white,
-          boxShadow: [
-            BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
-          ]),
+          // boxShadow: [
+          //   BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
+          // ]
+          ),
       //  padding: const EdgeInsets.only(top: 4),
       // color: Colors.amber,
     

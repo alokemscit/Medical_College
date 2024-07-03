@@ -3,7 +3,7 @@ import 'package:agmc/core/config/const.dart';
 
 import '../../../../model/model_common.dart';
 import '../../../../model/model_status.dart';
-import '../../diet_meal_ietm/model/model_meal_type.dart';
+ 
 
 class DietMenuConfigController extends GetxController with MixInController {
   var list_diet_type = <ModelCommon>[].obs;
