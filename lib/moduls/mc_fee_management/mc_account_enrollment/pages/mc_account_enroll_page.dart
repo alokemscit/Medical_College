@@ -33,7 +33,10 @@ class McAccountEnrollMent extends StatelessWidget {
                     children: [
                       Expanded(flex: 4, child: _studentWidget(controller)),
                       8.heightBox,
-                      Expanded(flex: 5, child: SingleChildScrollView(child: _entitleListWidget(controller)))
+                      Expanded(
+                          flex: 5,
+                          child: SingleChildScrollView(
+                              child: _entitleListWidget(controller)))
                     ],
                   ),
                 )
@@ -153,25 +156,25 @@ Widget _entitleListWidget(McAccountEnrollMentController controller) =>
                             ),
                             4.heightBox,
                             Row(
-                              mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
                                     const CustomTextHeader(
                                         text: "Is Outstanding :"),
-                                         Checkbox(
-                                    value: controller.isOutStanding.value,
-                                    onChanged: (v) {
-                                      controller.isOutStanding.value = v!;
-                                      if (v) {
-                                        controller.generateOutStanding();
-                                      }
-                                    }),
+                                    Checkbox(
+                                        value: controller.isOutStanding.value,
+                                        onChanged: (v) {
+                                          controller.isOutStanding.value = v!;
+                                          if (v) {
+                                            controller.generateOutStanding();
+                                          }
+                                        }),
                                   ],
                                 ),
-                               
-                                  
-                                     CustomButton(Icons.save, "Save", (){})
+                                CustomButton(Icons.save, "Save", () {
+                                  controller.save();
+                                })
                               ],
                             ),
                             !controller.isOutStanding.value
@@ -244,7 +247,16 @@ Widget _entitleListWidget(McAccountEnrollMentController controller) =>
                                                                               Colors.white),
                                                                   children: [
                                                                     oneColumnCellBody(
-                                                                        f.name!),
+                                                                        f.name!,
+                                                                        12,
+                                                                        Alignment
+                                                                            .centerLeft,
+                                                                        FontWeight
+                                                                            .bold,
+                                                                        const EdgeInsets
+                                                                            .all(
+                                                                            4),
+                                                                        appGray50),
                                                                     TableCell(
                                                                         verticalAlignment:
                                                                             TableCellVerticalAlignment
@@ -267,29 +279,34 @@ Widget _entitleListWidget(McAccountEnrollMentController controller) =>
                                                           .toList(),
                                                     ),
                                                     Table(
-                                                      border: CustomTableBorderNew,
+                                                      border:
+                                                          CustomTableBorderNew,
                                                       columnWidths:
                                                           customColumnWidthGenarator(
                                                               _col2),
                                                       children: [
                                                         TableRow(
-                                                          
                                                             decoration:
                                                                 const BoxDecoration(
-                                                                    color: appColorGray200),
+                                                                    color:
+                                                                        appColorGray200),
                                                             children: [
                                                               oneColumnCellBody(
                                                                   "Total : ",
                                                                   13,
                                                                   Alignment
-                                                                      .topRight,FontWeight.bold),
+                                                                      .topRight,
+                                                                  FontWeight
+                                                                      .bold),
                                                               oneColumnCellBody(
                                                                   controller
                                                                       .total
                                                                       .value,
                                                                   13,
                                                                   Alignment
-                                                                      .topRight,FontWeight.bold),
+                                                                      .topRight,
+                                                                  FontWeight
+                                                                      .bold),
                                                             ])
                                                       ],
                                                     )
@@ -301,7 +318,6 @@ Widget _entitleListWidget(McAccountEnrollMentController controller) =>
                                         )),
                                   ),
                           ],
-
                         )),
                 Positioned(
                     right: 4,
@@ -322,12 +338,30 @@ Widget _entitleListWidget(McAccountEnrollMentController controller) =>
                             color: appColorBlue,
                           )),
                     )),
-               
-              
               ],
-            ),
-           
+              ),
+             
+             controller.selectedStudentID.value!=''?const SizedBox():  Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                   Flexible(child: CustomSearchBox(caption: "Search Entitled Student", width: 350, controller: controller.txt_search_entitled, onChange: (v){}))
+                  ],),
+                12.heightBox,
+              CustomTableHeaderWeb(colWidtList: _col3, children: [
+               CustomTableCellTableBody('ID'),
+                CustomTableCellTableBody('Name'),
+                 CustomTableCellTableBody('Roll'),
+                  CustomTableCellTableBody('Session'),
+                   CustomTableCellTableBody('Outstanding',13, FontWeight.bold,Alignment.centerRight),
+                     CustomTableCellTableBody('*'),
+                ])
+
+                ],
+              ),
+             
           ],
         ));
-
+List<int> _col3 = [30, 150,30, 50, 50, 20];
 List<int> _col2 = [150, 50];

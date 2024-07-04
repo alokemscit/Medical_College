@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:agmc/core/config/const.dart';
+import 'package:agmc/core/shared/user_data.dart';
 import 'package:agmc/model/model_common.dart';
 import 'package:agmc/model/model_status.dart';
 import 'package:agmc/widget/custom_snakbar.dart';
@@ -15,6 +16,12 @@ class McFeesHeadMasterController extends GetxController with MixInController {
   var list_payment_type = <ModelCommon>[].obs;
   var list_fee_master_main = <ModelFeeMaster>[].obs;
   var list_fee_master_temp = <ModelFeeMaster>[].obs;
+
+  void loadData() {
+    list_fee_master_temp.clear();
+    list_fee_master_temp.addAll(list_fee_master_main
+        .where((f) => f.typeId == selectedPaymentType.value));
+  }
 
   void delete(ModelFeeMaster f) async {
     loader = CustomBusyLoader(context: context);
@@ -92,7 +99,8 @@ class McFeesHeadMasterController extends GetxController with MixInController {
           "p_typeid": selectedPaymentType.value,
           "p_id": editID.value == '' ? "0" : editID.value,
           "p_name": txt_name.text,
-          "is_delete": "0"
+          "is_delete": "0",
+          "p_cid": user.value.comID
         }
       ]);
       loader.close();
@@ -136,9 +144,17 @@ class McFeesHeadMasterController extends GetxController with MixInController {
     isLoading.value = true;
     list_payment_type.add(ModelCommon(id: '1', name: "Income"));
     list_payment_type.add(ModelCommon(id: '2', name: "Expense"));
+    user.value = await getUserInfo();
+    if (user.value.eMPID == null) {
+      isLoading.value = false;
+      isError.value = true;
+      errorMessage.value = 'Relogin required!';
+      return;
+    }
+
     try {
       var x = await api.createLead([
-        {"tag": "130"}
+        {"tag": "130", "p_cid": user.value.comID}
       ]);
       if (x != [] ||
           x.map((e) => ModelStatus.fromJson(e)).first.status != '3') {
@@ -155,5 +171,3 @@ class McFeesHeadMasterController extends GetxController with MixInController {
     super.onInit();
   }
 }
-
-

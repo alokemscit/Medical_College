@@ -1,4 +1,5 @@
 import 'package:agmc/core/config/const.dart';
+import 'package:agmc/core/shared/user_data.dart';
 
 import '../../../../model/model_common.dart';
 import '../../../../model/model_status.dart';
@@ -19,7 +20,7 @@ class McDefaultSetupController extends GetxController with MixInController {
           "${f.id}^${(f.amount == null || f.amount == '') ? "0" : f.amount}^${(f.isChk == false) ? "0" : "1"};";
     });
     try {
-     // print({"tag": "132", "p_typeid": selectedFeeTypeID.value, "p_str": s});
+      // print({"tag": "132", "p_typeid": selectedFeeTypeID.value, "p_str": s});
       var x = await api.createLead([
         {"tag": "132", "p_typeid": selectedFeeTypeID.value, "p_str": s}
       ]);
@@ -31,7 +32,7 @@ class McDefaultSetupController extends GetxController with MixInController {
           ..message = st.msg!
           ..show();
 
-         list_fee_master_temp.forEach((f) {
+        list_fee_master_temp.forEach((f) {
           list_fee_master_main.removeWhere((t) => t.id == f.id);
           list_fee_master_main.add(_ModelFeeMaster(
               id: f.id,
@@ -91,9 +92,16 @@ class McDefaultSetupController extends GetxController with MixInController {
     isLoading.value = true;
     list_payment_type.add(ModelCommon(id: '1', name: "Income"));
     list_payment_type.add(ModelCommon(id: '2', name: "Expense"));
+    user.value = await getUserInfo();
+    if (user.value.eMPID == null) {
+      isLoading.value = false;
+      isError.value = true;
+      errorMessage.value = 'Re-login required!';
+      return;
+    }
     try {
       var x = await api.createLead([
-        {"tag": "131"}
+        {"tag": "131","p_cid":user.value.comID}
       ]);
       if (x != [] ||
           x.map((e) => ModelStatus.fromJson(e)).first.status != '3') {

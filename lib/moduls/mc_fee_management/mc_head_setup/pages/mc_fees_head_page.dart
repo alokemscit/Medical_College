@@ -162,6 +162,7 @@ Widget _entryPart(McFeesHeadMasterController controller) => CustomGroupBox(
                       .toList(),
                   onTap: (v) {
                     controller.selectedPaymentType.value = v!;
+                    controller.loadData();
                   })
             ],
           ),

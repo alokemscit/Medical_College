@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:agmc/core/config/colors.dart';
+import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/config/const_string.dart';
 import 'package:flutter/material.dart';
 
@@ -147,7 +148,7 @@ Widget oneColumnCellBody(String leftString,
         [double fontSize = 12,
         Alignment alignment = Alignment.centerLeft,
         FontWeight? fontWeight = FontWeight.w400,
-        EdgeInsets? padding = const EdgeInsets.all(4)]) =>
+        EdgeInsets? padding = const EdgeInsets.all(4),Color bgColor=Colors.transparent]) =>
     TableCell(
       verticalAlignment:TableCellVerticalAlignment.middle,
       child: Row(
@@ -155,10 +156,10 @@ Widget oneColumnCellBody(String leftString,
         children: [
         Expanded(
           child: Container(
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                   //borderRadius: BorderRadius.circular(0),
-                  // color: Colors.white,
-                  border: Border(
+                   color: bgColor,
+                  border: const Border(
                       // top: BorderSide(color: borderColor, width: 0.2),
                       right: BorderSide(color: appColorGrayDark, width: 0.5))),
               padding: padding,
