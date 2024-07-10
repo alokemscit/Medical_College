@@ -10,6 +10,7 @@
 analyzer:
   errors:
     camel_case_types: ignore
+    library_private_types_in_public_api: ignore
     non_constant_identifier_names: ignore
     prefer_final_fields: ignore
 include: package:flutter_lints/flutter.yaml

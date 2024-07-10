@@ -25,7 +25,7 @@ class McAccountEnrollMent extends StatelessWidget {
                   children: [
                     Expanded(flex: 5, child: _studentWidget(controller)),
                     8.widthBox,
-                    Expanded(flex: 5, child: _entitleListWidget(controller))
+                    Expanded(flex: 5, child: Obx(()=>_entitleListWidget(controller)))
                   ],
                 ))
               : Expanded(
@@ -36,7 +36,7 @@ class McAccountEnrollMent extends StatelessWidget {
                       Expanded(
                           flex: 5,
                           child: SingleChildScrollView(
-                              child: _entitleListWidget(controller)))
+                              child: Obx(()=>_entitleListWidget(controller))))
                     ],
                   ),
                 )
@@ -341,27 +341,43 @@ Widget _entitleListWidget(McAccountEnrollMentController controller) =>
               ],
               ),
              
-             controller.selectedStudentID.value!=''?const SizedBox():  Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                   Flexible(child: CustomSearchBox(caption: "Search Entitled Student", width: 350, controller: controller.txt_search_entitled, onChange: (v){}))
-                  ],),
-                12.heightBox,
-              CustomTableHeaderWeb(colWidtList: _col3, children: [
-               CustomTableCellTableBody('ID'),
-                CustomTableCellTableBody('Name'),
-                 CustomTableCellTableBody('Roll'),
-                  CustomTableCellTableBody('Session'),
-                   CustomTableCellTableBody('Outstanding',13, FontWeight.bold,Alignment.centerRight),
-                     CustomTableCellTableBody('*'),
-                ])
-
-                ],
-              ),
+             controller.selectedStudentID.value!=''?const SizedBox():  Expanded(
+               child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                     Flexible(child: CustomSearchBox(caption: "Search Entitled Student", width: 350, controller: controller.txt_search_entitled, onChange: (v){}))
+                    ],),
+                  12.heightBox,
+                CustomTableHeaderWeb(colWidtList: _col3, children: [
+                 CustomTableCellTableBody('ID'),
+                  CustomTableCellTableBody('Name'),
+                   CustomTableCellTableBody('Roll'),
+                    CustomTableCellTableBody('Session'),
+                     CustomTableCellTableBody('Opening Outstanding',13, FontWeight.bold,Alignment.centerRight),
+                       CustomTableCellTableBody('*'),
+                  ]),
+               
+                   Expanded(child: SingleChildScrollView(child: Table(
+                    columnWidths: customColumnWidthGenarator(_col3),
+                    border:  CustomTableBorderNew,
+                    children: controller.list_ent_student_temp.map((f)=>TableRow(
+                      decoration: const BoxDecoration(color: Colors.white),
+                      children: [
+                    oneColumnCellBody(f.stId!,12,Alignment.centerLeft,FontWeight.w400,const EdgeInsets.all(4),Colors.transparent,true),
+                    oneColumnCellBody(f.name!), 
+                    oneColumnCellBody(f.roll!),
+                    oneColumnCellBody(f.ses!),
+                     oneColumnCellBody(f.omt!.toString(),12,Alignment.centerRight),
+                    CustomTableEditCell((){})
+                    ])).toList() ,),))
+               
+                  ],
+                ),
+             ),
              
           ],
         ));
-List<int> _col3 = [30, 150,30, 50, 50, 20];
+List<int> _col3 = [30, 150,30, 50, 60, 20];
 List<int> _col2 = [150, 50];

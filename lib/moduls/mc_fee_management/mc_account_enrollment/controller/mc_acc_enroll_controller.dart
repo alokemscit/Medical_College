@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../core/shared/user_data.dart';
 import '../../../../model/model_status.dart';
 import '../../mc_head_setup/model/model_fee_master.dart';
+import '../model/mc_model_entitled_Student.dart';
 
 class McAccountEnrollMentController extends GetxController
     with MixInController {
@@ -22,6 +23,9 @@ class McAccountEnrollMentController extends GetxController
   var list_student = <_ModelStudentMaster>[].obs;
   var list_student_temp = <_ModelStudentMaster>[].obs;
   var list_session = <_modelSession>[].obs;
+
+  var list_ent_student_master = <ModelEntStudent>[].obs;
+  var list_ent_student_temp = <ModelEntStudent>[].obs;
 
   void save() async {
     dialog = CustomAwesomeDialog(context: context);
@@ -54,24 +58,6 @@ class McAccountEnrollMentController extends GetxController
       _ModelStudentMaster stu = list_student
           .where((f) => f.sTUDENTID == selectedStudentID.value)
           .first;
-      //save_update_st_fee_entitle(p_cur out TEST_PACKAGE.test_type,
-      //-- p_id in int, st_id in varchar2,st_name in varchar2,st_mob in varchar2,
-//st_ses_id in int, st_ses_name in varchar2,p_cid in int, p_str in varchar2,p_till_date in varchar2, p_eid in varchar2)
-      // tag 133
-
-      // print({
-      //   "tag": "133",
-      //   "p_id": editStudentID.value == '' ? "0" : editStudentID.value,
-      //   "st_id": selectedStudentID.value,
-      //   "st_name": selectedStudentName.value,
-      //   "st_mob": stu.cONTACTNO,
-      //   "st_ses_id": selectedSessionID.value,
-      //   "st_ses_name": stu.sESSIONNAME,
-      //   "p_cid": user.value.comID,
-      //   "p_str": s,
-      //   "p_till_date": txt_till_date.text,
-      //   "p_eid": user.value.eMPID
-      // });
 
       var x = await api.createLead([
         {
@@ -85,22 +71,40 @@ class McAccountEnrollMentController extends GetxController
           "p_cid": user.value.comID,
           "p_str": s,
           "p_till_date": txt_till_date.text,
-          "p_roll":stu.rOLL,
+          "p_roll": stu.rOLL,
           "p_eid": user.value.eMPID
         }
       ]);
-     // print(x);
+      // print(x);
       loader.close();
       ModelStatus st = await getStatusWithDialog(x, dialog);
-      if (st.status!=null && st.status == '1') {
-        dialog
-          ..dialogType = DialogType.success
-          ..message = st.msg!
-          ..show();
+      if (st.status != null || st.status == '1') {
         list_student.removeWhere((f) => f.sTUDENTID == selectedStudentID.value);
         list_student_temp
             .removeWhere((f) => f.sTUDENTID == selectedStudentID.value);
-        undo();
+
+        dialog
+          ..dialogType = DialogType.success
+          ..message = st.msg!
+          ..show()
+          ..onTap = () async {
+            var x = await api.createLead([
+              {"tag": "134", "p_cid": user.value.comID, "p_ses_id": "0"}
+            ]);
+            if (x != [] ||
+                x.map((e) => ModelStatus.fromJson(e)).first.status != '3') {
+              list_ent_student_master.clear();
+              list_ent_student_master
+                  .addAll(x.map((e) => ModelEntStudent.fromJson(e)));
+              if (list_ent_student_master.isNotEmpty) {
+                list_ent_student_temp.clear();
+                list_ent_student_temp.addAll(list_ent_student_master);
+              }
+            }
+          };
+        Future.delayed(const Duration(milliseconds: 500), () {
+          undo();
+        });
       }
     } catch (e) {
       loader.close();
@@ -143,8 +147,26 @@ class McAccountEnrollMentController extends GetxController
     undo();
 
     list_student_temp.clear();
-    list_student_temp.addAll(
-        list_student.where((e) => e.sESSIONID == selectedSessionID.value));
+    list_student_temp.addAll(list_student.where((e) =>
+        e.sESSIONID == selectedSessionID.value &&
+        !isExists(e.sTUDENTID!.trim())));
+
+    // var f = list_student.where((e) => e.sESSIONID == selectedSessionID.value);
+    // f.forEach((f) {
+    //   if (!isExists(f.sTUDENTID!)) {
+    //     list_student_temp.add(f);
+    //   }
+    // });
+    // list_student_temp.addAll(
+    //     list_student.where((e) => e.sESSIONID == selectedSessionID.value));
+  }
+
+  bool isExists(String id) {
+    if (list_ent_student_master.where((c) => c.stId!.trim() == id).isNotEmpty) {
+      // print('object');
+      return true;
+    }
+    return false;
   }
 
   @override
@@ -167,16 +189,18 @@ class McAccountEnrollMentController extends GetxController
         },
       ], 'remote_api');
       //  print(x);
-      if (x != [] &&
+      if (x != [] ||
           x.map((e) => ModelStatus.fromJson(e)).first.status != '3') {
         list_student.addAll(x.map((e) => _ModelStudentMaster.fromJson(e)));
-
-        list_student.forEach((e) {
-          // print(e.sESSIONNAME);
-          list_session.add(_modelSession(
-              sessionId: e.sESSIONID, SessionName: e.sESSIONNAME));
-        });
-        list_session.toSet().toList();
+        list_session.clear();
+        if (list_student.isNotEmpty) {
+          var y = list_student
+              .map((e) => _modelSession(
+                  sessionId: e.sESSIONID, SessionName: e.sESSIONNAME))
+              .toSet()
+              .toList();
+          list_session.addAll(y);
+        }
       }
 
       // print(list_student.length);
@@ -184,10 +208,21 @@ class McAccountEnrollMentController extends GetxController
       x = await api.createLead([
         {"tag": "130", "p_cid": user.value.comID}
       ]);
-      if (x != [] &&
+      if (x != [] ||
           x.map((e) => ModelStatus.fromJson(e)).first.status != '3') {
         list_fee_master_main.addAll(x.map((e) => ModelFeeMaster.fromJson(e)));
         //print(list_fee_master_main.length);
+      }
+      x = await api.createLead([
+        {"tag": "134", "p_cid": user.value.comID, "p_ses_id": "0"}
+      ]);
+      if (x != [] ||
+          x.map((e) => ModelStatus.fromJson(e)).first.status != '3') {
+        list_ent_student_master
+            .addAll(x.map((e) => ModelEntStudent.fromJson(e)));
+        if (list_ent_student_master.isNotEmpty) {
+          list_ent_student_temp.addAll(list_ent_student_master);
+        }
       }
 
       isLoading.value = false;

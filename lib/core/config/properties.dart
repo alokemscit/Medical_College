@@ -148,7 +148,7 @@ Widget oneColumnCellBody(String leftString,
         [double fontSize = 12,
         Alignment alignment = Alignment.centerLeft,
         FontWeight? fontWeight = FontWeight.w400,
-        EdgeInsets? padding = const EdgeInsets.all(4),Color bgColor=Colors.transparent]) =>
+        EdgeInsets? padding = const EdgeInsets.all(4),Color bgColor=Colors.transparent,bool isSelectable=false]) =>
     TableCell(
       verticalAlignment:TableCellVerticalAlignment.middle,
       child: Row(
@@ -165,7 +165,9 @@ Widget oneColumnCellBody(String leftString,
               padding: padding,
               child: Align(
                   alignment: alignment,
-                  child: Text(
+                  child: isSelectable?SelectableText(leftString,
+                    style: customTextStyle.copyWith(
+                        fontSize: fontSize, fontWeight: fontWeight)): Text(
                     leftString,
                     style: customTextStyle.copyWith(
                         fontSize: fontSize, fontWeight: fontWeight),

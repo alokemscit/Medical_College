@@ -1,9 +1,12 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
 
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/model/user_model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class PoppupMenu extends StatelessWidget {
   const PoppupMenu({super.key, required this.child, required this.menuList});
@@ -289,12 +292,11 @@ class CustomTableHeaderWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Table(
-       border: CustomTableBorderNew ,
+      border: CustomTableBorderNew,
       columnWidths: CustomColumnWidthGenarator(colWidtList),
       children: [
         TableRow(
-            decoration: CustomTableHeaderRowDecorationnew,
-            children: children)
+            decoration: CustomTableHeaderRowDecorationnew, children: children)
       ],
     );
   }
@@ -308,9 +310,11 @@ class CustomGroupBox extends StatelessWidget {
       this.textColor = Colors.black,
       this.borderWidth = 0.8,
       this.bgColor = kWebBackgroundColor,
-      this.borderRadius = 6});
+      this.borderRadius = 6,
+      this.ShadowColor = appColorGray200});
   final String groupHeaderText;
   final Color textColor;
+  final Color ShadowColor;
   final Widget child;
   final double borderWidth;
   final Color bgColor;
@@ -333,6 +337,12 @@ class CustomGroupBox extends StatelessWidget {
                       color: appColorGrayDark.withOpacity(0.28),
                     ),
                     // color: kWebBackgroundColor,
+                    boxShadow: [
+                      const BoxShadow(
+                          color: appColorGray200,
+                          blurRadius: 6,
+                          spreadRadius: 1)
+                    ],
                     borderRadius:
                         BorderRadiusDirectional.circular(borderRadius),
                   ),
@@ -383,13 +393,12 @@ class CustomGroupBox extends StatelessWidget {
 }
 
 class CustomTextHeader extends StatelessWidget {
-  const CustomTextHeader({
-    super.key,
-    required this.text,
-    this.textSize = 13,
-    this.textColor = Colors.black,
-    this.fontweight=FontWeight.bold
-  });
+  const CustomTextHeader(
+      {super.key,
+      required this.text,
+      this.textSize = 13,
+      this.textColor = Colors.black,
+      this.fontweight = FontWeight.bold});
   final String text;
   final double textSize;
   final Color textColor;
@@ -405,5 +414,190 @@ class CustomTextHeader extends StatelessWidget {
   }
 }
 
-Widget CommonBody3(dynamic controller,List<Widget> children,[String title='',Color bgColor = kWebBackgroundColor])=> CommonBody2(controller,
-CustomAccordionContainer(headerName: title,height: 0, bgColor :bgColor,  isExpansion: false, children: children));
+Widget CommonBody3(dynamic controller, List<Widget> children,
+        [String title = '', Color bgColor = kWebBackgroundColor]) =>
+    CommonBody2(
+        controller,
+        CustomAccordionContainer(
+            headerName: title,
+            height: 0,
+            bgColor: bgColor,
+            isExpansion: false,
+            children: children));
+
+Widget CommonMainWidgetTwo2(Widget left, Widget right, BuildContext context) =>
+    context.screenWidth > 1150
+        ? Expanded(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [left, 8.widthBox, Expanded(child: right)],
+            ),
+          )
+        : Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(flex: 4, child: left),
+                8.heightBox,
+                Expanded(flex: 5, child: right)
+              ],
+            ),
+          );
+
+class CustomRoundedButton extends StatelessWidget {
+  const CustomRoundedButton({
+    super.key,
+    required this.iconColor,
+    required this.icon,
+    required this.bgColor,
+    required this.iconSize,
+    required this.onTap,
+  });
+
+  final Color iconColor;
+  final IconData icon;
+  final Color bgColor;
+  final double iconSize;
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    bool isTapped = false;
+
+    return InkWell(
+      onTap: () {
+        if (!isTapped) {
+          isTapped = true;
+          onTap();
+          Future.delayed(const Duration(seconds: 2), () {
+            isTapped = false;
+          });
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Icon(
+          icon,
+          color: iconColor,
+          size: iconSize,
+        ),
+      ),
+    );
+  }
+}
+
+class CustomCloseButtonRounded extends StatelessWidget {
+  const CustomCloseButtonRounded({
+    super.key,
+    this.iconColor = Colors.white,
+    this.icon = Icons.close,
+    this.bgColor = appColorGrayDark,
+    this.iconSize = 16,
+    required this.onTap,
+  });
+
+  final Color iconColor;
+  final IconData icon;
+  final Color bgColor;
+  final double iconSize;
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomRoundedButton(
+      iconColor: iconColor,
+      icon: icon,
+      bgColor: bgColor,
+      iconSize: iconSize,
+      onTap: onTap,
+    );
+  }
+}
+
+class CustomFilterButtonRounded extends StatelessWidget {
+  const CustomFilterButtonRounded({
+    super.key,
+    this.iconColor = appColorBlue,
+    this.icon = Icons.filter_alt,
+    this.bgColor = Colors.transparent,
+    this.iconSize = 18,
+    required this.onTap,
+  });
+
+  final Color iconColor;
+  final IconData icon;
+  final Color bgColor;
+  final double iconSize;
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomRoundedButton(
+      iconColor: iconColor,
+      icon: icon,
+      bgColor: bgColor,
+      iconSize: iconSize,
+      onTap: onTap,
+    );
+  }
+}
+
+class CustomUndoButtonRounded extends StatelessWidget {
+  const CustomUndoButtonRounded({
+    super.key,
+    this.iconColor = appColorBlue,
+    this.icon = Icons.undo,
+    this.bgColor = appColorGray200,
+    this.iconSize = 18,
+    required this.onTap,
+  });
+
+  final Color iconColor;
+  final IconData icon;
+  final Color bgColor;
+  final double iconSize;
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomRoundedButton(
+      iconColor: iconColor,
+      icon: icon,
+      bgColor: bgColor,
+      iconSize: iconSize,
+      onTap: onTap,
+    );
+  }
+}
+
+class CustomTableGenerator extends StatelessWidget {
+  const CustomTableGenerator({
+    super.key,
+    required this.colWidtList,
+    required this.childrenHeader,
+    required this.childrenTableRowList,
+  });
+  final List<int> colWidtList;
+  final List<Widget> childrenHeader;
+  final List<TableRow> childrenTableRowList;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CustomTableHeaderWeb(colWidtList: colWidtList, children: childrenHeader),
+        Expanded(
+            child: SingleChildScrollView(
+          child: Table(
+            border: CustomTableBorderNew,
+            columnWidths: customColumnWidthGenarator(colWidtList),
+            children: childrenTableRowList,
+          ),
+        ))
+      ],
+    );
+  }
+}

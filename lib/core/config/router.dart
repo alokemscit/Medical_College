@@ -27,8 +27,15 @@ import '../../moduls/finance/fin_dashboard/fin_datshboadr.dart';
 import '../../moduls/finance/fin_default_setup/fin_default_setup_page.dart';
 import '../../moduls/finance/gl_opening_page/gl_opening_balance.dart';
 import '../../moduls/finance/ledger_master_page/ledger_master_page.dart';
+import '../../moduls/laboratory/lab_biofire_panel/pages/lab_biofire_panel_page.dart';
+import '../../moduls/laboratory/lab_biofire_test_result_entry/pages/lab_biofire_test_result_entry.dart';
+import '../../moduls/laboratory/lab_pathogen_attr/pages/lab_pathogen_attr_page.dart';
+import '../../moduls/laboratory/lab_pathogen_group/pages/lab_patogen_group_page.dart';
+import '../../moduls/laboratory/lab_patient_history/pages/lab_patient_history_page.dart';
+import '../../moduls/laboratory/lab_resistance_group/pages/lab_resistance_group_page.dart';
 import '../../moduls/mc_fee_management/mc_account_enrollment/pages/mc_account_enroll_page.dart';
 import '../../moduls/mc_fee_management/mc_default_setup/pages/mc_default_setup.dart';
+import '../../moduls/mc_fee_management/mc_fee_collection/pages/mc_fee_collection.dart';
 import '../../moduls/mc_fee_management/mc_head_setup/pages/mc_fees_head_page.dart';
 import '../../moduls/pms_fnb/plan_approval/pages/plan_approval_page.dart';
 import '../../moduls/pms_fnb/pms_reports/pages/pms_report_page.dart';
@@ -125,7 +132,20 @@ Widget getPage(String id) {
       {
         return const PmsReportsPage();
       }
-//
+// Laboratory ###########################
+    case '1352':
+      return const PathogenGroup();
+    case '1353':
+      return const PathogenAttr();
+    case '1354':
+      return const BiofirePanel();
+    case '1356':
+      return const PatientLabHistory();
+    case '1355':
+      return const BiofireResultEntry();
+    case '1357':
+      return const ResistanceGroup();
+//##############################
 
 // App Dashboard ####################################
     case "1325":
@@ -150,6 +170,8 @@ Widget getPage(String id) {
       return const McFeesHeadMaster();
     case '1347':
       return const McAccountEnrollMent();
+    case '1343':
+      return const McFeeCollection();
     // #############################################################################################
     case "":
       return const SizedBox(

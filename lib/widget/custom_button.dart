@@ -27,7 +27,7 @@ Widget CustomButton(@required IconData icon, @required String caption,
               //isClick = true;
               context.read<_ClickBloc>().add(_clickEvent(isClick: true));
               onClick();
-              Future.delayed(const Duration(milliseconds:600), () {
+              Future.delayed(const Duration(milliseconds:300), () {
                context.read<_ClickBloc>().add(_clickEvent(isClick: false));
               });
               //Get.to(() => const MainPage());
@@ -58,7 +58,7 @@ Widget CustomButton(@required IconData icon, @required String caption,
                         .sm
                         .fontWeight(FontWeight.w400)
                         .make(),
-                    8.widthBox,
+                    6.widthBox,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -83,6 +83,107 @@ Widget CustomButton(@required IconData icon, @required String caption,
     ),
   );
 }
+
+
+class CustomButtonAnimated extends StatefulWidget {
+  final IconData icon;
+  final String caption;
+  final Function onClick;
+  final Color textColor;
+  final Color iconColor;
+  final Color buttonColor;
+
+  const CustomButtonAnimated({
+    super.key,
+    required this.icon,
+    required this.caption,
+    required this.onClick,
+    this.textColor = appColorGrayLight,
+    this.iconColor = appColorGrayLight,
+    this.buttonColor = appColorPrimary,
+  });
+
+  @override
+  _CustomButtonAnimatedState createState() => _CustomButtonAnimatedState();
+}
+
+class _CustomButtonAnimatedState extends State<CustomButtonAnimated> {
+  bool isClick = false;
+
+  void handleClick() {
+    setState(() {
+      isClick = true;
+    });
+
+    widget.onClick();
+
+    Future.delayed(const Duration(milliseconds: 300), () {
+      setState(() {
+        isClick = false;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        splashColor: widget.buttonColor.withBlue(100),
+        onTap: handleClick,
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 600),
+          opacity: isClick ? 0.3 : 1.0,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: widget.buttonColor,
+              boxShadow: [
+                BoxShadow(
+                  spreadRadius: 0,
+                  blurRadius: 3,
+                  color: Colors.black.withOpacity(0.25),
+                )
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  widget.caption,
+                  style: TextStyle(
+                    fontFamily: appFontMuli,
+                    color: widget.textColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Icon(
+                  widget.icon,
+                  size: 14,
+                  color: widget.iconColor,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
 abstract class _state {}
 

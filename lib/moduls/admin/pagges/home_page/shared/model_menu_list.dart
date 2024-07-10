@@ -40,6 +40,16 @@ Future<List<ModelModuleList>> get_module() async {
         desc: "This Module is help to manage Patients dietary",
         img: "diet"));
 
+list.add(ModelModuleList(
+        id: "1348",
+        name: "Laboratory Information System",
+        desc: "A Laboratory Information System (LIS) designed to manage and streamline the operations of a laboratory.",
+        img: "laboratory"));
+
+
+//Laboratory Information System 1348
+
+
     //if(user.eMPID)
     if (l_user.contains(user.eMPID)) {
       list.add(ModelModuleList(
@@ -48,6 +58,9 @@ Future<List<ModelModuleList>> get_module() async {
           desc: "This Module is help to manage Doctor profile for mobile App",
           img: "doctor"));
     }
+
+
+
   } 
   if(user.comID=='3') {
     //Fee Management System

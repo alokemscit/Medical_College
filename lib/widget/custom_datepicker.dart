@@ -373,7 +373,7 @@ class _CustomDatePickerDropDownState extends State<CustomDatePickerDropDown> {
         child: PopupMenuButton<int>(
           padding: EdgeInsets.zero,
           shadowColor: appGray100,
-       popUpAnimationStyle: AnimationStyle(curve:Curves.bounceOut,duration: const Duration(milliseconds: 800) ),
+       popUpAnimationStyle: AnimationStyle(curve:Curves.bounceOut,duration: const Duration(milliseconds: 300) ),
 
           tooltip: 'Select date',
           itemBuilder: (context) => [

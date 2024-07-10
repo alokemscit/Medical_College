@@ -40,6 +40,7 @@ const CPLineCChart1 = Color(0xFF02d39a);
 // ignore: constant_identifier_names
 const CPLineCChart = Color(0xFF23b6e6);
 
+const appColorMint=Color(0Xff003B4B);
 
 
 
