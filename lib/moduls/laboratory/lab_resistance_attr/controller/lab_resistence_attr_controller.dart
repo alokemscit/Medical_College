@@ -1,13 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:agmc/core/config/const.dart';
-import 'package:agmc/core/shared/user_data.dart';
-import 'package:agmc/model/model_common.dart';
 
+import '../../../../core/shared/user_data.dart';
+import '../../../../model/model_common.dart';
 import '../../../../model/model_status.dart';
 import '../../lab_pathogen_group/model/model_path_resistance.dart';
 
-class PathogenAttrController extends GetxController with MixInController {
+class RsistenceAttrController extends GetxController with MixInController{
   var list_attr_temp = <_tmpAttr>[].obs;
   final TextEditingController txt_attr_name = TextEditingController();
   final TextEditingController txt_serach = TextEditingController();
@@ -137,7 +135,6 @@ class PathogenAttrController extends GetxController with MixInController {
       return;
     }
 
-
     if (selectedEdit.value.id != null) {
       loader.show();
       try {
@@ -182,7 +179,7 @@ class PathogenAttrController extends GetxController with MixInController {
           .isNotEmpty) {
         dialog
           ..dialogType = DialogType.warning
-          ..message = '${txt_attr_name.text} Name already exists!'
+          ..message = '${txt_attr_name.text}  Name already exists!'
           ..show();
         return;
       }
@@ -237,7 +234,7 @@ class PathogenAttrController extends GetxController with MixInController {
           x.map((e) => ModelStatus.fromJson(e)).first.status != '3') {
         list_path_res1.addAll(x
             .map((e) => ModelPathResis.fromJson(e))
-            .where((f) => f.prId == '1'));
+            .where((f) => f.prId == '2'));
         //  print(x);
         // print(x.map((e) => ModelStatus.fromJson(e)).first.msg);
         return list_path_res1;

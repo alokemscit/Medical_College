@@ -148,8 +148,6 @@ Future<String> imageFileToBase64(String fileUrl) async {
   }
 }
 
-
-
 // Future<String> imageFileToBase64(String fileUrl) async {
 //   // Fetch the file content using an HTTP request
 //   if (!kIsWeb) {
@@ -176,7 +174,6 @@ Future<String> imageFileToBase64(String fileUrl) async {
 //   String base64String = base64Encode(jpegBytes);
 //   return base64String;
 
-     
 //     }
 
 //     String base64String = base64Encode(response.bodyBytes);
@@ -311,7 +308,8 @@ CustomTableRowWithWidget(
   );
 }
 
-CustomTableEditCell(Function() onTap, [IconData icon = Icons.edit,Color iconColor=kWebHeaderColor]) =>
+CustomTableEditCell(Function() onTap,
+        [IconData icon = Icons.edit, Color iconColor = kWebHeaderColor]) =>
     TableCell(
       verticalAlignment: TableCellVerticalAlignment.middle,
       child: Padding(
@@ -406,5 +404,19 @@ bool isValidDateRange(String fdate, String tdate) {
   // Duration difference = fromDate.difference(toDate);
 
   //print(difference);
+  return true;
+}
+
+bool checkJson(List<dynamic> x) {
+  if (x == []) {
+    return false;
+  }
+  var y = x.map((e) => ModelStatus.fromJson(e));
+  if (y.isEmpty) {
+    return false;
+  }
+  if (y.first.status == '3') {
+    return false;
+  }
   return true;
 }

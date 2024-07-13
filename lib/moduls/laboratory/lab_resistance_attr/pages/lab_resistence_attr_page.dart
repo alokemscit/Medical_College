@@ -1,17 +1,18 @@
-import '../../../../core/config/const.dart';
-import '../controller/lab_pathogen_attr_controller.dart';
 
-class PathogenAttr extends StatelessWidget {
-  const PathogenAttr({super.key});
+import '../../../../core/config/const.dart';
+import '../controller/lab_resistence_attr_controller.dart';
+
+class ResistenceAttr extends StatelessWidget {
+  const ResistenceAttr({super.key});
   void disposeController() {
     try {
-      Get.delete<PathogenAttrController>();
+      Get.delete<RsistenceAttrController>();
     } catch (e) {}
   }
 
   @override
   Widget build(BuildContext context) {
-    final PathogenAttrController controller = Get.put(PathogenAttrController());
+    final RsistenceAttrController controller = Get.put(RsistenceAttrController());
     controller.context = context;
     return Obx(() => CommonBody3(
         controller,
@@ -19,14 +20,14 @@ class PathogenAttr extends StatelessWidget {
           CommonMainWidgetTwo2(
               _entryPart(controller), _viewPart(controller), context)
         ],
-        'Pathogen Attributes'));
+        'Resistence Attributes'));
   }
 }
 
-Widget _entryPart(PathogenAttrController controller) => SizedBox(
+Widget _entryPart(RsistenceAttrController controller) => SizedBox(
       width: 600,
       child: CustomGroupBox(
-          groupHeaderText: 'Pathogen Group List for Config',
+          groupHeaderText: 'Resistence Group List for Config',
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: CustomGroupBox(
@@ -55,7 +56,7 @@ Widget _entryPart(PathogenAttrController controller) => SizedBox(
                           childrenHeader: [
                             oneColumnCellBody(
                                 'ID', 13, Alignment.center, FontWeight.w600),
-                            oneColumnCellBody('Pathogen Group Name', 13,
+                            oneColumnCellBody('Resistence Group Name', 13,
                                 Alignment.centerLeft, FontWeight.w600),
                             oneColumnCellBody(
                                 '*', 13, Alignment.center, FontWeight.w600),
@@ -86,14 +87,14 @@ Widget _entryPart(PathogenAttrController controller) => SizedBox(
 
 List<int> _col0 = [30, 150, 20];
 List<int> _col_attr = [100, 20];
-Widget _viewPart(PathogenAttrController controller) => controller
+Widget _viewPart(RsistenceAttrController controller) => controller
             .selectedPathogen.value.id ==
         null
     ? const SizedBox()
     : Stack(
         children: [
           CustomGroupBox(
-            groupHeaderText: 'Pathogen Attributes Entry',
+            groupHeaderText: 'Resistence Attributes Entry',
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -103,13 +104,13 @@ Widget _viewPart(PathogenAttrController controller) => controller
                       child: Column(
                         children: [
                           CustomGroupBox(
-                              groupHeaderText: 'Selected Pathogen Group',
+                              groupHeaderText: 'Selected Resistence Group',
                               child: Column(
                                 children: [
                                   Row(
                                     children: [
                                       const CustomTextHeader(
-                                          text: 'Pathogen Group     :   '),
+                                          text: 'Resistence Group     :   '),
                                       Flexible(
                                           child: CustomTextHeader(
                                         text: controller
@@ -123,7 +124,7 @@ Widget _viewPart(PathogenAttrController controller) => controller
                                   Row(
                                     children: [
                                       const CustomTextHeader(
-                                          text: 'Pathogen Attribute : '),
+                                          text: 'Resistence Attribute : '),
                                       8.widthBox,
                                       Flexible(
                                           child: CustomTextBox(
@@ -172,14 +173,14 @@ Widget _viewPart(PathogenAttrController controller) => controller
                                       height: 300,
                                       child: CustomGroupBox(
                                           groupHeaderText:
-                                              'Pathogen Attribute for save',
+                                              'Resistence Attribute for save',
                                           child: Column(
                                             children: [
                                               CustomTableHeaderWeb(
                                                   colWidtList: _col_attr,
                                                   children: [
                                                     oneColumnCellBody(
-                                                        'Pathogen Name',
+                                                        'Resistence Name',
                                                         13,
                                                         Alignment.centerLeft,
                                                         FontWeight.w600),
@@ -236,7 +237,7 @@ Widget _viewPart(PathogenAttrController controller) => controller
                                   ],
                                 ),
                           CustomGroupBox(
-                              groupHeaderText: 'Pathogen Attributes List',
+                              groupHeaderText: 'Resistence Attributes List',
                               child: Column(
                                 children: [
                                   Row(

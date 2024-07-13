@@ -24,6 +24,7 @@ class PathogenGroup extends StatelessWidget {
   }
 }
 
+
 Widget _entryPart(PathogenGroupController controller) => SizedBox(
       width: 600,
       child: CustomGroupBox(
@@ -125,7 +126,7 @@ Widget _entryPart(PathogenGroupController controller) => SizedBox(
                             childrenHeader: [
                               oneColumnCellBody('Pathogen Group Name', 13,
                                   Alignment.centerLeft, FontWeight.w600),
-                              oneColumnCellBody('Is BMC', 13, Alignment.center,
+                              oneColumnCellBody('Is BIN', 13, Alignment.center,
                                   FontWeight.w600),
                               oneColumnCellBody('Is note', 13, Alignment.center,
                                   FontWeight.w600),
@@ -215,7 +216,7 @@ Widget _viewPart(PathogenGroupController controller) => CustomGroupBox(
                 oneColumnCellBody('Pathogen Group Name', 13,
                     Alignment.centerLeft, FontWeight.w600),
                 oneColumnCellBody(
-                    'Is BMC', 13, Alignment.center, FontWeight.w600),
+                    'Is BIN', 13, Alignment.center, FontWeight.w600),
                 oneColumnCellBody(
                     'Is note', 13, Alignment.center, FontWeight.w600),
                 oneColumnCellBody('*', 13, Alignment.center, FontWeight.w600),

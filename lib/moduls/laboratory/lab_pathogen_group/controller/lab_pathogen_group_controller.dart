@@ -28,7 +28,7 @@ class PathogenGroupController extends GetxController with MixInController {
     selectedPR.value = ModelPathResis();
     txt_name.text = '';
     chk_isBMI.value = false;
-    chk_isnote.value =  false;
+    chk_isnote.value = false;
   }
 
   void delTemp(_tempPathGroup c) {
@@ -85,8 +85,9 @@ class PathogenGroupController extends GetxController with MixInController {
     }
   }
 
-  void add() {
+  void add() async {
     dialog = CustomAwesomeDialog(context: context);
+    loader = CustomBusyLoader(context: context);
     if (txt_name.text.trim().isEmpty) {
       dialog
         ..dialogType = DialogType.warning
@@ -103,13 +104,74 @@ class PathogenGroupController extends GetxController with MixInController {
         ..show();
       return;
     }
-    list_tmp_pathGroup.add(_tempPathGroup(
-        name: txt_name.text, isBMC: chk_isBMI.value, isNote: chk_isnote.value));
-    txt_name.text = '';
+
+    if (selectedPR.value.id != null) {
+      loader.show();
+      //p_id in int, p_name in varchar2, p_isbin in int, p_isnote in int, p_eid
+      try {
+        print({
+          "tag": "21",
+          "p_id": selectedPR.value.id,
+          "p_name": txt_name.text,
+          "p_isbin": chk_isBMI.value ? "1" : "0",
+          "p_isnote": chk_isnote.value ? "1" : "0",
+          "p_eid": user.value.eMPID
+        });
+        var x = await api.createLead([
+          {
+            "tag": "21",
+            "p_id": selectedPR.value.id,
+            "p_name": txt_name.text,
+            "p_isbin": chk_isBMI.value ? "1" : "0",
+            "p_isnote": chk_isnote.value ? "1" : "0",
+            "p_eid": user.value.eMPID
+          }
+        ], 'getdata_drs');
+        loader.close();
+        ModelStatus st = await getStatusWithDialog(x, dialog);
+        if (st.status == '1') {
+          dialog
+            ..dialogType = DialogType.success
+            ..message = st.msg!
+            ..show()
+            ..onTap = () {
+              list_path_res.removeWhere((f) => f.id == selectedPR.value.id);
+              list_path_res.insert(
+                  0,
+                  ModelPathResis(
+                      id: selectedPR.value.id,
+                      name: txt_name.text,
+                      prId: selectedPR.value.prId,
+                      bin: chk_isBMI.value ? '1' : '0',
+                      note: chk_isnote.value ? '1' : '0'));
+              list_path.clear();
+              list_path.addAll(list_path_res);
+              selectedPR.value = ModelPathResis();
+              chk_isBMI.value = false;
+              chk_isnote.value = false;
+              txt_name.text = '';
+            };
+        }
+      } catch (e) {
+        loader.close();
+        dialog
+          ..dialogType = DialogType.error
+          ..message = e.toString()
+          ..show();
+        return;
+      }
+    } else {
+      list_tmp_pathGroup.add(_tempPathGroup(
+          name: txt_name.text,
+          isBMC: chk_isBMI.value,
+          isNote: chk_isnote.value));
+      txt_name.text = '';
+    }
   }
 
   @override
   void onInit() async {
+    isLoading.value = true;
     api = data_api();
     user.value = await getUserInfo();
     if (user.value.eMPID == null) {
@@ -122,39 +184,17 @@ class PathogenGroupController extends GetxController with MixInController {
     try {
       var y = await loadData();
       // print(y);
-      isLoading.close();
+      isLoading.value = false;
       if (y != []) {
         list_path_res.addAll(y);
         list_path.addAll(y);
       }
     } catch (e) {
-      isLoading.close();
+     isLoading.value = false;
       isError.value = true;
       errorMessage.value = e.toString();
     }
 
-    // if (y != '') {
-    //   isError.value = true;
-    //   errorMessage.value = y.toString();
-    // }
-    // try {
-    //   var x = await api.createLead([
-    //     {"tag": "20"}
-    //   ], 'getdata_drs');
-    //   isLoading.value = false;
-    //   print(x);
-    //   if (x != [] ||
-    //       x.map((e) => ModelStatus.fromJson(e)).first.status != '3') {
-    //     list_path_res.addAll(x
-    //         .map((e) => ModelPathResis.fromJson(e))
-    //         .where((f) => f.prId == '1'));
-    //     list_path.addAll((list_path_res));
-    //   }
-    // } catch (e) {
-    //   isLoading.value = false;
-    //   isError.value = true;
-    //   errorMessage.value = e.toString();
-    // }
     super.onInit();
   }
 

@@ -5,7 +5,7 @@ class ResistanceGroup extends StatelessWidget {
   const ResistanceGroup({super.key});
   void disposeController() {
     try {
-      Get.delete<ResistanceGroupController>();
+     Get.delete<ResistanceGroupController>();
     } catch (e) {}
   }
 
@@ -23,6 +23,8 @@ class ResistanceGroup extends StatelessWidget {
         'Resistance Group Master'));
   }
 }
+
+
 
 Widget _entryPart(ResistanceGroupController controller) => SizedBox(
       width: 600,
@@ -63,9 +65,17 @@ Widget _entryPart(ResistanceGroupController controller) => SizedBox(
                             children: [
                               Row(
                                 children: [
-                                   
-                                  
-                                  
+                                  // Checkbox(
+                                  //     value: controller.chk_isBMI.value,
+                                  //     onChanged: (v) {
+                                  //       controller.chk_isBMI.value = v!;
+                                  //     }),
+                                  // 8.widthBox,
+                                  const CustomTextHeader(
+                                    text: 'Is BMIC Required',
+                                    textColor: appColorMint,
+                                  ),
+                                  16.widthBox,
                                   Checkbox(
                                       value: controller.chk_isnote.value,
                                       onChanged: (v) {
@@ -78,10 +88,29 @@ Widget _entryPart(ResistanceGroupController controller) => SizedBox(
                                   ),
                                 ],
                               ),
-                              CustomButton(Icons.add, "Add", () {
-                                controller.add();
-                              }, appColorGrayLight, appColorGrayLight,
-                                  appColorGrayDark)
+                              Row(
+                                children: [
+                                  CustomButton(
+                                      controller.selectedPR.value.id == null
+                                          ? Icons.add
+                                          : Icons.update,
+                                      controller.selectedPR.value.id != null
+                                          ? "update"
+                                          : "Add", () {
+                                    controller.add();
+                                  }, appColorGrayLight, appColorGrayLight,
+                                      appColorGrayDark),
+                                  controller.selectedPR.value.id == null
+                                      ? const SizedBox()
+                                      : Row(
+                                          children: [
+                                          8.widthBox,  CustomUndoButtonRounded(onTap: () {
+                                              controller.undo();
+                                            })
+                                          ],
+                                        ),
+                                ],
+                              ),
                             ],
                           )
                         ],
@@ -98,7 +127,8 @@ Widget _entryPart(ResistanceGroupController controller) => SizedBox(
                             childrenHeader: [
                               oneColumnCellBody('Resistance Group Name', 13,
                                   Alignment.centerLeft, FontWeight.w600),
-                              
+                              // oneColumnCellBody('Is BIN', 13, Alignment.center,
+                              //     FontWeight.w600),
                               oneColumnCellBody('Is note', 13, Alignment.center,
                                   FontWeight.w600),
                               oneColumnCellBody(
@@ -110,7 +140,10 @@ Widget _entryPart(ResistanceGroupController controller) => SizedBox(
                                             color: Colors.white),
                                         children: [
                                           oneColumnCellBody(f.name!),
-                                          
+                                          // oneColumnCellBody(
+                                          //     f.isBMC == true ? 'Yes' : 'No',
+                                          //     12,
+                                          //     Alignment.center),
                                           oneColumnCellBody(
                                               f.isNote == true ? 'Yes' : 'No',
                                               12,
@@ -156,7 +189,7 @@ Widget _entryPart(ResistanceGroupController controller) => SizedBox(
     );
 
 List<int> _col = [150, 40,  20];
-List<int> _col2 = [30, 150,  40, 20];
+List<int> _col2 = [30, 150, 40,  20];
 
 Widget _viewPart(ResistanceGroupController controller) => CustomGroupBox(
     groupHeaderText: 'View Resistance Group',
@@ -176,23 +209,39 @@ Widget _viewPart(ResistanceGroupController controller) => CustomGroupBox(
             ],
           ),
           8.heightBox,
-          CustomTableHeaderWeb(colWidtList: _col2, children: [
-            oneColumnCellBody('ID', 13, Alignment.center, FontWeight.w600),
-            oneColumnCellBody(
-                'Resistance Group Name', 13, Alignment.centerLeft, FontWeight.w600),
-            
-            oneColumnCellBody('Is note', 13, Alignment.center, FontWeight.w600),
-            oneColumnCellBody('*', 13, Alignment.center, FontWeight.w600),
-          ]),
           Expanded(
-            child: SingleChildScrollView(
-              child: Table(
-                columnWidths: customColumnWidthGenarator(_col2),
-                border: CustomTableBorderNew,
-                children: [],
-              ),
+            child: CustomTableGenerator(
+              colWidtList: _col2,
+              childrenHeader: [
+                oneColumnCellBody('ID', 13, Alignment.center, FontWeight.w600),
+                oneColumnCellBody('Resistance Group Name', 13,
+                    Alignment.centerLeft, FontWeight.w600),
+                // oneColumnCellBody(
+                //     'Is BIN', 13, Alignment.center, FontWeight.w600),
+                oneColumnCellBody(
+                    'Is note', 13, Alignment.center, FontWeight.w600),
+                oneColumnCellBody('*', 13, Alignment.center, FontWeight.w600),
+              ],
+              childrenTableRowList: controller.list_path
+                  .map((f) => TableRow(
+                          decoration: BoxDecoration(
+                              color: controller.selectedPR.value.id == f.id
+                                  ? appColorPista.withOpacity(0.3)
+                                  : Colors.white),
+                          children: [
+                            oneColumnCellBody(f.id!, 12, Alignment.center),
+                            oneColumnCellBody(f.name!),
+                            // oneColumnCellBody((f.bin == '1') ? 'Yes' : 'No', 12,
+                            //     Alignment.center),
+                            oneColumnCellBody((f.note == '1') ? 'Yes' : 'No',
+                                12, Alignment.center),
+                            CustomTableEditCell(() {
+                              controller.edit(f);
+                            })
+                          ]))
+                  .toList(),
             ),
-          )
+          ),
         ],
       ),
     ));

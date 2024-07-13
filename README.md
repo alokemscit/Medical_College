@@ -18,3 +18,6 @@ samples, guidance on mobile development, and a full API reference.
 
 // for publish 
  flutter build web --web-renderer canvaskit --base-href=/hnc/
+
+
+ // charecter  大  人

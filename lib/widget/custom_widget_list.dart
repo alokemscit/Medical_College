@@ -425,7 +425,7 @@ Widget CommonBody3(dynamic controller, List<Widget> children,
             isExpansion: false,
             children: children));
 
-Widget CommonMainWidgetTwo2(Widget left, Widget right, BuildContext context) =>
+Widget CommonMainWidgetTwo2(Widget left, Widget right, BuildContext context,[int colFlex1=4,int colFlex2=5]) =>
     context.screenWidth > 1150
         ? Expanded(
             child: Row(
@@ -437,9 +437,9 @@ Widget CommonMainWidgetTwo2(Widget left, Widget right, BuildContext context) =>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(flex: 4, child: left),
-                8.heightBox,
-                Expanded(flex: 5, child: right)
+               colFlex1==0?const SizedBox(): Expanded(flex: colFlex1, child: left),
+               colFlex1==0?const SizedBox(): 8.heightBox,
+                colFlex2==0?const SizedBox():  Expanded(flex: colFlex2, child: right)
               ],
             ),
           );

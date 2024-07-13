@@ -32,6 +32,7 @@ import '../../moduls/laboratory/lab_biofire_test_result_entry/pages/lab_biofire_
 import '../../moduls/laboratory/lab_pathogen_attr/pages/lab_pathogen_attr_page.dart';
 import '../../moduls/laboratory/lab_pathogen_group/pages/lab_patogen_group_page.dart';
 import '../../moduls/laboratory/lab_patient_history/pages/lab_patient_history_page.dart';
+import '../../moduls/laboratory/lab_resistance_attr/pages/lab_resistence_attr_page.dart';
 import '../../moduls/laboratory/lab_resistance_group/pages/lab_resistance_group_page.dart';
 import '../../moduls/mc_fee_management/mc_account_enrollment/pages/mc_account_enroll_page.dart';
 import '../../moduls/mc_fee_management/mc_default_setup/pages/mc_default_setup.dart';
@@ -145,6 +146,7 @@ Widget getPage(String id) {
       return const BiofireResultEntry();
     case '1357':
       return const ResistanceGroup();
+      case '1358' : return const ResistenceAttr();
 //##############################
 
 // App Dashboard ####################################
