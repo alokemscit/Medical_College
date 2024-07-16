@@ -106,8 +106,7 @@ Widget _leftTestListPart(BiofirePanelController controller) => !controller
                                                   Alignment.centerLeft,
                                                   FontWeight.bold),
                                               CustomTableEditCell(() {
-                                                controller
-                                                    .selectdTestMain.value = f;
+                                                controller.load_config_data(f);
                                               }, Icons.settings, appColorBlue)
                                             ]))
                                     .toList()),
@@ -500,23 +499,26 @@ Widget _entryPartConfig(BiofirePanelController controller) => SizedBox(
                                                 ],
                                               ),
                                             ))
-                                        
                                   ]),
                             )
                             .toList(),
                       ),
                     ),
                   ),
+                  24.heightBox,
                 ],
               )),
           controller.list_temp_group_added.isEmpty
               ? const SizedBox()
               : Positioned(
-                  right: 8,
-                  bottom: 8,
+                  right: 12,
+                  bottom: 4,
+                 // left: 0,
                   child: CustomButton(Icons.save, 'Save', () {
                     controller.save();
-                  }))
+                  },appColorGrayLight,
+                      appColorGrayLight,
+                    appColorPrimary))
         ],
       ),
     );

@@ -311,7 +311,7 @@ class CustomGroupBox extends StatelessWidget {
       this.borderWidth = 0.8,
       this.bgColor = kWebBackgroundColor,
       this.borderRadius = 6,
-      this.ShadowColor = appColorGray200});
+      this.ShadowColor = appColorGray200,this.padingvertical=8});
   final String groupHeaderText;
   final Color textColor;
   final Color ShadowColor;
@@ -319,6 +319,7 @@ class CustomGroupBox extends StatelessWidget {
   final double borderWidth;
   final Color bgColor;
   final double borderRadius;
+  final double padingvertical;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -347,7 +348,7 @@ class CustomGroupBox extends StatelessWidget {
                         BorderRadiusDirectional.circular(borderRadius),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    padding:  EdgeInsets.symmetric(vertical: padingvertical),
                     child: child,
                   ),
                 ),
@@ -425,7 +426,8 @@ Widget CommonBody3(dynamic controller, List<Widget> children,
             isExpansion: false,
             children: children));
 
-Widget CommonMainWidgetTwo2(Widget left, Widget right, BuildContext context,[int colFlex1=4,int colFlex2=5]) =>
+Widget CommonMainWidgetTwo2(Widget left, Widget right, BuildContext context,
+        [int colFlex1 = 4, int colFlex2 = 5]) =>
     context.screenWidth > 1150
         ? Expanded(
             child: Row(
@@ -437,9 +439,13 @@ Widget CommonMainWidgetTwo2(Widget left, Widget right, BuildContext context,[int
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               colFlex1==0?const SizedBox(): Expanded(flex: colFlex1, child: left),
-               colFlex1==0?const SizedBox(): 8.heightBox,
-                colFlex2==0?const SizedBox():  Expanded(flex: colFlex2, child: right)
+                colFlex1 == 0
+                    ? const SizedBox()
+                    : Expanded(flex: colFlex1, child: left),
+                colFlex1 == 0 ? const SizedBox() : 8.heightBox,
+                colFlex2 == 0
+                    ? const SizedBox()
+                    : Expanded(flex: colFlex2, child: right)
               ],
             ),
           );
@@ -588,7 +594,8 @@ class CustomTableGenerator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomTableHeaderWeb(colWidtList: colWidtList, children: childrenHeader),
+        CustomTableHeaderWeb(
+            colWidtList: colWidtList, children: childrenHeader),
         Expanded(
             child: SingleChildScrollView(
           child: Table(
@@ -601,3 +608,39 @@ class CustomTableGenerator extends StatelessWidget {
     );
   }
 }
+
+Widget CustomRadioButton(@required int val, @required dynamic controller,
+        @required String caption,
+        [Function()? fun]) =>
+    Row(
+      children: [
+        SizedBox(
+          width: 12,
+          height: 12,
+          child: Radio(
+            value: val,
+            groupValue: controller.selectedRadioValue.value,
+            onChanged: (value) {
+              controller.selectedRadioValue.value = value as int;
+              if (fun != null) {
+                fun();
+              }
+            },
+            visualDensity:
+                const VisualDensity(horizontal: -4.0, vertical: -4.0),
+          ),
+        ),
+        6.widthBox,
+        Text(
+          caption,
+          style: customTextStyle.copyWith(
+              fontSize: 12,
+              fontWeight: controller.selectedRadioValue.value == val
+                  ? FontWeight.bold
+                  : FontWeight.w500,
+              color: controller.selectedRadioValue.value == val
+                  ? appColorMint
+                  : Colors.black),
+        ),
+      ],
+    );

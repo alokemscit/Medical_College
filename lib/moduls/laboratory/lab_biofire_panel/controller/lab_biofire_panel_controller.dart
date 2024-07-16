@@ -1,9 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/model/model_common.dart';
+import 'package:agmc/model/model_status.dart';
 import 'package:agmc/widget/custom_snakbar.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../lab_pathogen_group/model/model_path_resistance.dart';
+import '../model/lab_model_test_config.dart';
 
 class BiofirePanelController extends GetxController with MixInController {
   var isShowPopup = false.obs;
@@ -25,6 +28,43 @@ class BiofirePanelController extends GetxController with MixInController {
 
   var list_attr_for_added = <_attrMaster>[].obs;
 
+  var list_test_config_data = <ModelTestConfig>[].obs;
+
+  void load_config_data(ModelCommon f) async {
+    loader = CustomBusyLoader(context: context);
+    loader.show();
+    dialog = CustomAwesomeDialog(context: context);
+    list_attr_mastr_temp.clear();
+    list_temp_group_added.clear();
+    list_attr_for_added.clear();
+    list_test_config_data.clear();
+    try {
+      var x = await api.createLead([
+        {"tag": "27", "p_testid": f.id}
+      ], "getdata_drs");
+      loader.close();
+      if (checkJson(x)) {
+        list_test_config_data.addAll(x.map((e) => ModelTestConfig.fromJson(e)));
+        List<_group> y = <_group>[];
+        List<_attrMaster> atr = <_attrMaster>[];
+        list_test_config_data.forEach((f) {
+          y.add(_group(id: f.grpId, name: f.grpName));
+          atr.add(_attrMaster(gid: f.grpId, id: f.atrId, name: f.atrName));
+        });
+        list_temp_group_added.addAll(y.toSet().toList());
+        list_attr_for_added.addAll(atr.toSet().toList());
+      }
+    } catch (e) {
+      loader.close();
+      dialog
+        ..dialogType = DialogType.error
+        ..message = e.toString()
+        ..show();
+    }
+
+    selectdTestMain.value = f;
+  }
+
   void save() async {
     dialog = CustomAwesomeDialog(context: context);
     loader = CustomBusyLoader(context: context);
@@ -42,8 +82,19 @@ class BiofirePanelController extends GetxController with MixInController {
           s += '${a.id!},$i,${b.id!},$j;';
         });
       });
-      print(s);
+      // print(s);
+//p_testid in varchar2,p_str
       loader.close();
+      var x = await api.createLead([
+        {"tag": "26", "p_testid": selectdTestMain.value.id, "p_str": s}
+      ], 'getdata_drs');
+      ModelStatus st = await getStatusWithDialog(x, dialog);
+      if (st.status == '1') {
+        dialog
+          ..dialogType = DialogType.success
+          ..message = st.msg!
+          ..show();
+      }
     } catch (e) {
       loader.close();
       dialog
@@ -180,13 +231,16 @@ class BiofirePanelController extends GetxController with MixInController {
   }
 }
 
-class _group {
+class _group extends Equatable {
   String? id;
   String? name;
   _group({
     this.id,
     this.name,
   });
+
+  @override
+  List<Object?> get props => [id, name];
 }
 
 class _attributes {
@@ -200,7 +254,7 @@ class _attributes {
   });
 }
 
-class _attrMaster {
+class _attrMaster extends Equatable {
   String? id;
   String? name;
   String? gid;
@@ -212,6 +266,9 @@ class _attrMaster {
     name = json['name'];
     gid = json['gid'];
   }
+
+  @override
+  List<Object?> get props => [id, name, gid];
 
   // Map<String, dynamic> toJson() {
   //   final Map<String, dynamic> data = new Map<String, dynamic>();
