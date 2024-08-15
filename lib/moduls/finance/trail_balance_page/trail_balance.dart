@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names, unused_element
 
-import 'package:agmc/core/config/const_widget.dart';
+ 
 
 import 'package:agmc/widget/custom_datepicker.dart';
 
@@ -266,19 +266,24 @@ Widget _panelHeader(TarailBalanceController controller) => Padding(
           children: [
             Row(
               children: [
-                CustomDatePicker(
-                    label: "From Date",
-                    isShowCurrentDate: true,
-                    isBackDate: true,
-                    width: 120,
-                    date_controller: controller.txt_fromDate),
+                // CustomDatePicker(
+                //     label: "From Date",
+                //     isShowCurrentDate: true,
+                //     isBackDate: true,
+                //     width: 120,
+                //     date_controller: controller.txt_fromDate),
+
+CustomDatePickerDropDown(date_controller: controller.txt_fromDate,label: "From Date",isShowCurrentDate: true,isBackDate: true,),
+
+
                 12.widthBox,
-                CustomDatePicker(
-                    label: "From Date",
-                    width: 120,
-                    isShowCurrentDate: true,
-                    isBackDate: true,
-                    date_controller: controller.txt_toDate),
+                CustomDatePickerDropDown(date_controller: controller.txt_toDate,label: "To Date",isShowCurrentDate: true,isBackDate: true,),
+                // CustomDatePicker(
+                //     label: "From Date",
+                //     width: 120,
+                //     isShowCurrentDate: true,
+                //     isBackDate: true,
+                //     date_controller: controller.txt_toDate),
                 8.widthBox,
                 CustomButton(Icons.search, "Show", () {
                   controller.showData();

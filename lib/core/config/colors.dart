@@ -40,6 +40,7 @@ const CPLineCChart1 = Color(0xFF02d39a);
 // ignore: constant_identifier_names
 const CPLineCChart = Color(0xFF23b6e6);
 
+const appColorMint=Color(0Xff003B4B);
 
 
 
@@ -50,3 +51,5 @@ const appColorGray200 = Color(0xFFEEEEEE);
 const appColorGrayLight = Color(0xFFFAFAFA);
 const appColorGrayDark = Color(0xFF757575);
 const appColorIndigoA100 = Color(0xFF8C9EFF);
+Color appGray100 = Colors.grey[100]!;
+ Color appGray50 = Colors.grey[50]!;

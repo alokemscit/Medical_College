@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
+import 'package:printing/printing.dart';
 
 import '../../core/config/function.dart';
 import 'api/pdf_api.dart';
@@ -113,6 +114,9 @@ class PdfInvoiceApi {
         ));
     return pdf;
   }
+
+
+  
 
   static Future<File> generatePdf(body, footer) async {
     final pdf = Document();

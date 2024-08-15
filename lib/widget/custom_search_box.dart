@@ -57,7 +57,7 @@ class CustomSearchBox extends StatelessWidget {
       this.isReadonly = false,
       this.isDisable = false,
       this.hintTextColor = Colors.black,
-      this.labelTextColor = Colors.black,
+      this.labelTextColor = Colors.black87,
       this.focusedBorderColor = Colors.black,
       this.focusedBorderWidth = 0.3,
       this.enabledBorderColor = Colors.grey,
@@ -81,9 +81,10 @@ class CustomSearchBox extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadious),
           color:   Colors.white,
-          boxShadow: [
-            BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
-          ]),
+          // boxShadow: [
+          //   BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
+          // ]
+          ),
       //  padding: const EdgeInsets.only(top: 4),
       // color: Colors.amber,
     

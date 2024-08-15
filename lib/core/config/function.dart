@@ -2,15 +2,14 @@
 
 import 'dart:convert';
 import 'dart:io';
- 
+
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/entity/entity_age.dart';
-import 'package:agmc/widget/custom_bysy_loader.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
- 
+import 'package:flutter/services.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -19,7 +18,8 @@ import 'package:share/share.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../model/model_status.dart';
-import '../../widget/custom_awesome_dialog.dart';
+import 'package:image/image.dart' as img;
+import 'package:path/path.dart' as path;
 
 Future<Age> AgeCalculator(DateTime birthDate) async {
   final now = DateTime.now();
@@ -108,6 +108,7 @@ Future<File> getImage() async {
   final picker = ImagePicker();
   final pickedImage = await picker.pickImage(source: ImageSource.gallery);
   if (pickedImage != null) {
+    // print(pickedImage.mimeType);
     return File(pickedImage.path);
   } else {
     return File(''); // or return File(); for an empty file
@@ -115,22 +116,99 @@ Future<File> getImage() async {
 }
 
 Future<String> imageFileToBase64(String fileUrl) async {
-  // Fetch the file content using an HTTP request
   if (!kIsWeb) {
+    // Read file content directly
     File inputFile = File(fileUrl);
     List<int> fileBytes = inputFile.readAsBytesSync();
-    String base64String = base64Encode(fileBytes);
-    return base64String;
+    return base64Encode(fileBytes);
   }
+
   var response = await http.get(Uri.parse(fileUrl));
 
   if (response.statusCode == 200) {
-    // Convert the file content to Base64
-    String base64String = base64Encode(response.bodyBytes);
-    return base64String;
+    // Decode image based on content type
+    String? contentType = response.headers['content-type'];
+
+    if (contentType == 'image/webp') {
+      // Decode WebP image
+      img.Image? webpImage = img.decodeWebP(response.bodyBytes);
+      if (webpImage == null) {
+        throw Exception('Failed to decode WebP image');
+      }
+
+      // Encode the image to PNG to preserve transparency
+      List<int> pngBytes = img.encodePng(webpImage);
+      return base64Encode(pngBytes);
+    }
+
+    // For other image types, simply encode the bytes
+    return base64Encode(response.bodyBytes);
   } else {
     throw Exception('Failed to load file');
   }
+}
+
+// Future<String> imageFileToBase64(String fileUrl) async {
+//   // Fetch the file content using an HTTP request
+//   if (!kIsWeb) {
+//     File inputFile = File(fileUrl);
+//     List<int> fileBytes = inputFile.readAsBytesSync();
+//     String base64String = base64Encode(fileBytes);
+//     return base64String;
+//   }
+//   var response = await http.get(Uri.parse(fileUrl));
+
+//   if (response.statusCode == 200) {
+//     // Convert the file content to Base64
+//     String? contentType = response.headers['content-type'];
+
+//    // print(contentType);
+//     if(contentType=='image/webp'){
+//     img.Image? webpImage = img.decodeWebP(response.bodyBytes);
+//   if (webpImage == null) {
+//     throw Exception('Failed to decode WebP image');
+//   }
+
+//   // Encode the image to JPEG to ensure compatibility
+//   List<int> jpegBytes = img.encodeJpg(webpImage);
+//   String base64String = base64Encode(jpegBytes);
+//   return base64String;
+
+//     }
+
+//     String base64String = base64Encode(response.bodyBytes);
+//     return base64String;
+//   } else {
+//     throw Exception('Failed to load file');
+//   }
+// }
+
+Future<String> webpToBase64(String fileUrl) async {
+  Uint8List fileBytes;
+
+  if (!kIsWeb) {
+    File inputFile = File(fileUrl);
+    fileBytes = await inputFile.readAsBytes();
+  } else {
+    var response = await http.get(Uri.parse(fileUrl));
+    if (response.statusCode == 200) {
+      fileBytes = response.bodyBytes;
+    } else {
+      throw Exception('Failed to load file');
+    }
+  }
+
+  // Decode WebP image
+  img.Image? webpImage = img.decodeWebP(fileBytes);
+  if (webpImage == null) {
+    throw Exception('Failed to decode WebP image');
+  }
+
+  // Encode the image to JPEG to ensure compatibility
+  List<int> jpegBytes = img.encodeJpg(webpImage);
+  String base64String = base64Encode(jpegBytes);
+
+  return base64String;
 }
 
 class CustomScrollBehavior extends MaterialScrollBehavior {
@@ -230,19 +308,22 @@ CustomTableRowWithWidget(
   );
 }
 
-CustomTableEditCell(Function() onTap) => TableCell(
+CustomTableEditCell(Function() onTap,
+        [IconData icon = Icons.edit, Color iconColor = kWebHeaderColor,double iconSize=12]) =>
+    TableCell(
       verticalAlignment: TableCellVerticalAlignment.middle,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         child: Center(
             child: InkWell(
           onTap: () {
+            // print('object');
             onTap();
           },
-          child: const Icon(
-            Icons.edit,
-            color: kWebHeaderColor,
-            size: 12,
+          child: Icon(
+            icon,
+            color: iconColor,
+            size: iconSize,
           ),
         )),
       ),
@@ -271,6 +352,23 @@ CustomTableCell2(String? text,
               ),
       ),
     );
+
+Widget CustomTableCellTableBody(String text,
+    [double fontSize = 13,
+    FontWeight fontWeight = FontWeight.bold,
+    AlignmentGeometry? alignment = Alignment.centerLeft,
+    EdgeInsets? padding = const EdgeInsets.all(8)]) {
+  return Container(
+    // decoration: BoxDecoration(
+    //border: Border.all(color:Colors.black, width: 0.5)),
+    alignment: alignment,
+    padding: padding,
+    child: Text(
+      text,
+      style: TextStyle(fontWeight: fontWeight, fontSize: fontSize),
+    ),
+  );
+}
 
 String generateUniqueId() {
   var uuid = const Uuid();
@@ -309,4 +407,17 @@ bool isValidDateRange(String fdate, String tdate) {
   return true;
 }
 
+bool checkJson(List<dynamic> x) {
+  if (x == []) {
+    return false;
+  }
+  var y = x.map((e) => ModelStatus.fromJson(e));
+  if (y.isEmpty) {
+    return false;
+  }
+  if (y.first.status == '3') {
+    return false;
+  }
+  return true;
+}
 

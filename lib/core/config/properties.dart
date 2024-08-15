@@ -1,9 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:agmc/core/config/colors.dart';
-import 'package:agmc/core/config/const_string.dart';
-import 'package:flutter/material.dart';
-
+ 
+import 'package:agmc/core/config/const.dart'; 
 TextStyle customTextStyle = const TextStyle(
   color: Colors.black, fontFamily: appFontMuli,
   fontSize: 14,
@@ -23,14 +21,9 @@ BoxDecoration CustomBoxDecorationTopRounded = const BoxDecoration(
       )
     ]);
 
-    TextStyle customTextStyleDefault = const TextStyle(
+TextStyle customTextStyleDefault = const TextStyle(
     fontFamily: appFontMuli, fontSize: 9, fontWeight: FontWeight.w400);
 
-
-
-
-
-    
 ButtonStyle customButtonStyle = ButtonStyle(
     foregroundColor:
         MaterialStateProperty.all<Color>(Colors.white), // Set button text color
@@ -42,10 +35,11 @@ ButtonStyle customButtonStyle = ButtonStyle(
 
 BoxDecoration customBoxDecoration = BoxDecoration(
   // color: appColorBlue.withOpacity(0.05),
+  color: kWebBackgroundColor,
   borderRadius:
-      const BorderRadius.all(Radius.circular(12)), // Uncomment this line
+      const BorderRadius.all(Radius.circular(8)), // Uncomment this line
   border: Border.all(
-      color: appColorBlue,
+      color: appColorGrayDark,
       width: 0.108,
       strokeAlign: BorderSide.strokeAlignCenter),
   boxShadow: [
@@ -53,18 +47,17 @@ BoxDecoration customBoxDecoration = BoxDecoration(
       color: appColorBlue.withOpacity(0.0085),
       spreadRadius: 0.1,
       blurRadius: 5.2,
-      offset: const Offset(0, 1),
+      //offset: const Offset(0, 1),
     ),
     BoxShadow(
       color: appColorBlue.withOpacity(0.0085),
       spreadRadius: 0.2,
       blurRadius: 3.2,
-      offset: const Offset(1, 0),
+      //offset: const Offset(1, 0),
     ),
   ],
 );
 
- 
 // Widget headerCloseButton() => const Column(
 //       mainAxisAlignment: MainAxisAlignment.start,
 //       crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,12 +68,11 @@ BoxDecoration customBoxDecoration = BoxDecoration(
 //         CustomAppBarCloseButton(),
 //       ],
 //     );
- 
+
 TableBorder CustomTableBorder() =>
     TableBorder.all(width: 0.5, color: const Color.fromARGB(255, 89, 92, 92));
 
- 
-TableBorder  CustomTableBorderNew =
+TableBorder CustomTableBorderNew =
     TableBorder.all(width: 0.5, color: appColorGrayDark);
 
 CustomTableCell(String text,
@@ -94,7 +86,6 @@ CustomTableCell(String text,
       ),
     );
 
- 
 Decoration CustomTableHeaderRowDecoration() => BoxDecoration(
         color: kBgDarkColor,
         borderRadius: const BorderRadius.all(
@@ -108,29 +99,32 @@ Decoration CustomTableHeaderRowDecoration() => BoxDecoration(
         ]);
 
 BoxDecoration CustomTableHeaderRowDecorationnew = BoxDecoration(
-        color: kBgLightColor,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(4),
-        ),
-        boxShadow: [
-          BoxShadow(
-              color: appColorGrayDark.withOpacity(0.8),
-              spreadRadius: .2,
-              blurRadius: .1)
-        ]);
-
+    color: kBgLightColor,
+    borderRadius: const BorderRadius.all(
+      Radius.circular(4),
+    ),
+    boxShadow: [
+      BoxShadow(
+          color: appColorGrayDark.withOpacity(0.8),
+          spreadRadius: .2,
+          blurRadius: .1)
+    ]);
 
 CustomCaptionDecoration(
-  [double borderWidth=0.3,Color borderColor= Colors.black]
-) {
-return  BoxDecorationTopRounded.copyWith(
-   borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+    [double borderWidth = 0.3, Color borderColor = Colors.black]) {
+  return BoxDecorationTopRounded.copyWith(
+      borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8), topRight: Radius.circular(8)),
       color: backgroundColor,
-      border: Border(left: BorderSide(color: borderColor.withOpacity(0.3), width: borderWidth),
-      right:  BorderSide(color: borderColor.withOpacity(0.3), width: borderWidth),
-      bottom: BorderSide(color: borderColor.withOpacity(0.3), width: borderWidth)
-      ) //   .all(color: borderColor.withOpacity(0.3), width: borderWidth)
+      border: Border(
+          left: BorderSide(
+              color: borderColor.withOpacity(0.3), width: borderWidth),
+          right: BorderSide(
+              color: borderColor.withOpacity(0.3), width: borderWidth),
+          bottom: BorderSide(
+              color: borderColor.withOpacity(0.3),
+              width:
+                  borderWidth)) //   .all(color: borderColor.withOpacity(0.3), width: borderWidth)
       );
 }
 
@@ -147,15 +141,45 @@ BoxDecoration BoxDecorationTopRounded = const BoxDecoration(
       )
     ]);
 
-
-
-
-    Widget oneColumnCellBody(String leftString,
-        [double fontSize = 12, Alignment alignment = Alignment.centerLeft,FontWeight? fontWeight= FontWeight.w400,EdgeInsets? padding=const EdgeInsets.all(4)]) =>
+Widget oneColumnCellBody(String leftString,
+        [double fontSize = 12,
+        Alignment alignment = Alignment.centerLeft,
+        FontWeight? fontWeight = FontWeight.w400,
+        EdgeInsets? padding = const EdgeInsets.all(4),Color bgColor=Colors.transparent,bool isSelectable=false,Color fontColor=Colors.black]) =>
+    TableCell(
+      verticalAlignment:TableCellVerticalAlignment.middle,
+      child: Row(
+       
+        children: [
+        Expanded(
+          child: Container(
+              decoration:  BoxDecoration(
+                  //borderRadius: BorderRadius.circular(0),
+                   color: bgColor,
+                  border: const Border(
+                      // top: BorderSide(color: borderColor, width: 0.2),
+                      right: BorderSide(color: appColorGrayDark, width: 0.5))),
+              padding: padding,
+              child: Align(
+                  alignment: alignment,
+                  child: isSelectable?SelectableText(leftString,
+                    style: customTextStyle.copyWith(
+                        fontSize: fontSize, fontWeight: fontWeight,color: fontColor)): Text(
+                    leftString,
+                    style: customTextStyle.copyWith(
+                        fontSize: fontSize, fontWeight: fontWeight,color: fontColor),
+                  ))),
+        ),
+      ]),
+    );
+    Widget CustomTableColumnCellBody(String leftString,
+        [double fontSize = 12,
+        Alignment alignment = Alignment.centerLeft,
+        FontWeight? fontWeight = FontWeight.w400,
+        EdgeInsets? padding = const EdgeInsets.all(4)]) =>
     Row(children: [
       Expanded(
         child: Container(
-             
             decoration: const BoxDecoration(
                 //borderRadius: BorderRadius.circular(0),
                 // color: Colors.white,
@@ -214,20 +238,18 @@ Widget twoColumnCellBody(String leftString, String rightString,
       ],
     );
 
+Widget tableBodyGenerator(List<int> _col, List<TableRow> children) => Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(0),
+          border: Border.all(color: appColorGrayDark, width: 0.5)),
+      child: Table(
+        // border: CustomTableBorderNew,
+        columnWidths: customColumnWidthGenarator(_col),
+        children: children,
+      ),
+    );
 
-
-    Widget tableBodyGenerator(List<int> _col, List<TableRow> children) => Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(0),
-            border: Border.all(color: appColorGrayDark, width: 0.5)),
-        child: Table(
-          // border: CustomTableBorderNew,
-          columnWidths: customColumnWidthGenarator(_col),
-          children: children,
-        ),
-      );
-
-      Map<int, TableColumnWidth> customColumnWidthGenarator(List<int> columnWidth) {
+Map<int, TableColumnWidth> customColumnWidthGenarator(List<int> columnWidth) {
   final Map<int, TableColumnWidth> columnWidthMap = {};
 
   for (int i = 0; i < columnWidth.length; i++) {
@@ -236,3 +258,28 @@ Widget twoColumnCellBody(String leftString, String rightString,
 
   return columnWidthMap;
 }
+
+Widget CustomTableClumnHeader(
+  String text,[ Alignment  alignment=Alignment.centerLeft, bool isBorderRight=true,
+  double fontSize=12,FontWeight 
+  fontWeight=FontWeight.w600,EdgeInsets padding= 
+const EdgeInsets.all(6)]) => 
+  Row(children: [
+      Expanded(
+        child: Container(
+            decoration:  BoxDecoration(
+              
+                
+                border:!isBorderRight?  const Border(): const Border(
+                    // top: BorderSide(color: borderColor, width: 0.2),
+                    right: BorderSide(color: appColorGrayDark, width: 0.5))),
+            padding: padding,
+            child: Align(
+                alignment: alignment,
+                child: Text(
+                  text,
+                  style: customTextStyle.copyWith(
+                      fontSize: fontSize, fontWeight: fontWeight),
+                ))),
+      ),
+    ]);

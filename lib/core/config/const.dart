@@ -8,5 +8,6 @@ export 'package:get/get.dart';
 export 'package:agmc/core/config/data_api.dart';
 export 'package:agmc/core/config/mixin_attr_for_controller.dart';
 export 'package:agmc/core/config/base_controller.dart';
+export '../../../../core/config/const_widget.dart';
 
 

@@ -29,7 +29,7 @@ class CustomSnackbar {
         backgroundColor: type.name == "error"
             ? Colors.red
             : type.name == "warning"
-                ? Colors.yellow
+                ? Colors.amber
                 :appColorBlue,
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.only(
@@ -40,7 +40,7 @@ class CustomSnackbar {
           child: Text(message,
               style: TextStyle(
                   color: type.name == "warning"
-                      ? const Color.fromARGB(255, 32, 2, 201)
+                      ? appColorMint
                       : Colors.white)),
         ),
         duration: const Duration(seconds: 2),
