@@ -6,16 +6,13 @@ import 'package:agmc/core/config/const.dart';
 
 import 'package:agmc/core/shared/user_data.dart';
 import 'package:agmc/model/model_status.dart';
+import 'package:intl/intl.dart';
 
 //import 'package:agmc/widget/pdf_widget/invoice.dart';
 
 //import 'package:htmltopdfwidgets/htmltopdfwidgets.dart';
 
-import 'package:pdf/widgets.dart' as pw;
-
 import 'package:quill_html_editor/quill_html_editor.dart';
-
-import 'package:flutter/services.dart' show Uint8List;
 
 import '../../../../widget/custom_snakbar.dart';
 import '../../share_widget/lab_share_mixin.dart';
@@ -33,7 +30,7 @@ class OutSourceResultEntryController extends GetxController
   var isShowLeftPanel = true.obs;
 
   var isShowPatientDetails = true.obs;
-
+ var isShowFilterButton = true.obs;
   var list_test_data_master = <ModelOutSourceTestData>[].obs;
   var list_test_data_temp = <ModelOutSourceTestData>[].obs;
   var isShowFilter = false.obs;
@@ -42,46 +39,45 @@ class OutSourceResultEntryController extends GetxController
   var list_mrr_master = <lab_mrr>[].obs;
   var list_mrr_master_temp = <lab_mrr>[].obs;
   var list_result = <ModelOutSourceResult>[].obs;
+  var print_date = ''.obs;
 
   void setMrr(ModelOutSourceTestData a) async {
     loader = CustomBusyLoader(context: context);
-    
+
     list_result.clear();
     Qcontroller.clear();
     selected_mrr.value = a;
     loader.show();
     try {
-      Future.delayed(const Duration(milliseconds: 100), () async{
- 
-      var x = await api.createLead([
-        {
-          "tag": "40",
-          "p_mr_id": a.mrId,
-          "p_sample_id": a.sampleId,
-          "p_test_id": a.testId
-        }
-      ], 'getdata_drs');
-      // print(x);
-     
-      if (checkJson(x)) {
-        list_result.addAll(x.map((e) => ModelOutSourceResult.fromJson(e)));
-        if (list_result.isNotEmpty) {
-          ModelOutSourceResult s = list_result.first;
-          var r = jsonDecode(s.delta!);
-          Future.delayed(const Duration(seconds: 1), () {
-            Qcontroller.setDelta(r);
-             loader.close();
-          });
-          // Qcontroller.
-          //print(s.delta);
-          // Qcontroller.setDelta(r);
-        }else{
-           loader.close();
-        }
-      }else{
-   loader.close();
-      }
+      Future.delayed(const Duration(milliseconds: 100), () async {
+        var x = await api.createLead([
+          {
+            "tag": "40",
+            "p_mr_id": a.mrId,
+            "p_sample_id": a.sampleId,
+            "p_test_id": a.testId
+          }
+        ], 'getdata_drs');
+        // print(x);
 
+        if (checkJson(x)) {
+          list_result.addAll(x.map((e) => ModelOutSourceResult.fromJson(e)));
+          if (list_result.isNotEmpty) {
+            ModelOutSourceResult s = list_result.first;
+            var r = jsonDecode(s.delta!);
+            Future.delayed(const Duration(seconds: 1), () {
+              Qcontroller.setDelta(r);
+              loader.close();
+            });
+            // Qcontroller.
+            //print(s.delta);
+            // Qcontroller.setDelta(r);
+          } else {
+            loader.close();
+          }
+        } else {
+          loader.close();
+        }
       });
     } catch (e) {
       loader.close();
@@ -137,11 +133,27 @@ class OutSourceResultEntryController extends GetxController
   }
 
   void priview() async {
-    var k1 = await lab_widget().getHtmlText(Qcontroller); //  _getHtmlText();
-    Uint8List imageData = base64Decode(footerBase64);
-    final image_footer = pw.MemoryImage(imageData);
+    loader = CustomBusyLoader(context: context);
+    loader.show();
+    try {
+      Future.delayed(const Duration(milliseconds: 100), () async {
+        var k1 =
+            await lab_widget().getHtmlText(Qcontroller); //  _getHtmlText();
+        //Uint8List imageData = base64Decode(footerBase64);
+        //  final image_footer = pw.MemoryImage(imageData);
+        // print_date.value=Date
 
-    showPDF(k1, image_footer, this);
+        String formattedDate =
+            DateFormat('dd/MM/yyyy hh:mm a').format(DateTime.now());
+        print_date.value = formattedDate;
+        //  print(formattedDate);
+        showPDF(k1, this, () {
+          loader.close();
+        });
+      });
+    } catch (e) {
+      loader.close();
+    }
   }
 
   void save() async {
@@ -153,7 +165,19 @@ class OutSourceResultEntryController extends GetxController
 
       var deltaJson = jsonEncode(l);
       var k1 = await lab_widget().getHtmlText(Qcontroller);
-
+//p_result_id in varchar2, p_mr_id in varchar2, p_sample_id in varchar2, p_test_id in varchar2,
+// p_delta in nclob,p_html in nclob,p_pdf in blob,p_emp_id in varchar2, p_is_final in int
+      // print({
+      //   "p_result_id": " ",
+      //   "p_mr_id": selected_mrr.value.mrId,
+      //   "p_sample_id": selected_mrr.value.sampleId,
+      //   "p_test_id": selected_mrr.value.testId,
+      //   "p_delta": deltaJson,
+      //   "p_html": k1,
+      //   "p_pdf": "",
+      //   "p_emp_id": user.value.eMPID,
+      //   "p_is_final": "0"
+      // });
       var x = await api.createLead([
         {
           "p_result_id": " ",
@@ -167,25 +191,39 @@ class OutSourceResultEntryController extends GetxController
           "p_is_final": "0"
         }
       ], 'outsource_result_save');
-      loader.close();
+
+      // print(x);
       if (checkJson(x)) {
         var s = x.map((e) => ModelStatus.fromJson(e)).first;
         if (s.status != '1') {
+          loader.close();
           CustomSnackbar(
               context: context, message: s.msg!, type: MsgType.error);
+          return;
         } else {
           CustomSnackbar(
               context: context, message: s.msg!, type: MsgType.success);
 
           Future.delayed(const Duration(seconds: 1), () {
-            Uint8List imageData = base64Decode(footerBase64);
-            final image_footer = pw.MemoryImage(imageData);
+            //  Uint8List imageData = base64Decode(footerBase64);
+            // final image_footer = pw.MemoryImage(imageData);
             //imageData = base64Decode(b64_header);
             //   final image_header = pw.MemoryImage(imageData);
-            showPDF(k1, image_footer, this);
+            String formattedDate =
+            DateFormat('dd/MM/yyyy hh:mm a').format(DateTime.now());
+            print_date.value = formattedDate;
+            showPDF(k1, this, () {
+              loader.close();
+            });
+
+            list_test_data_master.removeWhere((e) => e == selected_mrr.value);
+            list_test_data_temp.clear();
+            list_test_data_temp.addAll(list_test_data_master);
+            dataManipulate();
           });
         }
       } else {
+        loader.close();
         CustomSnackbar(
             context: context,
             message: 'Error to save data!',

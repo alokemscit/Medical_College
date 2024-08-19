@@ -115,9 +115,6 @@ class PdfInvoiceApi {
     return pdf;
   }
 
-
-  
-
   static Future<File> generatePdf(body, footer) async {
     final pdf = Document();
 
@@ -207,7 +204,7 @@ class PdfInvoiceApi {
   }
 
   static void openPdfBase64(String base64Data,
-      [String title = 'Report Viewer']) async {
+      [String title = 'Report Viewer', Function()? fun]) async {
     // final bytesData = await fetchPdfBytes(urls);
     //  String base64Data = base64Encode(bytesData);
     String dataUri = 'data:application/pdf;base64,$base64Data';
@@ -232,12 +229,15 @@ class PdfInvoiceApi {
       if (bb != null) {
         //print('object');
         bb.dispatchEvent(html.MouseEvent('click'));
+        if (fun != null) {
+          fun();
+        }
       }
     }
   }
 
   static void openPdFromFile(Document pdfFile,
-      [String title = 'Report Viewer']) async {
+      [String title = 'Report Viewer', Function()? fun]) async {
     // final bytesData = await fetchPdfBytes(urls);
     final bytes = await PdfInvoiceApi.convertPdfToBytes(pdfFile);
     String base64Data = base64Encode(bytes);
@@ -262,28 +262,43 @@ class PdfInvoiceApi {
       if (bb != null) {
         //print('object');
         bb.dispatchEvent(html.MouseEvent('click'));
+        if (fun != null) {
+          fun();
+        }
+      }else{
+        if (fun != null) {
+          fun();
+        }
       }
+    }else{
+      if (fun != null) {
+          fun();
+        }
     }
   }
 
-static Future<void> generatePDF(Widget header,List<Widget> body,Widget footer,[bool isLandScape=false]) async {
-  final pdf = Document();
- 
-    PdfPageFormat pageFormat =isLandScape? PdfPageFormat( 297 * PdfPageFormat.mm,210 * PdfPageFormat.mm):PdfPageFormat(210 * PdfPageFormat.mm, 297 * PdfPageFormat.mm);
-  pdf.addPage(
-    MultiPage(
-      orientation:isLandScape? PageOrientation.landscape:PageOrientation.portrait,
-      pageFormat: pageFormat,
-      header: (context) =>header,
-      build: (context) => body,
-      footer: (context) =>  footer
-    ),
-  );
-  final bytes = await pdf.save();
-  final base64 = base64Encode(bytes);
-   PdfInvoiceApi.openPdfBase64(base64);
-}
+  static Future<void> generatePDF(
+      Widget header, List<Widget> body, Widget footer,
+      [bool isLandScape = false]) async {
+    final pdf = Document();
 
+    PdfPageFormat pageFormat = isLandScape
+        ? PdfPageFormat(297 * PdfPageFormat.mm, 210 * PdfPageFormat.mm)
+        : PdfPageFormat(210 * PdfPageFormat.mm, 297 * PdfPageFormat.mm);
+    pdf.addPage(
+      MultiPage(
+          orientation: isLandScape
+              ? PageOrientation.landscape
+              : PageOrientation.portrait,
+          pageFormat: pageFormat,
+          header: (context) => header,
+          build: (context) => body,
+          footer: (context) => footer),
+    );
+    final bytes = await pdf.save();
+    final base64 = base64Encode(bytes);
+    PdfInvoiceApi.openPdfBase64(base64);
+  }
 }
 
 

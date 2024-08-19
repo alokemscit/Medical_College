@@ -78,6 +78,7 @@ final Color fillColor;
       width: width,
       height: height,
       child: DropdownButtonFormField(
+        padding: EdgeInsets.zero,
         focusNode: focusNode,
          style:TextStyle( fontFamily: "Muli",
           fontSize: 13, fontWeight: FontWeight.w500, color: fontColor),

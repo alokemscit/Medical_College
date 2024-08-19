@@ -307,7 +307,7 @@ class CustomGroupBox extends StatelessWidget {
       required this.groupHeaderText,
       required this.child,
       this.textColor = Colors.black,
-      this.borderWidth = 0.8,
+      this.borderWidth = 1,
       this.bgColor = kWebBackgroundColor,
       this.borderRadius = 6,
       this.ShadowColor = appColorGray200,
@@ -416,7 +416,7 @@ class CustomTextHeader extends StatelessWidget {
 }
 
 Widget CommonBody3(dynamic controller, List<Widget> children,
-        [String title = '', Color bgColor = kWebBackgroundColor]) =>
+        [String title = '', Color bgColor = kWebBackgroundColor, EdgeInsets  padding = const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 1)]) =>
     CommonBody2(
         controller,
         CustomAccordionContainer(
@@ -424,7 +424,9 @@ Widget CommonBody3(dynamic controller, List<Widget> children,
             height: 0,
             bgColor: bgColor,
             isExpansion: false,
-            children: children));
+            pading: padding,
+            children: children,
+           ), padding);
 
 Widget CommonMainWidgetTwo2(Widget left, Widget right, BuildContext context,
         [int colFlex1 = 4, int colFlex2 = 5]) =>

@@ -321,7 +321,7 @@ class CustomDatePickerDropDown extends StatefulWidget {
     this.borderColor = appColorGrayLight,
     this.isBackDate = false,
     this.isFilled = false,
-    this.fontColor = Colors.black87,
+    this.fontColor = Colors.black,
     this.textAlign = TextAlign.start,
     this.labelTextColor = Colors.black87,
     this.hintTextColor = Colors.black,
@@ -378,6 +378,7 @@ class _CustomDatePickerDropDownState extends State<CustomDatePickerDropDown> {
           tooltip: 'Select date',
           itemBuilder: (context) => [
             PopupMenuItem<int>(
+               
               onTap: () {},
               enabled: false,
               value: 1,

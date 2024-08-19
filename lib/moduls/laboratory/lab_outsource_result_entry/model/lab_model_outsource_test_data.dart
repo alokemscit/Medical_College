@@ -28,9 +28,16 @@ class ModelOutSourceTestData {
   String? verifyBy;
   String? verifyByName;
   String? verifyDate;
+  String? vDegree;
+  String? vDesig;
   String? finalizedBy;
   String? finalizedByName;
   String? finalizedDate;
+  String? fDegree;
+  String? fDesig;
+  String? resultID;
+  String? reportDept;
+  String? isCancel;
 
   ModelOutSourceTestData(
       {this.mrId,
@@ -62,9 +69,16 @@ class ModelOutSourceTestData {
       this.verifyBy,
       this.verifyByName,
       this.verifyDate,
+      this.vDegree,
+      this.vDesig,
       this.finalizedBy,
       this.finalizedByName,
-      this.finalizedDate});
+      this.finalizedDate,
+      this.fDegree,
+      this.fDesig,
+      this.resultID,
+      this.reportDept,
+      this.isCancel});
 
   ModelOutSourceTestData.fromJson(Map<String, dynamic> json) {
     mrId = json['mr_id'];
@@ -96,45 +110,56 @@ class ModelOutSourceTestData {
     verifyBy = json['verify_by'];
     verifyByName = json['verify_by_name'];
     verifyDate = json['verify_date'];
+    vDegree = json['v_degree'];
+    vDesig = json['v_desig'];
     finalizedBy = json['finalized_by'];
     finalizedByName = json['finalized_by_name'];
     finalizedDate = json['finalized_date'];
+    fDegree = json['f_degree'];
+    fDesig = json['f_desig'];
+    resultID = json['result_id'];
+    reportDept = json['report_dept'];
+    isCancel = json['is_cancel'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['mr_id'] = this.mrId;
-    data['dt'] = this.dt;
-    data['mr_type'] = this.mrType;
-    data['hcn'] = this.hcn;
-    data['reg_id'] = this.regId;
-    data['test_id'] = this.testId;
-    data['sample_id'] = this.sampleId;
-    data['pname'] = this.pname;
-    data['doc_id'] = this.docId;
-    data['doc_name'] = this.docName;
-    data['pmob'] = this.pmob;
-    data['psex'] = this.psex;
-    data['age'] = this.age;
-    data['is_sample_coll'] = this.isSampleColl;
-    data['is_reult_enty'] = this.isReultEnty;
-    data['is_verify'] = this.isVerify;
-    data['is_finalized'] = this.isFinalized;
-    data['method'] = this.method;
-    data['test_name'] = this.testName;
-    data['res_id'] = this.resId;
-    data['unit'] = this.unit;
-    data['department'] = this.department;
-    data['bedno'] = this.bedno;
-    data['entry_by'] = this.entryBy;
-    data['entry_by_name'] = this.entryByName;
-    data['entry_date'] = this.entryDate;
-    data['verify_by'] = this.verifyBy;
-    data['verify_by_name'] = this.verifyByName;
-    data['verify_date'] = this.verifyDate;
-    data['finalized_by'] = this.finalizedBy;
-    data['finalized_by_name'] = this.finalizedByName;
-    data['finalized_date'] = this.finalizedDate;
-    return data;
-  }
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   data['mr_id'] = this.mrId;
+  //   data['dt'] = this.dt;
+  //   data['mr_type'] = this.mrType;
+  //   data['hcn'] = this.hcn;
+  //   data['reg_id'] = this.regId;
+  //   data['test_id'] = this.testId;
+  //   data['sample_id'] = this.sampleId;
+  //   data['pname'] = this.pname;
+  //   data['doc_id'] = this.docId;
+  //   data['doc_name'] = this.docName;
+  //   data['pmob'] = this.pmob;
+  //   data['psex'] = this.psex;
+  //   data['age'] = this.age;
+  //   data['is_sample_coll'] = this.isSampleColl;
+  //   data['is_reult_enty'] = this.isReultEnty;
+  //   data['is_verify'] = this.isVerify;
+  //   data['is_finalized'] = this.isFinalized;
+  //   data['method'] = this.method;
+  //   data['test_name'] = this.testName;
+  //   data['res_id'] = this.resId;
+  //   data['unit'] = this.unit;
+  //   data['department'] = this.department;
+  //   data['bedno'] = this.bedno;
+  //   data['entry_by'] = this.entryBy;
+  //   data['entry_by_name'] = this.entryByName;
+  //   data['entry_date'] = this.entryDate;
+  //   data['verify_by'] = this.verifyBy;
+  //   data['verify_by_name'] = this.verifyByName;
+  //   data['verify_date'] = this.verifyDate;
+  //   data['v_degree'] = this.vDegree;
+  //   data['v_desig'] = this.vDesig;
+  //   data['finalized_by'] = this.finalizedBy;
+  //   data['finalized_by_name'] = this.finalizedByName;
+  //   data['finalized_date'] = this.finalizedDate;
+  //   data['f_degree'] = this.fDegree;
+  //   data['f_desig'] = this.fDesig;
+  //   return data;
+  // }
 }

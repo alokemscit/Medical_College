@@ -6,9 +6,7 @@ import '../../../core/config/delta_to_html_converter.dart';
 import '../../../widget/custom_datepicker.dart';
 import '../../../widget/custom_snakbar.dart';
 import '../lab_outsource_result_entry/model/lab_model_outsource_test_data.dart';
-import 'package:pdf/widgets.dart' as pw;
-
-import 'package:quill_html_editor/quill_html_editor.dart';
+ 
 
 class lab_widget {
 
@@ -411,7 +409,7 @@ Widget _lab_htm_wdget(QuillEditorController  Qcontroller) => Expanded(
   Widget lab_node(@required double leftPad, @required String name,
           @required List<Widget> children) =>
       Padding(
-          padding: EdgeInsets.only(left: leftPad),
+          padding: EdgeInsets.only(left: leftPad,bottom: 8),
           child: CustomPanel(
             isSelectedColor: false,
             isSurfixIcon: false,
@@ -424,7 +422,7 @@ Widget _lab_htm_wdget(QuillEditorController  Qcontroller) => Expanded(
                   Text(
                     name,
                     style: customTextStyle.copyWith(
-                        fontSize: 13, color: appColorMint),
+                        fontSize: 13, ),
                   )
                 ],
               ),
@@ -483,7 +481,7 @@ Widget _lab_htm_wdget(QuillEditorController  Qcontroller) => Expanded(
                                         vertical: 2, horizontal: 8),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
-                                      color: selectedMR.sampleId == a.sampleId
+                                      color: selectedMR.sampleId == a.sampleId && selectedMR.testId==a.testId
                                           ? appColorPista.withOpacity(0.8)
                                           : kBgColorG,
                                       //border: Border.all(width: 0.1,color: Colors.black)
@@ -501,14 +499,28 @@ Widget _lab_htm_wdget(QuillEditorController  Qcontroller) => Expanded(
                                           ),
                                           4.widthBox,
                                           Expanded(
-                                            child: Text(
-                                              a.sampleId == ' '
-                                                  ? 'No Sample'
-                                                  : a.sampleId!,
-                                              style: customTextStyle.copyWith(
-                                                  fontSize: 11.5,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: appColorPrimary),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  a.sampleId == ' '
+                                                      ? 'No Sample'
+                                                      : a.sampleId!,
+                                                  style: customTextStyle.copyWith(
+                                                      fontSize: 11.5,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: appColorPrimary),
+                                                ),4.widthBox,const Icon(Icons.arrow_forward_rounded,size: 14,),4.widthBox,
+                                                Expanded(
+                                                  child: Text(
+                                                     
+                                                         a.testName!,
+                                                    style: customTextStyle.copyWith(
+                                                        fontSize: 10 ,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: appColorMint),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
@@ -596,8 +608,8 @@ Widget lab_filterPanel(dynamic controller) =>
                   },
                   borderRadious: 4,
                 )),
-                12.widthBox,
-                CustomFilterButtonRounded(
+                !controller.isShowFilterButton.value?const SizedBox(): 12.widthBox,
+             !controller.isShowFilterButton.value?const SizedBox():   CustomFilterButtonRounded(
                     icon: controller.isShowFilter.value
                         ? Icons.undo
                         : Icons.filter_alt,
@@ -619,6 +631,32 @@ Widget lab_filterPanel(dynamic controller) =>
 
 Future<String> getHtmlText(QuillEditorController Qcontroller) async {
     Map<dynamic, dynamic> l = await Qcontroller.getDelta();
+
+    var y = Delta.fromJson(l['ops']);
+
+    var k = y.toHtml(options: ConverterOptions.forEmail());
+    //print(k);
+    var k1 = k
+        .replaceAll('<table>',
+            '<table style="width:100%;border: 1px solid black;border-collapse: collapse;">')
+        .replaceAll('<tr>', '<tr style="border: 1px solid black;">')
+        .replaceAll('<td',
+            '<td style="border: 1px solid black; padding-left: 10px; margin-left:10px;"')
+        .replaceAll('class="ql-align-center"', 'style="text-align:center"')
+        .replaceAll('class="ql-align-right"', 'style="text-align:right"')
+        .replaceAll('class="ql-size-small"', 'style="font-size:small"')
+        .replaceAll('class="ql-size-large"', 'style="font-size:large"')
+        .replaceAll('class="ql-size-huge"', 'style="font-size:x-large"')
+        .replaceAll('<br/>', '<br/>\n')
+        .replaceAll('<br>', '<br>\n')
+        .replaceAll('class="ql-align-right"', 'style="text-align:right"');
+    // print(k1);
+    return k1;
+  }
+
+
+Future<String> getHtmlFromDelta( Map<dynamic, dynamic> l) async {
+   // Map<dynamic, dynamic> l = await Qcontroller.getDelta();
 
     var y = Delta.fromJson(l['ops']);
 

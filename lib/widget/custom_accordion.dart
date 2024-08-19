@@ -1,4 +1,3 @@
-
 import '../core/config/const.dart';
 
 class CustomAccordianCaption extends StatefulWidget {
@@ -136,13 +135,15 @@ class CustomAccordionContainer extends StatefulWidget {
       required this.headerName,
       required this.children,
       this.height = 350,
-      this.isExpansion = true,  this.bgColor=kWebBackgroundColor});
+      this.isExpansion = true,
+      this.bgColor = kWebBackgroundColor,this.pading=const EdgeInsets.all(8.0)});
   final String headerName;
 
   final List<Widget> children;
   final double height;
   final bool isExpansion;
   final Color bgColor;
+  final EdgeInsets pading;
 
   @override
   State<CustomAccordionContainer> createState() =>
@@ -178,7 +179,7 @@ class _CustomAccordionContainerState extends State<CustomAccordionContainer> {
                   ),
                   height: b ? 0 : widget.height,
                   child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: widget.pading,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: widget.children,
@@ -196,7 +197,7 @@ class _CustomAccordionContainerState extends State<CustomAccordionContainer> {
                           ),
                           //height: height,
                           child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: widget.pading,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: widget.children,

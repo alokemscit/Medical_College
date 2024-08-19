@@ -415,9 +415,9 @@ bool checkJson(List<dynamic> x) {
   if (y.isEmpty) {
     return false;
   }
-  if (y.first.status == '3') {
-    return false;
-  }
+  // if (y.first.status == '3') {
+  //   return false;
+  // }
   return true;
 }
 

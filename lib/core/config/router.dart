@@ -27,11 +27,15 @@ import '../../moduls/finance/fin_dashboard/fin_datshboadr.dart';
 import '../../moduls/finance/fin_default_setup/fin_default_setup_page.dart';
 import '../../moduls/finance/gl_opening_page/gl_opening_balance.dart';
 import '../../moduls/finance/ledger_master_page/ledger_master_page.dart';
+import '../../moduls/finance/voucher_approval/pages/fin_voucher_approval.dart';
 import '../../moduls/laboratory/lab_biofire_panel/pages/lab_biofire_panel_page.dart';
 import '../../moduls/laboratory/lab_biofire_test_result_entry/pages/lab_biofire_test_result_entry.dart';
 import '../../moduls/laboratory/lab_biofire_test_result_finalize/pages/lab_biofire_test_result_finalize.dart';
 import '../../moduls/laboratory/lab_biofire_test_result_verify/pages/lab_biofire_test_verify.dart';
+import '../../moduls/laboratory/lab_outdource_result_verify/pages/lab_outsource_result_verify.dart';
 import '../../moduls/laboratory/lab_outsource_result_entry/pages/lab_outsource_result_entry_page.dart';
+import '../../moduls/laboratory/lab_outsource_result_finalize/pages/lab_outsource_result_finalize.dart';
+import '../../moduls/laboratory/lab_outsource_test_lifecycle/pages/lab_outsource_test_lifecycle.dart';
 import '../../moduls/laboratory/lab_pathogen_attr/pages/lab_pathogen_attr_page.dart';
 import '../../moduls/laboratory/lab_pathogen_group/pages/lab_patogen_group_page.dart';
 import '../../moduls/laboratory/lab_patient_history/pages/lab_patient_history_page.dart';
@@ -50,6 +54,7 @@ import '../../moduls/pms_fnb/row_material_analyser/pages/material_needs_analysis
 
 Widget getPage(String id) {
   switch (id) {
+    // finance
     case "212":
       {
         return const LedgerMasterPage();
@@ -96,6 +101,9 @@ Widget getPage(String id) {
       {
         return const BalanceSgeetPage();
       }
+    case '1368':
+      return const FinVoucherApproval();
+    //#################################### finance end #############
 
 // for diet ###########################
     case '1315':
@@ -158,9 +166,14 @@ Widget getPage(String id) {
       return const BiofireTestFinalize();
     case '1361':
       return const LabReportLifeCycle();
-      case '1362': return const OutSourceResultEntry();
-      case '1365': return const OutSourceResultEntry();
-      case '1366': return const OutSourceResultEntry();
+    case '1362':
+      return const OutSourceResultEntry();
+    case '1365':
+      return const OutSourceResultVerify();
+    case '1366':
+      return const OutSourceResultFinalize();
+    case '1367':
+      return const OutsourceTestlifecycle();
 //##############################
 
 // App Dashboard ####################################

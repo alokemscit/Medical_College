@@ -3,7 +3,7 @@
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/config/responsive.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+ 
 
 CustomCommonBody(bool isLoading, bool isError, String errorMessage,
     Widget mobile, Widget tablet, Widget desktop) {
@@ -39,7 +39,9 @@ CustomCommonBody(bool isLoading, bool isError, String errorMessage,
 _CustomCommonBody(
     bool isLoading, bool isError, String errorMessage, Widget desktop) {
   if (isLoading) {
-    return const Center(child: CupertinoActivityIndicator( ));
+    return Container(
+      decoration: BoxDecoration(color: Colors.black.withOpacity(0.06),),
+      child: const Center(child: CupertinoActivityIndicator( )));
   }
   if (isError) {
     return Center(
