@@ -4,10 +4,9 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_windows
-  irondash_engine_context
-  printing
+  flutter_localization
   rive_common
-  super_native_extensions
+  smart_auth
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

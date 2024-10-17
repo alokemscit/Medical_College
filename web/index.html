@@ -17,20 +17,19 @@
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
-  
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="AGH">
+  <meta name="description" content="A new Flutter project.">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="agmc">
-  <link rel="apple-touch-icon" href="icons/logo_agh.png">
+  <meta name="apple-mobile-web-app-title" content="aghapp">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="icons/logo_agh.png"/>
+  <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>agmc</title>
+  <title>aghapp</title>
   <link rel="manifest" href="manifest.json">
 
   <script>
@@ -39,92 +38,8 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
-
-  <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-  <script src="bootstrap/jquery.min.js"></script>
-  
-  <script src="bootstrap/js/bootstrap.min.js"></script>
-
-  <link href="bootstrap/style.css" rel="stylesheet">
-<!-- 
-  <style>
-
-.modal.modal-fullscreen .modal-dialog,
-.modal.modal-fullscreen .modal-content{
-bottom: 0;
-left:0;
-position: absolute;
-right:0;
-top:0;
- 
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-}
-
-.modal.modal-fullscreen .modal-dialog{
-  
-margin:0;
-width:100%;
-height: 100%;
-animation-duration:0.6s;
-}
-
-.modal.modal-fullscreen.force-fullscreen .modal-body{padding:0;}
-.modal.modal-fullscreen.force-fullscreen .modal-header,
-
-.modal.modal-fullscreen.force-fullscreen .modal-footer{
-position:absolut;
-bottom:0;
-}
-
-.modal.modal-fullscreen.force-fullscreen .modal-header{
-top:0;
-}
-.modal-body{
-height:90%;
-width: 100%;
-
-
-}
-    /* Custom styles for full-screen modal */
-    
-  </style> -->
-
-
-
 </head>
-<body id="app-container">
-  
-   
-
-
-  <a id="triggerPdfViewer"  data-toggle="modal" data-target="#myModal"></a>
-
-<!-- Modal -->
-<div id="myModal" class="modal fade modal-fullscreen" style="height: 100%; width: 100%;" role="dialog">
-  <div class="modal-dialog" style="height: 100%; width: 100%;">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 id="report-title" class="modal-title">Modal Title</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body" id="pdf-container">
-         
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
- 
+<body>
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js

@@ -7,21 +7,21 @@
 #include "generated_plugin_registrant.h"
 
 #include <file_selector_linux/file_selector_plugin.h>
-#include <irondash_engine_context/irondash_engine_context_plugin.h>
-#include <printing/printing_plugin.h>
-#include <super_native_extensions/super_native_extensions_plugin.h>
+#include <flutter_localization/flutter_localization_plugin.h>
+#include <rive_common/rive_plugin.h>
+#include <smart_auth/smart_auth_plugin.h>
 
 void fl_register_plugins(FlPluginRegistry* registry) {
   g_autoptr(FlPluginRegistrar) file_selector_linux_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "FileSelectorPlugin");
   file_selector_plugin_register_with_registrar(file_selector_linux_registrar);
-  g_autoptr(FlPluginRegistrar) irondash_engine_context_registrar =
-      fl_plugin_registry_get_registrar_for_plugin(registry, "IrondashEngineContextPlugin");
-  irondash_engine_context_plugin_register_with_registrar(irondash_engine_context_registrar);
-  g_autoptr(FlPluginRegistrar) printing_registrar =
-      fl_plugin_registry_get_registrar_for_plugin(registry, "PrintingPlugin");
-  printing_plugin_register_with_registrar(printing_registrar);
-  g_autoptr(FlPluginRegistrar) super_native_extensions_registrar =
-      fl_plugin_registry_get_registrar_for_plugin(registry, "SuperNativeExtensionsPlugin");
-  super_native_extensions_plugin_register_with_registrar(super_native_extensions_registrar);
+  g_autoptr(FlPluginRegistrar) flutter_localization_registrar =
+      fl_plugin_registry_get_registrar_for_plugin(registry, "FlutterLocalizationPlugin");
+  flutter_localization_plugin_register_with_registrar(flutter_localization_registrar);
+  g_autoptr(FlPluginRegistrar) rive_common_registrar =
+      fl_plugin_registry_get_registrar_for_plugin(registry, "RivePlugin");
+  rive_plugin_register_with_registrar(rive_common_registrar);
+  g_autoptr(FlPluginRegistrar) smart_auth_registrar =
+      fl_plugin_registry_get_registrar_for_plugin(registry, "SmartAuthPlugin");
+  smart_auth_plugin_register_with_registrar(smart_auth_registrar);
 }
