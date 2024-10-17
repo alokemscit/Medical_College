@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.aghapp.ehealth" "\0"
-            VALUE "FileDescription", "aghapp" "\0"
+            VALUE "CompanyName", "com.amc" "\0"
+            VALUE "FileDescription", "agmc" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "aghapp" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.aghapp.ehealth. All rights reserved." "\0"
-            VALUE "OriginalFilename", "aghapp.exe" "\0"
-            VALUE "ProductName", "aghapp" "\0"
+            VALUE "InternalName", "agmc" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.amc. All rights reserved." "\0"
+            VALUE "OriginalFilename", "agmc.exe" "\0"
+            VALUE "ProductName", "agmc" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
