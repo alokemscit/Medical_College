@@ -1,6 +1,6 @@
  
 import 'package:agmc/core/config/const.dart';
-import 'package:flutter/cupertino.dart';
+ 
 
  
 
@@ -130,7 +130,7 @@ class _CustomPanelState extends State<CustomPanel>
           curve: Curves.fastOutSlowIn,
           child: _isExpanded
               ? Column(children: widget.children)
-              : SizedBox(height: 0),
+              : const SizedBox(height: 0),
         ),
       ],
     );

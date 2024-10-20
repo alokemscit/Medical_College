@@ -1,5 +1,4 @@
 import 'package:agmc/core/config/const.dart';
-import 'package:agmc/core/config/const_widget.dart';
 import 'package:agmc/core/shared/custom_list.dart';
 import 'package:agmc/model/model_common.dart';
 import 'package:intl/intl.dart';

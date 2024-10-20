@@ -14,11 +14,11 @@ class ModelFiscalYearMaster {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.iD;
-    data['SDATE'] = this.sDATE;
-    data['TDATE'] = this.tDATE;
-    data['STATUS'] = this.sTATUS;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = iD;
+    data['SDATE'] = sDATE;
+    data['TDATE'] = tDATE;
+    data['STATUS'] = sTATUS;
     return data;
   }
 }

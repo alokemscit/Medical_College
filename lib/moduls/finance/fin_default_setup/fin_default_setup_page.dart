@@ -1,7 +1,6 @@
 import 'package:agmc/widget/custom_datepicker.dart';
  
 import '../../../core/config/const.dart';
-import '../../../core/config/const_widget.dart';
 import 'controller/fin_default_setup_controller.dart';
 
 class FinDefaultPageSetup extends StatelessWidget {

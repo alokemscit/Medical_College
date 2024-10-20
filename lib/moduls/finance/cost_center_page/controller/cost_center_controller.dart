@@ -124,12 +124,6 @@ class CostcenterController extends GetxController with MixInController {
     // await Future.delayed(Duration(seconds: 10));
     api = data_api();
     user.value = await getUserInfo();
-    if (user == null) {
-      isLoading.value = false;
-      isError.value = true;
-      errorMessage.value = "Re- Login required";
-      return;
-    }
 
     try {
       var x = await api.createLead([

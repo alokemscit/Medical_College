@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'moduls/admin/pagges/home_page/parent_page.dart';
 import 'moduls/admin/pagges/login_page/controller/connection_controller.dart';
 
+
 void main() async {
 
 
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: appName,
         theme: ThemeData(
+          fontFamily: 'OpenSans',
           appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent),
           scaffoldBackgroundColor: kBgLightColor,
           //colorScheme: ColorScheme.fromSeed(seedColor: appColorPista),
@@ -66,7 +68,7 @@ class MyApp extends StatelessWidget {
           primaryColor: kWebHeaderColor,
           useMaterial3: true,
           ),
-             home: 
+             home:  
                userProvider.user != null
                 ? const ParentPage()
                  

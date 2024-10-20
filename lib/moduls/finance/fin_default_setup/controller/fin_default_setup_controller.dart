@@ -42,12 +42,6 @@ class FinDefaultSetupController extends GetxController with MixInController {
     isLoading.value = true;
 
     user.value = await getUserInfo();
-    if (user == null) {
-      isLoading.value = false;
-      isError.value = true;
-      errorMessage.value = "Re- Login required";
-      return;
-    }
 
     listStatus.addAll(_statusList);
 

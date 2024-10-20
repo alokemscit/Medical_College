@@ -43,22 +43,45 @@ Future<void> CustomDialog(BuildContext context, Widget title,
         // elevation: 0,
         title: Material(
           color: Colors.transparent,
-          child: Container(
-             decoration: BoxDecoration(
-        color: kWebHeaderColor.withOpacity(0.13),
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-        //border: Border.all(color: Colors.black38, width: 0.1),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black38.withOpacity(0.3),
-              blurRadius: 1.05,
-              spreadRadius: 0.1)
-          ],
-        ),
-            
-            
-            child: title)
+          child: Stack(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6,vertical: 2),
+                       decoration: BoxDecoration(
+                            color: kWebHeaderColor.withOpacity(0.13),
+                            borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                            //border: Border.all(color: Colors.black38, width: 0.1),
+                            boxShadow: [
+                      BoxShadow(
+                        color: Colors.black38.withOpacity(0.3),
+                        blurRadius: 1.05,
+                        spreadRadius: 0.1)
+                        ],
+                            ),
+                      
+                      
+                      child: title),
+                  ),
+                ],
+              ),
+                 Positioned( right: 2,top: 0, child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                   child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      //border: Border.all(color: appColorGrayDark),
+                      borderRadius: BorderRadiusDirectional.circular(2)
+                     ),
+                    child: Icon(Icons.close,size: 18,color:  appGray50,)),
+                 ))
+            ],
+          )
           ), //AppointDialogTitle(data: data,),
         titlePadding: EdgeInsets.zero,
         // contentPadding: const EdgeInsets.all(8),

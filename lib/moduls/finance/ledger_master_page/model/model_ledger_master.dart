@@ -23,15 +23,15 @@ class ModelLedgerMaster {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['PARENTID'] = this.pARENTID;
-    data['ID'] = this.iD;
-    data['NAME'] = this.nAME;
-    data['ISPARENT'] = this.iSPARENT;
-    data['SL'] = this.sL;
-    data['CODE'] = this.cODE;
-     data['IS_CC'] = this.isCC;
-      data['IS_SL'] = this.isSL;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['PARENTID'] = pARENTID;
+    data['ID'] = iD;
+    data['NAME'] = nAME;
+    data['ISPARENT'] = iSPARENT;
+    data['SL'] = sL;
+    data['CODE'] = cODE;
+     data['IS_CC'] = isCC;
+      data['IS_SL'] = isSL;
     return data;
   }
 }

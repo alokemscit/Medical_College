@@ -19,13 +19,13 @@ class ModelLedgerOpeningBalance {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.iD;
-    data['CODE'] = this.cODE;
-    data['PID'] = this.pID;
-    data['NAME'] = this.nAME;
-    data['CR'] = this.cR;
-    data['DR'] = this.dR;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = iD;
+    data['CODE'] = cODE;
+    data['PID'] = pID;
+    data['NAME'] = nAME;
+    data['CR'] = cR;
+    data['DR'] = dR;
     return data;
   }
 }

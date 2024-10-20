@@ -3,24 +3,27 @@
 import 'dart:convert';
 
 import 'package:agmc/core/config/const.dart';
+ 
 import 'package:agmc/core/config/responsive.dart';
  
 import 'package:agmc/model/model_sub_menu.dart';
 
-import 'package:agmc/moduls/admin/pagges/home_page/home_page.dart';
-import 'package:agmc/moduls/admin/pagges/home_page/model/model_menu_list.dart';
+ 
+import 'package:agmc/moduls/admin/pagges/home_page/shared/model_menu_list.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/login_page.dart';
  
 import 'package:agmc/moduls/admin/pagges/login_page/notifires/aughtprovider.dart';
 import 'package:agmc/core/shared/user_data.dart';
+ 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
  
-
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+ 
+ 
 
 import 'package:flutter/foundation.dart' show kIsWeb;
+
+import '../moduls/admin/pagges/home_page/block/menu_block.dart';
 
 isExists(List<ItemModel> list, String id) {
   for (int i = 0; i < list.length; i++) {
@@ -48,18 +51,11 @@ class SideMenu extends StatelessWidget {
     return Container(
       height: context.height,
       //padding: const EdgeInsets.only(top: kIsWeb ? 8 : 0),
-      decoration: const BoxDecoration(
-          color: kWebBackgroundDeepColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.white,
-              blurRadius: 0.5,
-              spreadRadius: 1,
-              offset: Offset(0, 0),
-            )
-          ],
-          border:
-              Border(right: BorderSide(color: Colors.black12, width: 0.35))),
+      decoration: customBoxDecoration.copyWith(borderRadius: BorderRadiusDirectional.circular(0) ),
+      
+      
+
+
       child: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -68,19 +64,44 @@ class SideMenu extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                   top: kIsWeb ? 18 : 0, left: 6, right: 4),
-              child: userDetailsForDrawer,
-            ),
+               child: userDetailsForDrawer,
+              ),
+             // 4.heightBox,
             HomeLogOut(
               module: module,
               fkey: fkey,
             ),
-            const SizedBox(
-              height: 6,
-            ),
+            4.heightBox,
+             Row(
+               children: [
+                 Expanded(child: Padding(
+                   padding: const EdgeInsets.symmetric(horizontal: 8),
+                   child: Container(
+                    color: appColorGrayDark.withOpacity(0.6),
+                    height: 0.3,),
+                 )),
+               ],
+             ),
+          
+            // const SizedBox(
+            //   height: 6,
+            // ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
               child: ModuleNameDisplay(module: module),
             ),
+8.heightBox,
+       Row(
+               children: [
+                 Expanded(child: Padding(
+                   padding: const EdgeInsets.symmetric(horizontal: 8),
+                   child: Container(
+                    color: appColorGrayDark.withOpacity(0.5),
+                    height: 0.2,),
+                 )),
+               ],
+             ),
+
             Expanded(
               child: SingleChildScrollView(
                 child:  Padding(padding:  const EdgeInsets.symmetric(horizontal: 6, vertical: 4), 
@@ -125,151 +146,137 @@ class GenerateMenuItems extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: List.generate(list.length, (index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadiusDirectional.circular(4),
-                              color: kWebBackgroundDeepColor,
-                              border: Border.all(
-                                  color: Colors.grey[300]!, width: 0.6),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: kWebBackgroundColor,
-                                  spreadRadius: 1,
-                                  blurRadius: 2,
-                                  offset: Offset(0, 0),
-                                )
-                              ]),
-                          child: ExpansionTile(
-                              //   initiallyExpanded: true,
-                              dense:false,
-                              maintainState: true,
-                              shape: const Border(),
-                              leading: null, // Add your leading icon
-                              trailing: null,
-                              title: Container(
-                                  padding: const EdgeInsets.all(0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color:
-                                        const Color.fromARGB(255, 197, 197, 197)
-                                            .withOpacity(0.09),
-                                  ),
-                                  child: Text(
-                                    list[index].name!,
-                                    style: GoogleFonts.titilliumWeb(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              tilePadding: EdgeInsets.zero,
-                      
-                              //  leading: const Icon(Icons.insert_emoticon),
-                              // childrenPadding: EdgeInsets.only(left: 4),
-                              children: list[index].smenu!.map((e) {
-                                return BlocBuilder<CurrentIDBloc,
-                                    CurrentIdState>(
-                                  builder: (context, state11) {
-                                    if (state11 is CurrentIDSet) {
-                                      currentID = state11.currentId;
-                                    }
-                                    return Container(
-                                      color:
-                                          kBgColorG, //kWebBackgroundColor.withOpacity(0.8),
-                                      child: ListTile(
-                                        dense: false,
-                                        contentPadding: EdgeInsets.zero,
-                                        horizontalTitleGap: 0,
-                                        trailing: const SizedBox(),
-                                        
-                      
-                                        title: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8, top: 0, bottom: 0),
-                                          child: Stack(
-                                            children: [
-                                              AnimatedPositioned(
-                                                duration: const Duration(
-                                                    microseconds: 300),
-                                                left: currentID ==
-                                                        e.smId.toString()
-                                                    ? 0
-                                                    : 300,
-                                                curve: Curves.bounceInOut,
-                                                top: 0,
-                                                child: Container(
-                                                  height: 100,
-                                                  width: 255,
-                                                  decoration: BoxDecoration(
-                                                      color: currentID ==
-                                                              e.smId.toString()
-                                                          ? kBgDarkColor
-                                                          : Colors.transparent,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                            blurRadius: 0.5,
-                                                            spreadRadius: 10,
-                                                            color:
-                                                                kWebHeaderColor
-                                                                    .withOpacity(
-                                                                        0.05))
-                                                      ]),
+                        return ExpansionTile(
+                            //   initiallyExpanded: true,
+                            dense:false,
+                            maintainState: true,
+                            shape: const Border(),
+                            leading: null, // Add your leading icon
+                            trailing: null,
+                            title: Container(
+                                padding: const EdgeInsets.all(0),
+                                // decoration: BoxDecoration(
+                                //   borderRadius: BorderRadius.circular(8),
+                                //   color:
+                                //       const Color.fromARGB(255, 197, 197, 197)
+                                //           .withOpacity(0.09),
+                                // ),
+                                child: Text(
+                                  list[index].name!,
+                                  style: const TextStyle(fontFamily: appFontMuli,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            tilePadding: EdgeInsets.zero,
+                                              
+                            //  leading: const Icon(Icons.insert_emoticon),
+                            // childrenPadding: EdgeInsets.only(left: 4),
+                            children: list[index].smenu!.map((e) {
+                              return BlocBuilder<CurrentIDBloc,
+                                  CurrentIdState>(
+                                builder: (context, state11) {
+                                  if (state11 is CurrentIDSet) {
+                                    currentID = state11.currentId;
+                                  }
+                                  return Container(
+                                    
+                                    color:Colors.white,
+                                       // kBgColorG, //kWebBackgroundColor.withOpacity(0.8),
+                                    child: ListTile(
+                                      dense: false,
+                                      contentPadding: EdgeInsets.zero,
+                                      horizontalTitleGap: 0,
+                                      trailing: const SizedBox(),
+                                      
+                                              
+                                      title: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8, top: 0, bottom: 0),
+                                        child: Stack(
+                                          children: [
+                                            AnimatedPositioned(
+                                              duration: const Duration(
+                                                  microseconds: 300),
+                                              left: currentID ==
+                                                      e.smId.toString()
+                                                  ? 0
+                                                  : 300,
+                                              curve: Curves.bounceInOut,
+                                              top: 0,
+                                              child: Container(
+                                                height: 100,
+                                                width: 255,
+                                                decoration: BoxDecoration(
+                                                    color: currentID ==
+                                                            e.smId.toString()
+                                                        ? kBgDarkColor
+                                                        : Colors.transparent,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          blurRadius: 0.5,
+                                                          spreadRadius: 10,
+                                                          color:
+                                                              kWebHeaderColor
+                                                                  .withOpacity(
+                                                                      0.05))
+                                                    ]),
+                                              ),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                const Icon(Icons.arrow_right),
+                                                const SizedBox(
+                                                  width: 6,
                                                 ),
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const Icon(Icons.arrow_right),
-                                                  const SizedBox(
-                                                    width: 6,
+                                                Expanded(
+                                                  child: Text(
+                                                    e.smName!,
+                                                    style: TextStyle(fontFamily: appFontMuli,
+                                                        fontSize: 12,
+                                                        fontWeight: currentID !=
+                                                                e.smId
+                                                                    .toString()
+                                                            ? FontWeight.w600
+                                                            : FontWeight
+                                                                .bold),
                                                   ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      e.smName!,
-                                                      style: GoogleFonts.roboto(
-                                                          fontSize: 12,
-                                                          fontWeight: currentID !=
-                                                                  e.smId
-                                                                      .toString()
-                                                              ? FontWeight.w600
-                                                              : FontWeight
-                                                                  .bold),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                        onTap: () {
-                                          fkey.currentState?.closeDrawer();
-                                          final itemList = state.menuitem;
-                                          if (!isExists(
-                                              itemList, e.smId.toString())) {
-                                            // ignore: non_constant_identifier_names
-                                            if (Responsive.isMobile(context)) {
-                                              itemList.clear();
-                                            }
-                                            // ignore: non_constant_identifier_names
-                                            final Item = ItemModel(
-                                                id: e.smId.toString(),
-                                                name: e.smName.toString());
-                                            context.read<MenuItemBloc>().add(
-                                                ItemMenuAdd(menuitem: Item));
-                                          }
-                                          context
-                                              .read<CurrentIDBloc>()
-                                              .add(SetCurrentId(
-                                                id: e.smId.toString(),
-                                              ));
-                                        },
                                       ),
-                                    );
-                                  },
-                                );
-                              }).toList()),
-                        );
+                                      onTap: () {
+                                        fkey.currentState?.closeDrawer();
+                                        final itemList = state.menuitem;
+                                        if (!isExists(
+                                            itemList, e.smId.toString())) {
+                                          // ignore: non_constant_identifier_names
+                                          if (Responsive.isMobile(context)) {
+                                            itemList.clear();
+                                          }
+                                          // ignore: non_constant_identifier_names
+                                          final Item = ItemModel(
+                                              id: e.smId.toString(),
+                                              name: e.smName.toString());
+                                          context.read<MenuItemBloc>().add(
+                                              ItemMenuAdd(menuitem: Item));
+                                        }
+                                        context
+                                            .read<CurrentIDBloc>()
+                                            .add(SetCurrentId(
+                                              id: e.smId.toString(),
+                                            ));
+                                      },
+                                    ),
+                                  );
+                                },
+                              );
+                            }).toList());
                       }));
                 },
               );
@@ -351,40 +358,41 @@ class ModuleNameDisplay extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Container(
-                height: 0.5,
-                color: Colors.black12.withOpacity(0.1),
-              ),
-            )
-          ],
-        ),
+        // Column(
+        //   children: [
+        //     Padding(
+        //       padding: const EdgeInsets.all(2.0),
+        //       child: Container(
+        //         height: 0.5,
+        //         color: Colors.black12.withOpacity(0.1),
+        //       ),
+        //     )
+        //   ],
+        // ),
         8.heightBox,
         Text(
           module.name!,
-          style: GoogleFonts.bungeeInline(
-              fontSize: 10.5,
-              fontWeight: FontWeight.w100,
-              //fontStyle: FontStyle.italic,
-              color: appColorLogoDeep),
+          style: customTextStyle.copyWith( color:  appColorGrayDark,fontSize: 12.5,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic)
+          // GoogleFonts.bungeeInline(
+          //     fontSize: 10.5,
+          //     fontWeight: FontWeight.w100,
+          //     //fontStyle: FontStyle.italic,
+          //     color: appColorLogoDeep),
         ),
         // const SizedBox(
         //   height: 15,
         // ),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 1,
-                color: Colors.black12.withOpacity(0.1),
-              ),
-            )
-          ],
-        ),
+        // Column(
+        //   children: [
+        //     Padding(
+        //       padding: const EdgeInsets.all(8.0),
+        //       child: Container(
+        //         height: 1,
+        //         color: Colors.black12.withOpacity(0.1),
+        //       ),
+        //     )
+        //   ],
+        // ),
       ],
     );
   }
@@ -396,17 +404,18 @@ class UserDetailsForDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 12),
-      decoration: BoxDecoration(
-          color: kWebBackgroundDeepColor,
-          borderRadius: BorderRadiusDirectional.circular(2),
-          boxShadow: const [
-            BoxShadow(
-                color: kWebBackgroundColor,
-                spreadRadius: 5.5,
-                blurRadius: 5.2,
-                offset: Offset(0, 0))
-          ]),
+      margin: const EdgeInsets.only(top: 14,bottom: 8),
+     // decoration:customBoxDecoration.copyWith(borderRadius: BorderRadiusDirectional.circular(0)),
+      //  BoxDecoration(
+      //     color: kWebBackgroundDeepColor,
+      //     borderRadius: BorderRadiusDirectional.circular(2),
+      //     boxShadow: const [
+      //       BoxShadow(
+      //           color: kWebBackgroundColor,
+      //           spreadRadius: 5.5,
+      //           blurRadius: 5.2,
+      //           offset: Offset(0, 0))
+      //     ]),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -438,17 +447,18 @@ class UserDetailsForDrawer extends StatelessWidget {
               const HomeLoginUserDetails(),
             ],
           ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: Container(
-                  height: 1,
-                  color: Colors.black12.withOpacity(0.1),
-                ),
-              )
-            ],
-          ),
+          8.heightBox,
+          // Column(
+          //   children: [
+          //     Padding(
+          //       padding: const EdgeInsets.symmetric(horizontal: 6),
+          //       child: Container(
+          //         height: 1,
+          //         color: Colors.black12.withOpacity(0.1),
+          //       ),
+          //     )
+          //   ],
+          // ),
         ],
       ),
     );
@@ -468,7 +478,7 @@ class HomeLoginUserDetails extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 140, maxHeight: 30),
           child: Text(
             DataStaticUser.name,
-            style: GoogleFonts.headlandOne(
+            style: const TextStyle(fontFamily: appFontMuli,
                 fontSize: 12, fontWeight: FontWeight.w600),
           ),
         ),
@@ -500,15 +510,15 @@ class HomeLogOut extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 4),
       padding: const EdgeInsets.only(left: 6, right: 12, top: 4, bottom: 4),
-      decoration:
-          const BoxDecoration(color: kWebBackgroundDeepColor, boxShadow: [
-        BoxShadow(
-          color: kWebBackgroundColor,
-          blurRadius: 10.5,
-          spreadRadius: 1.5,
-          offset: Offset(0, 0),
-        )
-      ]),
+      // decoration:
+      //     const BoxDecoration(color: kWebBackgroundDeepColor, boxShadow: [
+      //   BoxShadow(
+      //     color: kWebBackgroundColor,
+      //     blurRadius: 10.5,
+      //     spreadRadius: 1.5,
+      //     offset: Offset(0, 0),
+      //   )
+      // ]),
       // width: 200,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -524,13 +534,12 @@ class HomeLogOut extends StatelessWidget {
                     ));
                 Get.deleteAll();
               },
-              child: const Text(
+              child:  Text(
                 'Log out',
-                style: TextStyle(
-                    fontSize: 12,
+                style: customTextStyle.copyWith(fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: Colors.deepPurple,
-                    fontWeight: FontWeight.w600),
+                    fontWeight: FontWeight.bold)
               )),
           InkWell(
             //style: ButtonStyle(textStyle: TextStyle()) ),
@@ -556,7 +565,7 @@ class HomeLogOut extends StatelessWidget {
                   ]),
               child: Text('< Back To Main',
                   style: customTextStyle.copyWith(
-                      color: appColorBlue, fontSize: 9)),
+                      color:appColorPrimary, fontSize: 9,fontWeight: FontWeight.w600)),
             ),
           ),
         ],

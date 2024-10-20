@@ -14,11 +14,11 @@ class ModelCostcenterMaster {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.iD;
-    data['NAME'] = this.nAME;
-    data['CODE'] = this.cODE;
-    data['DESCRIPTION'] = this.dESCRIPTION;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = iD;
+    data['NAME'] = nAME;
+    data['CODE'] = cODE;
+    data['DESCRIPTION'] = dESCRIPTION;
     return data;
   }
 }

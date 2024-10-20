@@ -18,11 +18,11 @@ class ModelGlCCLinkageMaster {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['GL_ID'] = this.gLID;
-    data['GL_NAME'] = this.gLNAME;
-    data['CC_ID'] = this.cCID;
-    data['CC_NAME'] = this.cCNAME;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['GL_ID'] = gLID;
+    data['GL_NAME'] = gLNAME;
+    data['CC_ID'] = cCID;
+    data['CC_NAME'] = cCNAME;
     return data;
   }
 }

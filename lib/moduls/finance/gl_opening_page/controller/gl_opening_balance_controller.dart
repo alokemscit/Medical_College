@@ -57,12 +57,6 @@ class GlOpeningBalanceController extends GetxController with MixInController {
     isError.value = false;
     isLoading.value = true;
     user.value = await getUserInfo();
-    if (user == null) {
-      isLoading.value = false;
-      isError.value = true;
-      errorMessage.value = "Re- Login required";
-      return;
-    }
 
     try {
       var x = await api.createLead([

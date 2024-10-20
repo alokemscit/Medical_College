@@ -30,13 +30,13 @@ String base64Data = base64Encode(bytes);
 class PDFViewer extends StatelessWidget {
   final Uint8List pdfBytes;
 
-  const PDFViewer({Key? key, required this.pdfBytes}) : super(key: key);
+  const PDFViewer({super.key, required this.pdfBytes});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PDF Viewer'),
+        title: const Text('PDF Viewer'),
       ),
       body: Center(
         child: SizedBox(
@@ -54,23 +54,25 @@ class PDFViewer extends StatelessWidget {
 
 
 class TestPage extends StatelessWidget {
+  const TestPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('PDF Viewer')),
+        appBar: AppBar(title: const Text('PDF Viewer')),
         body: Center(
           child: ElevatedButton(
             onPressed: () async {
               final pdf = pw.Document();
               pdf.addPage(pw.Page(
                 build: (context) => pw.Center(
-                  child: pw.Text('Hello World!', style: pw.TextStyle(fontSize: 24)),
+                  child: pw.Text('Hello World!', style: const pw.TextStyle(fontSize: 24)),
                 ),
               ));
               await openPdfInNewWindow(pdf);
             },
-            child: Text('Open PDF'),
+            child: const Text('Open PDF'),
           ),
         ),
       ),

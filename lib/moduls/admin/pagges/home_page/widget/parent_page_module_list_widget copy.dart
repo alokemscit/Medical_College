@@ -3,9 +3,9 @@
 
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/config/responsive.dart';
-import 'package:agmc/moduls/admin/pagges/home_page/model/model_menu_list.dart';
+import 'package:agmc/moduls/admin/pagges/home_page/shared/model_menu_list.dart';
  
-import 'package:google_fonts/google_fonts.dart';
+ 
  
 import '../home_page.dart';
 
@@ -13,9 +13,9 @@ import '../home_page.dart';
 class ParentMainModuleListWidget extends StatelessWidget {
   List<ModelModuleList> list;
   ParentMainModuleListWidget({
-    Key? key,
+    super.key,
     required this.list,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +122,7 @@ _desktop(List<ModelModuleList> list, BuildContext context) {
                           )),
                       Text(
                         list[index].name!,
-                        style: GoogleFonts.roboto(
+                        style: TextStyle(fontFamily: appFontMuli,
                             fontSize: size.width < 650
                                 ? 13
                                 : (size.width > 650 && size.width < 805)
@@ -151,7 +151,7 @@ _desktop(List<ModelModuleList> list, BuildContext context) {
                           child: Text(
                             list[index].desc!,
                             overflow: TextOverflow.clip,
-                            style: GoogleFonts.roboto(
+                            style: const TextStyle(fontFamily: appFontMuli,
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FontStyle.italic,

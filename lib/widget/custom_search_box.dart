@@ -4,7 +4,6 @@
 import 'package:agmc/core/config/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
- 
 
 class CustomSearchBox extends StatelessWidget {
   final String caption;
@@ -15,7 +14,7 @@ class CustomSearchBox extends StatelessWidget {
   final int? maxLine;
   final double? height;
   final TextAlign? textAlign;
-  final Function(String value) onChange;
+  final Function(String value)? onChange;
   //final Function(RawKeyEvent event) onKey;
   final double borderRadious;
   final Color fontColor;
@@ -40,15 +39,15 @@ class CustomSearchBox extends StatelessWidget {
 
   CustomSearchBox(
       {super.key,
-      required this.caption,
-      this.width = 65,
+      this.caption = 'Search',
+      this.width = 150,
       this.maxlength = 100,
       required this.controller,
       this.textInputType = TextInputType.text,
       this.maxLine = 1,
       this.height = 28,
       this.textAlign = TextAlign.start,
-      required this.onChange,
+      this.onChange,
       this.borderRadious = 2.0,
       this.fontColor = Colors.black87,
       this.borderColor = Colors.black,
@@ -57,7 +56,7 @@ class CustomSearchBox extends StatelessWidget {
       this.isReadonly = false,
       this.isDisable = false,
       this.hintTextColor = Colors.black,
-      this.labelTextColor = Colors.black,
+      this.labelTextColor = Colors.black87,
       this.focusedBorderColor = Colors.black,
       this.focusedBorderWidth = 0.3,
       this.enabledBorderColor = Colors.grey,
@@ -71,7 +70,6 @@ class CustomSearchBox extends StatelessWidget {
       : onSubmitted = onSubmitted ?? ((String v) {}),
         onEditingComplete = onEditingComplete ?? (() {}),
         onTap = onTap ?? (() {});
-   
 
   @override
   Widget build(BuildContext context) {
@@ -79,31 +77,35 @@ class CustomSearchBox extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadious),
-          color:   Colors.white,
-          boxShadow: [
-            BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
-          ]),
+        borderRadius: BorderRadius.circular(borderRadious),
+        color: Colors.white,
+        // boxShadow: [
+        //   BoxShadow(blurRadius: 0, spreadRadius: 0.01, color: borderColor)
+        // ]
+      ),
       //  padding: const EdgeInsets.only(top: 4),
       // color: Colors.amber,
-    
+
       // padding: const EdgeInsets.only(bottom: 12),
       // color:Colors.amber, // const Color.fromARGB(255, 255, 255, 255),
-    
+
       child: TextField(
-        
-        onTap:()=> onTap,
+        onTap: () => onTap,
         textCapitalization: isCapitalization == true
             ? TextCapitalization.characters
             : TextCapitalization.none,
         focusNode: focusNode,
         enabled: !isDisable,
         readOnly: isReadonly,
-        onChanged: (value) => onChange(value),
+        onChanged: (value) {
+          if (onChange != null) {
+            onChange!(value);
+          }
+        },
         onSubmitted: (v) {
           onSubmitted(v);
         },
-    
+
         onEditingComplete: () {
           // print("12121");
           onEditingComplete();
@@ -129,52 +131,54 @@ class CustomSearchBox extends StatelessWidget {
         maxLines: maxLine,
         //   textCapitalization : TextCapitalization.none,
         // keyboardType: TextInputType.number,
-        style: TextStyle( fontFamily: "Muli",
-          fontSize: 13, fontWeight: FontWeight.w500, color: fontColor),
+        style: TextStyle(
+            fontFamily: "Muli",
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: fontColor),
         textAlignVertical: TextAlignVertical.center,
-    
+
         textAlign: textAlign!,
         decoration: InputDecoration(
-          fillColor: !isDisable
-              ? Colors.white
-              : Colors
-                  .white70, // Color.fromARGB(255, 253, 253, 255), //Colors.white,
-          filled: isFilled,
-          labelText: caption,
-          labelStyle: TextStyle(
-              color: labelTextColor, fontWeight: FontWeight.w300, fontSize: 13),
-          hintStyle:
-              TextStyle(color: hintTextColor, fontWeight: FontWeight.w300),
-          counterText: '',
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadious),
-            borderSide: BorderSide(
-                color: enabledBorderColor.withOpacity(0.8),
-                width: enabledBorderwidth),
-          ),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(borderRadious)),
-              borderSide: const BorderSide(color: Colors.white)),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadious),
-            borderSide: BorderSide(
-                color: focusedBorderColor, width: focusedBorderWidth),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadious),
-            borderSide: BorderSide(
-                color: enabledBorderColor, width: enabledBorderwidth),
-          ),
-          prefixIcon: Icon(
-            Icons.search_rounded,
-            size: 20,
-            color: surfixIconColor,
-          ),
-           contentPadding: const EdgeInsets.only(
-                      bottom: 8,
-                      left: 6,
-                      right: 6) 
-        ),
+            fillColor: !isDisable
+                ? Colors.white
+                : Colors
+                    .white70, // Color.fromARGB(255, 253, 253, 255), //Colors.white,
+            filled: isFilled,
+            labelText: caption,
+            labelStyle: TextStyle(
+                color: labelTextColor,
+                fontWeight: FontWeight.w300,
+                fontSize: 13),
+            hintStyle:
+                TextStyle(color: hintTextColor, fontWeight: FontWeight.w300),
+            counterText: '',
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(borderRadious),
+              borderSide: BorderSide(
+                  color: enabledBorderColor.withOpacity(0.8),
+                  width: enabledBorderwidth),
+            ),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(borderRadious)),
+                borderSide: const BorderSide(color: Colors.white)),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(borderRadious),
+              borderSide: BorderSide(
+                  color: focusedBorderColor, width: focusedBorderWidth),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(borderRadious),
+              borderSide: BorderSide(
+                  color: enabledBorderColor, width: enabledBorderwidth),
+            ),
+            prefixIcon: Icon(
+              Icons.search_rounded,
+              size: 20,
+              color: surfixIconColor,
+            ),
+            contentPadding:
+                const EdgeInsets.only(bottom: 8, left: 6, right: 6)),
         controller: controller,
       ),
     );

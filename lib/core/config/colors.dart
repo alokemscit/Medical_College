@@ -40,6 +40,7 @@ const CPLineCChart1 = Color(0xFF02d39a);
 // ignore: constant_identifier_names
 const CPLineCChart = Color(0xFF23b6e6);
 
+const appColorMint=Color(0Xff003B4B);
 
 
 
@@ -50,3 +51,16 @@ const appColorGray200 = Color(0xFFEEEEEE);
 const appColorGrayLight = Color(0xFFFAFAFA);
 const appColorGrayDark = Color(0xFF757575);
 const appColorIndigoA100 = Color(0xFF8C9EFF);
+Color appGray100 = Colors.grey[100]!;
+ Color appGray50 = Colors.grey[50]!;
+
+ const appBlueHighDeep = Color(0xff64B6FF);
+const appBlueHighLight = Color(0xffBFDBFF);
+const appBlueMidLight = Color(0xffB2D4FF);
+const appBlueLight = Color(0xffE7F1FF);
+const appGrayWindow = Color(0xffEAEAEA);
+const appBlackColor = Colors.black;
+const appGrayWindowHover = Color.fromARGB(109, 207, 207, 207);
+const appDisableTextColor = Color(0xFFC1C1C1);
+
+Color appColorRowSelected = appColorPista.withOpacity(0.2);

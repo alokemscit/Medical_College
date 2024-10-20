@@ -16,7 +16,7 @@ class CustomDropDown extends StatelessWidget {
       this.borderColor = Colors.black38,
       this.labeltext = 'Select',
       this.borderRadious = 2,
-      this.fontColor = Colors.black87,
+      this.fontColor = Colors.black,
       this.isFilled = true,
       this.dropdownColor = Colors.white,
       this.fillColor = Colors.white,
@@ -25,7 +25,7 @@ class CustomDropDown extends StatelessWidget {
       this.enabledBorderColor=Colors.grey,
        this.enabledBorderwidth= 0.4, 
        this.hintTextColor= Colors.black,
-        this.labelTextColor= Colors.black,
+        this.labelTextColor= Colors.black87,
        this.focusNode
       });
 
@@ -66,18 +66,19 @@ final Color fillColor;
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(borderRadious),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 0,
-              spreadRadius: 0.01,
-              color: borderColor
-            )
-          ]
+          // boxShadow: [
+          //   BoxShadow(
+          //     blurRadius: 0,
+          //     spreadRadius: 0.01,
+          //     color: borderColor
+          //   )
+          // ]
         ),
       // margin: const EdgeInsets.only(left: 12,top: 12),
       width: width,
       height: height,
       child: DropdownButtonFormField(
+        padding: EdgeInsets.zero,
         focusNode: focusNode,
          style:TextStyle( fontFamily: "Muli",
           fontSize: 13, fontWeight: FontWeight.w500, color: fontColor),

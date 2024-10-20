@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
+import 'package:printing/printing.dart';
 
 import '../../core/config/function.dart';
 import 'api/pdf_api.dart';
@@ -118,7 +119,7 @@ class PdfInvoiceApi {
     final pdf = Document();
 
     pdf.addPage(MultiPage(
-      build: (context) => [Text("Aloke", style: TextStyle())],
+      build: (context) => [Text("Aloke", style: const TextStyle())],
       footer: (context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -157,13 +158,13 @@ class PdfInvoiceApi {
     final div = html.window.document.getElementById('pdf-container');
     if (div != null) {
       //print('object');
-      final html.NodeValidatorBuilder _htmValidator =
+      final html.NodeValidatorBuilder htmValidator =
           html.NodeValidatorBuilder()
             ..allowElement('iframe', attributes: ['src', 'width', 'height']);
 
       div.setInnerHtml(
           '<iframe src= "$base64" width="100%" height="100%"></iframe>',
-          validator: _htmValidator);
+          validator: htmValidator);
       //  print(div.innerHtml);
       final bb = html.window.document.getElementById('triggerPdfViewer');
       if (bb != null) {
@@ -186,13 +187,13 @@ class PdfInvoiceApi {
     final div = html.window.document.getElementById('pdf-container');
     if (div != null) {
       //print('object');
-      final html.NodeValidatorBuilder _htmValidator =
+      final html.NodeValidatorBuilder htmValidator =
           html.NodeValidatorBuilder()
             ..allowElement('iframe', attributes: ['src', 'width', 'height']);
 
       div.setInnerHtml(
           '<iframe src= "$dataUri" width="100%" height="100%"></iframe>',
-          validator: _htmValidator);
+          validator: htmValidator);
       //  print(div.innerHtml);
       final bb = html.window.document.getElementById('triggerPdfViewer');
       if (bb != null) {
@@ -203,7 +204,7 @@ class PdfInvoiceApi {
   }
 
   static void openPdfBase64(String base64Data,
-      [String title = 'Report Viewer']) async {
+      [String title = 'Report Viewer', Function()? fun]) async {
     // final bytesData = await fetchPdfBytes(urls);
     //  String base64Data = base64Encode(bytesData);
     String dataUri = 'data:application/pdf;base64,$base64Data';
@@ -216,24 +217,27 @@ class PdfInvoiceApi {
     final div = html.window.document.getElementById('pdf-container');
     if (div != null) {
       //print('object');
-      final html.NodeValidatorBuilder _htmValidator =
+      final html.NodeValidatorBuilder htmValidator =
           html.NodeValidatorBuilder()
             ..allowElement('iframe', attributes: ['src', 'width', 'height']);
 
       div.setInnerHtml(
           '<iframe src= "$dataUri" width="100%" height="100%"></iframe>',
-          validator: _htmValidator);
+          validator: htmValidator);
       //  print(div.innerHtml);
       final bb = html.window.document.getElementById('triggerPdfViewer');
       if (bb != null) {
         //print('object');
         bb.dispatchEvent(html.MouseEvent('click'));
+        if (fun != null) {
+          fun();
+        }
       }
     }
   }
 
   static void openPdFromFile(Document pdfFile,
-      [String title = 'Report Viewer']) async {
+      [String title = 'Report Viewer', Function()? fun]) async {
     // final bytesData = await fetchPdfBytes(urls);
     final bytes = await PdfInvoiceApi.convertPdfToBytes(pdfFile);
     String base64Data = base64Encode(bytes);
@@ -246,40 +250,55 @@ class PdfInvoiceApi {
     final div = html.window.document.getElementById('pdf-container');
     if (div != null) {
       //print('object');
-      final html.NodeValidatorBuilder _htmValidator =
+      final html.NodeValidatorBuilder htmValidator =
           html.NodeValidatorBuilder()
             ..allowElement('iframe', attributes: ['src', 'width', 'height']);
 
       div.setInnerHtml(
           '<iframe src= "$dataUri" width="100%" height="100%"></iframe>',
-          validator: _htmValidator);
+          validator: htmValidator);
       //  print(div.innerHtml);
       final bb = html.window.document.getElementById('triggerPdfViewer');
       if (bb != null) {
         //print('object');
         bb.dispatchEvent(html.MouseEvent('click'));
+        if (fun != null) {
+          fun();
+        }
+      }else{
+        if (fun != null) {
+          fun();
+        }
       }
+    }else{
+      if (fun != null) {
+          fun();
+        }
     }
   }
 
-static Future<void> generatePDF(Widget header,List<Widget> body,Widget footer,[bool isLandScape=false]) async {
-  final pdf = Document();
- 
-    PdfPageFormat pageFormat =isLandScape? PdfPageFormat( 297 * PdfPageFormat.mm,210 * PdfPageFormat.mm):PdfPageFormat(210 * PdfPageFormat.mm, 297 * PdfPageFormat.mm);
-  pdf.addPage(
-    MultiPage(
-      orientation:isLandScape? PageOrientation.landscape:PageOrientation.portrait,
-      pageFormat: pageFormat,
-      header: (context) =>header,
-      build: (context) => body,
-      footer: (context) =>  footer
-    ),
-  );
-  final bytes = await pdf.save();
-  final base64 = base64Encode(bytes);
-   PdfInvoiceApi.openPdfBase64(base64);
-}
+  static Future<void> generatePDF(
+      Widget header, List<Widget> body, Widget footer,
+      [bool isLandScape = false]) async {
+    final pdf = Document();
 
+    PdfPageFormat pageFormat = isLandScape
+        ? const PdfPageFormat(297 * PdfPageFormat.mm, 210 * PdfPageFormat.mm)
+        : const PdfPageFormat(210 * PdfPageFormat.mm, 297 * PdfPageFormat.mm);
+    pdf.addPage(
+      MultiPage(
+          orientation: isLandScape
+              ? PageOrientation.landscape
+              : PageOrientation.portrait,
+          pageFormat: pageFormat,
+          header: (context) => header,
+          build: (context) => body,
+          footer: (context) => footer),
+    );
+    final bytes = await pdf.save();
+    final base64 = base64Encode(bytes);
+    PdfInvoiceApi.openPdfBase64(base64);
+  }
 }
 
 

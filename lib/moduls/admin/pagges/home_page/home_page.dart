@@ -4,12 +4,13 @@ import 'dart:async';
 import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/config/responsive.dart';
 import 'package:agmc/core/config/router.dart';
-import 'package:agmc/moduls/admin/pagges/home_page/model/model_menu_list.dart';
+import 'package:agmc/moduls/admin/pagges/home_page/shared/model_menu_list.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/widget/login_user_image_and_details.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/widget/parent_background_widget.dart';
 
 import 'package:agmc/widget/menubutton.dart';
 import 'package:agmc/widget/sidemenu.dart';
+ 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
  
@@ -17,16 +18,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-// ignore: must_be_immutable
+import 'block/menu_block.dart';
 
-// ignore: non_constant_identifier_names
-NextIndex(List<ItemModel> list, int index) {
-  if (list.length > 1) {
-    ItemModel k = list[list.length - 1 > index ? (index + 1) : (index - 1)];
-    return k.id;
-  }
-  return '';
-}
+ 
+// NextIndex(List<ItemModel> list, int index) {
+//   if (list.length > 1) {
+//     ItemModel k = list[list.length - 1 > index ? (index + 1) : (index - 1)];
+//     return k.id;
+//   }
+//   return '';
+// }
 
 List<SingleChildWidget> _provider(BuildContext context) => [
       BlocProvider(
@@ -55,8 +56,8 @@ class HomePage extends StatelessWidget {
         backgroundColor: kWebBackgroundDeepColor,
         body: Stack(
           children: [
-            const ParentPageBackground(imageOpacity: 0.03),
-            HomePagebodyWidget(module: module),
+            const ParentPageBackground(imageOpacity: 0.02),
+             HomePagebodyWidget(module: module),
           ],
         ),
       ),
@@ -165,15 +166,11 @@ class AppBarMobile extends StatelessWidget {
               ),
             ),
           )),
-      actions: const [
-        Padding(
-          padding: EdgeInsets.only(right: 8, bottom: 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(child: LoginUsersImageAndDetails()),
-            ],
+      actions:  const [
+        Flexible(
+          child: Padding(
+            padding: EdgeInsets.only(right: 8, bottom: 0,top: 4),
+            child: LoginUsersImageAndDetails(),
           ),
         ),
       ],
@@ -288,7 +285,7 @@ class TabAndBodyWidget extends StatelessWidget {
                     builder: (context, state) {
                   var id = state.id;
 
-                  print('A-------------' + id);
+                  print('A-------------$id');
                   if (id.trim() == '' )  {
                    // print(moduleId);
                   return  getDashBoard(moduleId);
@@ -310,6 +307,10 @@ class DrawerBackIconWithTabEvent extends StatelessWidget {
   Widget build(BuildContext context) {
     bool b = Responsive.isMobile(context);
     return  b?const SizedBox():Container(
+      // decoration: customBoxDecoration.copyWith(
+      //   borderRadius: BorderRadiusDirectional.circular(0),
+      //   color: b ? Colors.transparent : kWebBackgroundDeepColor,
+      //   ),
       //margin: EdgeInsets.only(top: 100),
       color: b ? Colors.transparent : kWebBackgroundDeepColor,
       width: double.infinity,
@@ -391,7 +392,7 @@ class TabMenuWithEvent extends StatelessWidget {
 
                         context1
                             .read<CurrentIDBloc>()
-                            .add(SetCurrentId(id: NextIndex(itemList, index)));
+                            .add(SetCurrentId(id:  mNextIndex(itemList, index)));
 
                         // Future.delayed(const Duration(milliseconds: 3000));
 
@@ -421,9 +422,9 @@ void deleteController(String id) {
   try {
     var x = getPage(id);
     var methods = getMethods(x);
-    methods.forEach((method) {
+    for (var method in methods) {
       method();
-    });
+    }
 
     // print(t);
   } catch (e) {
@@ -498,129 +499,128 @@ class ArrowBackPositioned extends StatelessWidget {
   }
 }
 
-class ItemModel {
-  final String id;
-  final String name;
-  ItemModel({required this.id, required this.name});
-}
+// class ItemModel {
+//   final String id;
+//   final String name;
+//   ItemModel({required this.id, required this.name});
+// }
 
-abstract class ItemMenuState {
-  final List<ItemModel> menuitem;
-  ItemMenuState({required this.menuitem});
-}
+// abstract class ItemMenuState {
+//   final List<ItemModel> menuitem;
+//   ItemMenuState({required this.menuitem});
+// }
 
-class ItemMenuInit extends ItemMenuState {
-  ItemMenuInit({required List<ItemModel> menuitem}) : super(menuitem: menuitem);
-}
+// class ItemMenuInit extends ItemMenuState {
+//   ItemMenuInit({required super.menuitem});
+// }
 
-class ItemMenuAdded extends ItemMenuState {
-  final String currentID;
-  ItemMenuAdded({required List<ItemModel> menuitem, required this.currentID})
-      : super(menuitem: menuitem);
-}
+// class ItemMenuAdded extends ItemMenuState {
+//   final String currentID;
+//   ItemMenuAdded({required super.menuitem, required this.currentID});
+// }
 
-abstract class ItemMenuEvent {}
+// abstract class ItemMenuEvent {}
 
-class ItemMenuAdd extends ItemMenuEvent {
-  final ItemModel menuitem;
-  ItemMenuAdd({required this.menuitem});
-}
+// class ItemMenuAdd extends ItemMenuEvent {
+//   final ItemModel menuitem;
+//   ItemMenuAdd({required this.menuitem});
+// }
 
-class ItemMenuDelete extends ItemMenuEvent {
-  final ItemModel menuitem;
-  ItemMenuDelete({required this.menuitem});
-}
+// class ItemMenuDelete extends ItemMenuEvent {
+//   final ItemModel menuitem;
+//   ItemMenuDelete({required this.menuitem});
+// }
 
-class MenuItemBloc extends Bloc<ItemMenuEvent, ItemMenuState> {
-  MenuItemBloc() : super(ItemMenuInit(menuitem: [])) {
-    on<ItemMenuAdd>(_addItem);
-    on<ItemMenuDelete>(_deleteItem);
-  }
+// class MenuItemBloc extends Bloc<ItemMenuEvent, ItemMenuState> {
+//   MenuItemBloc() : super(ItemMenuInit(menuitem: [])) {
+//     on<ItemMenuAdd>(_addItem);
+//     on<ItemMenuDelete>(_deleteItem);
+//   }
 
-  FutureOr<void> _addItem(ItemMenuAdd event, Emitter<ItemMenuState> emit) {
-    state.menuitem.add(event.menuitem);
-    // List<ItemModel> lst = [];
-    //lst.add(event.menuitem);
+//   FutureOr<void> _addItem(ItemMenuAdd event, Emitter<ItemMenuState> emit) {
+//     state.menuitem.add(event.menuitem);
+//     // List<ItemModel> lst = [];
+//     //lst.add(event.menuitem);
 
-    emit(ItemMenuAdded(menuitem: state.menuitem, currentID: event.menuitem.id));
-  }
+//     emit(ItemMenuAdded(menuitem: state.menuitem, currentID: event.menuitem.id));
+//   }
 
-  FutureOr<void> _deleteItem(
-      ItemMenuDelete event, Emitter<ItemMenuState> emit) {
-    state.menuitem.remove(event.menuitem);
-    emit(ItemMenuAdded(menuitem: state.menuitem, currentID: event.menuitem.id));
-  }
-}
+//   FutureOr<void> _deleteItem(
+//       ItemMenuDelete event, Emitter<ItemMenuState> emit) {
+//     state.menuitem.remove(event.menuitem);
+//     emit(ItemMenuAdded(menuitem: state.menuitem, currentID: event.menuitem.id));
+//   }
+// }
 
-abstract class CurrentIdState {
-  final String id;
-  CurrentIdState({required this.id});
-}
+// abstract class CurrentIdState {
+//   final String id;
+//   CurrentIdState({required this.id});
+// }
 
-class CurrentIDInit extends CurrentIdState {
-  CurrentIDInit({required super.id});
-}
+// class CurrentIDInit extends CurrentIdState {
+//   CurrentIDInit({required super.id});
+// }
 
-class CurrentIDSet extends CurrentIdState {
-  final String currentId;
-  CurrentIDSet({required super.id, required this.currentId});
-}
+// class CurrentIDSet extends CurrentIdState {
+//   final String currentId;
+//   CurrentIDSet({required super.id, required this.currentId});
+// }
 
-class CurrentIdDeleteState extends CurrentIdState {
-  final String delid;
-  CurrentIdDeleteState({required this.delid, required super.id});
-}
+// class CurrentIdDeleteState extends CurrentIdState {
+//   final String delid;
+//   CurrentIdDeleteState({required this.delid, required super.id});
+// }
 
-abstract class CurrenIdEvent {
-  final String id;
+// abstract class CurrenIdEvent {
+//   final String id;
 
-  CurrenIdEvent({required this.id});
-}
+//   CurrenIdEvent({required this.id});
+// }
 
-class SetCurrentId extends CurrenIdEvent {
-  SetCurrentId({required super.id});
-}
+// class SetCurrentId extends CurrenIdEvent {
+//   SetCurrentId({required super.id});
+// }
 
-class CurrentIDBloc extends Bloc<CurrenIdEvent, CurrentIdState> {
-  CurrentIDBloc() : super(CurrentIDInit(id: "")) {
-    on<CurrenIdEvent>((event, emit) {
-      if (event is SetCurrentId) {
-        //emit(CurrentIdDeleteState(delid: event.delid,id: event.id));
+// class CurrentIDBloc extends Bloc<CurrenIdEvent, CurrentIdState> {
+//   CurrentIDBloc() : super(CurrentIDInit(id: "")) {
+//     on<CurrenIdEvent>((event, emit) {
+//       if (event is SetCurrentId) {
+//         //emit(CurrentIdDeleteState(delid: event.delid,id: event.id));
 
-        emit(CurrentIDSet(id: event.id, currentId: event.id));
-        //
-      }
-    });
-  }
-}
+//         emit(CurrentIDSet(id: event.id, currentId: event.id));
+//         //
+//       }
+//     });
+//   }
+// }
 
-class MenubuttonCloseBlocBloc
-    extends Bloc<MenubuttonCloseBlocEvent, MenubuttonCloseBlocState> {
-  MenubuttonCloseBlocBloc()
-      : super(MenubuttonCloseBlocInitial(isClose: false)) {
-    on<MenubuttonCloseBlocEvent>((event, emit) {
-      if (event is IsMenuClose) {
-        emit(MenubuttonCloseBlocInitial(isClose: event.isClose));
-        //  print(event.isHover.toString());
-      }
-    });
-  }
-}
+// class MenubuttonCloseBlocBloc
+//     extends Bloc<MenubuttonCloseBlocEvent, MenubuttonCloseBlocState> {
+//   MenubuttonCloseBlocBloc()
+//       : super(MenubuttonCloseBlocInitial(isClose: false)) {
+//     on<MenubuttonCloseBlocEvent>((event, emit) {
+//       if (event is IsMenuClose) {
+//         emit(MenubuttonCloseBlocInitial(isClose: event.isClose));
+//         //  print(event.isHover.toString());
+//       }
+//     });
+//   }
+// }
 
-sealed class MenubuttonCloseBlocState {
-  final bool isClose;
+// sealed class MenubuttonCloseBlocState {
+//   final bool isClose;
 
-  // ignore: non_constant_identifier_names
-  MenubuttonCloseBlocState({required this.isClose});
-}
+//   // ignore: non_constant_identifier_names
+//   MenubuttonCloseBlocState({required this.isClose});
+// }
 
-final class MenubuttonCloseBlocInitial extends MenubuttonCloseBlocState {
-  MenubuttonCloseBlocInitial({required super.isClose});
-}
+// final class MenubuttonCloseBlocInitial extends MenubuttonCloseBlocState {
+//   MenubuttonCloseBlocInitial({required super.isClose});
+// }
 
-sealed class MenubuttonCloseBlocEvent {}
+// sealed class MenubuttonCloseBlocEvent {}
 
-class IsMenuClose extends MenubuttonCloseBlocEvent {
-  final bool isClose;
-  IsMenuClose({required this.isClose});
-}
+// class IsMenuClose extends MenubuttonCloseBlocEvent {
+//   final bool isClose;
+//   IsMenuClose({required this.isClose});
+// }

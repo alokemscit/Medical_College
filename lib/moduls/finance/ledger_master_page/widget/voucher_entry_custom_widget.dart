@@ -1,11 +1,10 @@
-import 'package:agmc/widget/custom_search_box.dart';
-import 'package:flutter/material.dart';
+ 
 
 import '../../../../core/config/const.dart';
-import '../../../../widget/custom_button.dart';
+ 
 import '../../../../widget/custom_datepicker.dart';
 import '../../../../widget/custom_dialog.dart';
-import '../../../../widget/custom_dropdown.dart';
+ 
 import '../../voucher_entry_page/controller/voucher_entry_controller.dart';
 import '../../voucher_entry_page/model/model_voucher_type.dart';
 
@@ -247,7 +246,7 @@ _tableFooter(VoucherEntryController controller) {
                                 style: customTextStyle.copyWith(
                                     fontSize: 13, fontWeight: FontWeight.bold),
                               )
-                            : SizedBox(),
+                            : const SizedBox(),
                       ))),
               TableCell(
                   verticalAlignment: TableCellVerticalAlignment.middle,

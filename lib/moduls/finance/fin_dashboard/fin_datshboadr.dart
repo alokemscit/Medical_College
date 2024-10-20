@@ -1,11 +1,8 @@
  
 import 'package:agmc/moduls/finance/fin_dashboard/chart.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/config/const.dart';
-import '../../../widget/custom_body.dart';
 import 'controller/fin_dashboard_controller.dart';
 
 class FinDashBoard extends StatelessWidget {

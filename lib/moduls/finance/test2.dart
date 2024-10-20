@@ -5,7 +5,12 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
+
+
+
 class PDFWebView extends StatefulWidget {
+  const PDFWebView({super.key});
+
     @override
     _PDFWebViewState createState() => _PDFWebViewState();
 }
@@ -31,18 +36,18 @@ class _PDFWebViewState extends State<PDFWebView> {
     Widget build(BuildContext context) {
         return Scaffold(
             appBar: AppBar(
-                title: Text('PDF WebView'),
+                title: const Text('PDF WebView'),
             ),
             body: Center(
                 child: pdfBase64.isNotEmpty
-                    ? SizedBox(
+                    ? const SizedBox(
                         width: 600,
                         height: 400,
                         child: HtmlElementView(
                             viewType: 'pdf-web-view',
                         ),
                     )
-                    : CircularProgressIndicator(),
+                    : const CircularProgressIndicator(),
             ),
         );
     }
@@ -57,7 +62,7 @@ class _PDFWebViewState extends State<PDFWebView> {
                 ..style.border = 'none'
                 ..width = '100%'
                 ..height = '100%';
-            html.querySelector('#pdf-container')?.children?.clear();
+            html.querySelector('#pdf-container')?.children.clear();
             html.querySelector('#pdf-container')?.append(iframe);
         }
     }

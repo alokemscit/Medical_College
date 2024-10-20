@@ -5,7 +5,7 @@ import 'package:agmc/core/config/responsive.dart';
 import 'package:agmc/moduls/admin/pagges/login_page/controller/login_controller.dart';
  
 
-import '../../../../core/config/const_widget.dart';
+ 
  
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -136,6 +136,7 @@ Widget rightpart(LoginConroller controller) {
                       }),
                   8.heightBox,
                   CustomTextBox(
+                    focusNode: controller.focus_text_eid,
                       borderRadious: 8,
                       labelTextColor: Colors.black54,
                       isFilled: true,
@@ -144,9 +145,16 @@ Widget rightpart(LoginConroller controller) {
                       caption: "Emp ID",
                       fontColor: Colors.black,
                       controller: controller.txt_empid,
-                      onChange: (v) {}),
+                      onChange: (v) {},
+                      onSubmitted:(v){
+                         FocusScope.of(controller.context).requestFocus(controller.focus_text_pws);
+                      }
+                      
+                      
+                      ),
                   8.heightBox,
                   CustomTextBox(
+                    focusNode: controller.focus_text_pws,
                       borderRadious: 8,
                       labelTextColor: Colors.black54,
                       width: double.infinity,
@@ -157,13 +165,27 @@ Widget rightpart(LoginConroller controller) {
                       isPassword: true,
                       caption: "Password",
                       controller: controller.txt_pws,
-                      onChange: (v) {}),
+                      onChange: (v) {
+                        
+                      },
+                      
+                      onSubmitted:(v){
+                         if (!b) {
+                              b = true;
+                              controller.login();
+                              Future.delayed(const Duration(seconds: 1), () {
+                                b = false;
+                              });
+                            }
+                      }
+                      ),
                   16.heightBox,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ElevatedButton(
                           style: ButtonStyle(
+                            // ignore: deprecated_member_use
                             backgroundColor: MaterialStateProperty.all(
                                 appColorLogo), // Set background color
                           ),

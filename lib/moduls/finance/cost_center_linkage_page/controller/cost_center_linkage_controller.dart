@@ -169,12 +169,6 @@ dialog = CustomAwesomeDialog(context: context);
     api = data_api();
     try {
       user.value = await getUserInfo();
-      if (user.value == null) {
-        isError.value = true;
-        isLoading.value = false;
-        errorMessage.value = "User re-login required!";
-        return;
-      }
       //print(user.value.comID);
 
       var x = await api.createLead([

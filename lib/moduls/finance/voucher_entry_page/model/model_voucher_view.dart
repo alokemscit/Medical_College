@@ -32,15 +32,15 @@ class ModelVoucherView {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.iD;
-    data['VNO'] = this.vNO;
-    data['VDATE'] = this.vDATE;
-    data['VTYPE'] = this.vTYPE;
-    data['LNAME'] = this.lNAME;
-    data['VAMOUNT'] = this.vAMOUNT;
-    data['STATUS'] = this.sTATUS;
-    data['ISPOSTED'] = this.iSPOSTED;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = iD;
+    data['VNO'] = vNO;
+    data['VDATE'] = vDATE;
+    data['VTYPE'] = vTYPE;
+    data['LNAME'] = lNAME;
+    data['VAMOUNT'] = vAMOUNT;
+    data['STATUS'] = sTATUS;
+    data['ISPOSTED'] = iSPOSTED;
     return data;
   }
 }

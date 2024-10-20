@@ -10,7 +10,7 @@ class DataStaticUser {
   static String dgname = '';
   static String uid = '';
   static String uname = '';
-  static String? img = null;
+  static String? img;
   static String? comID = '';
   // Uint8List? img =null ;//await DataStaticUser.img.toByteData();
 }

@@ -74,29 +74,29 @@ class ModelTrailLedger {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['CID'] = this.cID;
-    data['GL_ID'] = this.gLID;
-    data['GL_NAME'] = this.gLNAME;
-    data['GL_CODE'] = this.gLCODE;
-    data['CAT_ID'] = this.cATID;
-    data['CAT_NAME'] = this.cATNAME;
-    data['CAT_CODE'] = this.cATCODE;
-    data['SUB_ID'] = this.sUBID;
-    data['SUB_NAME'] = this.sUBNAME;
-    data['SUB_CODE'] = this.sUBCODE;
-    data['GROUP_ID'] = this.gROUPID;
-    data['GROUP_CODE'] = this.gROUPCODE;
-    data['GROUP_NAME'] = this.gROUPNAME;
-    data['CHART_ID'] = this.cHARTID;
-    data['CHART_CODE'] = this.cHARTCODE;
-    data['CHART_NAME'] = this.cHARTNAME;
-    data['O_DR'] = this.oDR;
-    data['O_CR'] = this.oCR;
-    data['TR_DR'] = this.tRDR;
-    data['TR_CR'] = this.tRCR;
-    data['C_DR'] = this.cDR;
-    data['C_CR'] = this.cCR;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['CID'] = cID;
+    data['GL_ID'] = gLID;
+    data['GL_NAME'] = gLNAME;
+    data['GL_CODE'] = gLCODE;
+    data['CAT_ID'] = cATID;
+    data['CAT_NAME'] = cATNAME;
+    data['CAT_CODE'] = cATCODE;
+    data['SUB_ID'] = sUBID;
+    data['SUB_NAME'] = sUBNAME;
+    data['SUB_CODE'] = sUBCODE;
+    data['GROUP_ID'] = gROUPID;
+    data['GROUP_CODE'] = gROUPCODE;
+    data['GROUP_NAME'] = gROUPNAME;
+    data['CHART_ID'] = cHARTID;
+    data['CHART_CODE'] = cHARTCODE;
+    data['CHART_NAME'] = cHARTNAME;
+    data['O_DR'] = oDR;
+    data['O_CR'] = oCR;
+    data['TR_DR'] = tRDR;
+    data['TR_CR'] = tRCR;
+    data['C_DR'] = cDR;
+    data['C_CR'] = cCR;
     return data;
   }
 }

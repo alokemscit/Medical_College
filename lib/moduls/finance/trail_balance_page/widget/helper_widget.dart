@@ -2,15 +2,15 @@
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as wd;
 
-dynamic t_tab(dynamic controller, dynamic _col) {
+dynamic t_tab(dynamic controller, dynamic col) {
   return wd.Padding(
-    padding: wd.EdgeInsets.all(8),
+    padding: const wd.EdgeInsets.all(8),
     child: wd.Table(
       border: tableBorder,
       columnWidths: List.generate(
-        _col.length,
+        col.length,
         (index) => wd.FlexColumnWidth(
-            _col[index].toDouble()), // Adjust the width as needed
+            col[index].toDouble()), // Adjust the width as needed
       ).asMap().map((index, columnWidth) => MapEntry(index, columnWidth)),
       children: [
         wd.TableRow(

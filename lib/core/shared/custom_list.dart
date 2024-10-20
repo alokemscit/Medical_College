@@ -7,13 +7,13 @@ import '../entity/company.dart';
 
 List<Company> get_company_list() {
   List<Company> list = [];
-  list.add(Company(id: '1', name: "Asgar Ali Hospital", logo: "logo_agh.png"));
+  list.add(Company(id: '1', name: "Asgar Ali Hospital", logo: "logo_agh.png",address: '111/1/A, Distillery Road, Gandaria, Dhaka-1204, Bangladesh'));
   list.add(Company(
       id: '2',
       name: "Fazlur Rahman Nursing & Midwifery Institute",
-      logo: "logo_frnmi.png"));
+      logo: "logo_frnmi.png",address: '111/1/A, Distillery Road, Gandaria, Dhaka-1204, Bangladesh'));
   list.add(Company(
-      id: '3', name: "Asgar Ali Medical College", logo: "logo_aamc.png"));
+      id: '3', name: "Asgar Ali Medical College", logo: "logo_aamc_last.png",address: '111/1/A, Distillery Road, Gandaria, Dhaka-1204, Bangladesh'));
   return list;
 }
 

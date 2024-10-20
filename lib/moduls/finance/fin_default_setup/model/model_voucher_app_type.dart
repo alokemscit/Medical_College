@@ -10,9 +10,9 @@ class ModelVoucherAppTypeMaster {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.iD;
-    data['NAME'] = this.nAME;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = iD;
+    data['NAME'] = nAME;
     return data;
   }
 }

@@ -1,7 +1,7 @@
  
 
 import 'package:agmc/core/config/const.dart';
-import 'package:agmc/core/config/const_widget.dart';
+ 
 import '../../../../core/shared/user_data.dart';
 import '../model/model-trail_ledger.dart';
 
@@ -118,7 +118,7 @@ class TarailBalanceController extends GetxController with MixInController {
       list_group.sort((a, b) => a.accid!.compareTo(b.accid!));
 
       List<_group> list = [];
-      list_group.forEach((element) {
+      for (var element in list_group) {
         if (selectedRadioValue.value == 1) {
           var filteredBalance = list_traing_balance
               .where((p0) => p0.gROUPID == element.id)
@@ -159,12 +159,12 @@ class TarailBalanceController extends GetxController with MixInController {
                 accid: e.cATID!,
               )));
         }
-      });
+      }
 
       list = list.toSet().toList();
 
       List<ModelTrailLedger> filteredBalance = [];
-      list.forEach((e) {
+      for (var e in list) {
         //var filteredBalance =
         filteredBalance = [];
         if (selectedRadioValue.value == 1) {
@@ -199,7 +199,7 @@ class TarailBalanceController extends GetxController with MixInController {
         ));
 
         // print(e.id!+e.name!);
-      });
+      }
 
       // }
 
@@ -252,12 +252,6 @@ class TarailBalanceController extends GetxController with MixInController {
 
     api = data_api();
     user.value = await getUserInfo();
-    if (user == null) {
-      isError.value = true;
-      errorMessage.value = "Re- Login required";
-      isLoading.value = false;
-      return;
-    }
 
     isLoading.value = false;
   }

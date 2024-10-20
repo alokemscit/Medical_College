@@ -3,7 +3,7 @@ import 'package:agmc/core/config/colors.dart';
 import 'package:agmc/core/config/function.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+ 
  
 
 class PDFViewerFromUrl extends StatelessWidget {
@@ -35,11 +35,12 @@ class PDFViewerFromUrl extends StatelessWidget {
           )
         ],
       ),
-      body: const PDF().fromUrl(
-        url,
-        placeholder: (double progress) => Center(child: Text('$progress %')),
-        errorWidget: (dynamic error) => Center(child: Text(error.toString())),
-      ),
+      body: Container()
+      // const PDF().fromUrl(
+      //   url,
+      //   placeholder: (double progress) => Center(child: Text('$progress %')),
+      //   errorWidget: (dynamic error) => Center(child: Text(error.toString())),
+      // ),
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:agmc/core/config/const_widget.dart';
+ 
 import 'package:agmc/widget/custom_datepicker.dart';
  
 
@@ -22,10 +22,10 @@ class BalanceSgeetPage extends StatelessWidget {
     BalanceSheetController controller = Get.put(BalanceSheetController());
     controller.context = context;
     return Obx(() => CommonBody(
-          controller: controller,
-          mobile: _desktop(controller),
-          tablet: _desktop(controller),
-          desktop: _desktop(controller),
+           controller,
+           _desktop(controller),
+           _desktop(controller),
+           _desktop(controller),
         ));
   }
 }
@@ -208,7 +208,7 @@ Widget _radio(@required int val, @required BalanceSheetController controller,
             onChanged: (value) {
               controller.comparisonType.value = value as int;
             },
-            visualDensity: VisualDensity(horizontal: -4.0, vertical: -4.0),
+            visualDensity: const VisualDensity(horizontal: -4.0, vertical: -4.0),
           ),
         ),
         4.widthBox,

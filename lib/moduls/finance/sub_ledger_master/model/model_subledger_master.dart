@@ -18,11 +18,11 @@ class ModelSubledgerMaster {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['ID'] = this.iD;
-    data['NAME'] = this.nAME;
-    data['CODE'] = this.cODE;
-    data['DESCRIPTION'] = this.dESCRIPTION;
-    data['IS_BILL_BY_BILL'] = this.iSBILLBYBILL;
+    data['ID'] = iD;
+    data['NAME'] = nAME;
+    data['CODE'] = cODE;
+    data['DESCRIPTION'] = dESCRIPTION;
+    data['IS_BILL_BY_BILL'] = iSBILLBYBILL;
     return data;
   }
 }

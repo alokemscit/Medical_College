@@ -1,9 +1,7 @@
-// ignore_for_file: camel_case_types
-
 import '../core/config/const.dart';
 
-class _customAccordianCaption extends StatefulWidget {
-  _customAccordianCaption({
+class CustomAccordianCaption extends StatefulWidget {
+  CustomAccordianCaption({
     super.key,
     required this.text,
     this.backgroundColor = kWebHeaderColor,
@@ -20,11 +18,11 @@ class _customAccordianCaption extends StatefulWidget {
   final void Function(bool) onTap;
 
   @override
-  State<_customAccordianCaption> createState() =>
+  State<CustomAccordianCaption> createState() =>
       __customAccordianCaptionState();
 }
 
-class __customAccordianCaptionState extends State<_customAccordianCaption> {
+class __customAccordianCaptionState extends State<CustomAccordianCaption> {
   bool isOpen = false;
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,10 @@ class __customAccordianCaptionState extends State<_customAccordianCaption> {
       decoration: BoxDecoration(
         color: widget.backgroundColor.withOpacity(0.01),
         borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+        ),
+        //border: Border(left: BorderSide(width: 0.2)),
         //border: Border.all(color: Colors.black38, width: 0.1),
         boxShadow: [
           BoxShadow(
@@ -59,9 +60,9 @@ class __customAccordianCaptionState extends State<_customAccordianCaption> {
                     child: Text(
                       widget.text,
                       style: customTextStyle.copyWith(
-                          fontSize: 13,
+                          fontSize: 12,
                           fontStyle: FontStyle.italic,
-                          decoration: TextDecoration.underline,
+                          //decoration: TextDecoration.underline,
                           decorationColor: widget.textColor,
                           color: widget.textColor),
                     ),
@@ -96,9 +97,9 @@ class __customAccordianCaptionState extends State<_customAccordianCaption> {
                   child: Text(
                     widget.text,
                     style: customTextStyle.copyWith(
-                        fontSize: 13,
+                        fontSize: 12,
                         fontStyle: FontStyle.italic,
-                        decoration: TextDecoration.underline,
+                        // decoration: TextDecoration.underline,
                         decorationColor: widget.textColor,
                         color: widget.textColor),
                   ),
@@ -134,13 +135,15 @@ class CustomAccordionContainer extends StatefulWidget {
       required this.headerName,
       required this.children,
       this.height = 350,
-       
-      this.isExpansion = true});
+      this.isExpansion = true,
+      this.bgColor = kWebBackgroundColor,this.pading=const EdgeInsets.all(8.0)});
   final String headerName;
-   
+
   final List<Widget> children;
   final double height;
   final bool isExpansion;
+  final Color bgColor;
+  final EdgeInsets pading;
 
   @override
   State<CustomAccordionContainer> createState() =>
@@ -156,7 +159,7 @@ class _CustomAccordionContainerState extends State<CustomAccordionContainer> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _customAccordianCaption(
+          CustomAccordianCaption(
             isisExpansion: widget.isExpansion,
             text: widget.headerName,
             onTap: (a) {
@@ -172,11 +175,11 @@ class _CustomAccordionContainerState extends State<CustomAccordionContainer> {
                     borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(4),
                         bottomRight: Radius.circular(4)),
-                    color: kWebBackgroundDeepColor,
+                    color: widget.bgColor,
                   ),
                   height: b ? 0 : widget.height,
                   child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: widget.pading,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: widget.children,
@@ -190,11 +193,11 @@ class _CustomAccordionContainerState extends State<CustomAccordionContainer> {
                             borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(4),
                                 bottomRight: Radius.circular(4)),
-                            color: kWebBackgroundDeepColor,
+                            color: widget.bgColor,
                           ),
                           //height: height,
                           child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: widget.pading,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: widget.children,

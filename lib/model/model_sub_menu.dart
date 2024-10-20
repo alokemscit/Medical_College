@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:agmc/core/config/data_api.dart';
 
+import '../core/shared/user_data.dart';
+
 class Menu {
   String? id;
   String? name;
@@ -57,13 +59,15 @@ class Smenu {
 // ignore: non_constant_identifier_names
 Future<List<Menu>> get_sub_menu_data_list(String id) async {
   List<Menu> list = [];
+ //  print(id);
   data_api repo = data_api();
   try {
+   var user = await getUserInfo();
     var x = await repo.createLead([
       //@name, @pid int,@img
-      {"tag": "69", "pid": id}
+      {"tag": "69", "pid": id,"p_empid":user.eMPID}
     ]);
-    // print(x);
+    
     list = x
         .map((e) => Menu.fromJson(e))
         .toList()

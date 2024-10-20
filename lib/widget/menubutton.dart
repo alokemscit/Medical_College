@@ -20,7 +20,7 @@ class MenuButton extends StatelessWidget {
     required this.text,
     required this.buttonClick,
     required this.crossButtonClick,
-    this.color = const Color.fromARGB(255, 248, 248, 248),
+    this.color =kWebBackgroundDeepColor, //const Color.fromARGB(255, 248, 248, 248),
     this.isSelected = false,
     this.textColor = const Color.fromARGB(255, 58, 56, 56),
     this.borderRadius=4,
@@ -43,13 +43,13 @@ class MenuButton extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: isSelected ? kSecondaryColor : color,
                     borderRadius: BorderRadius.circular(borderRadius),
-                    border: Border.all(color: Colors.black38, width: 0.1),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black38.withOpacity(0.3),
-                          blurRadius: 0.05,
-                          spreadRadius: 0.1)
-                    ]
+                    border: Border.all(color: Colors.black38, width: 0.05),
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //       color: Colors.black38.withOpacity(0.3),
+                    //       blurRadius: 0.05,
+                    //       spreadRadius: 0.1)
+                    // ]
                     //  boxShadow: const [
                     //   BoxShadow(
                     //       blurRadius: 0.0, spreadRadius: 0.1, offset: Offset(0, 0))

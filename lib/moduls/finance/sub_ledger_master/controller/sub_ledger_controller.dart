@@ -122,11 +122,6 @@ class SubLedgerController extends GetxController with MixInController {
   void onInit() async {
     api = data_api();
     user.value = await getUserInfo();
-    if (user == null) {
-      isError.value = true;
-      errorMessage.value = "Re- Login required";
-      return;
-    }
 
     try {
       var x = await api.createLead([

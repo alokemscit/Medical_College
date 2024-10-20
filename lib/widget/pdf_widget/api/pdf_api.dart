@@ -1,9 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:agmc/widget/pdf_widget/invoice.dart';
+import 'package:pdf/pdf.dart';
 
 import 'package:pdf/widgets.dart';
 import 'dart:html' as html;
@@ -86,5 +85,34 @@ static Future<File> saveDocument({
       html.Url.revokeObjectUrl(url);
     }
   });
+  }
+  
+ static  showPDFformWidget(List<pw.Widget> body, pw.Widget header,pw.Widget footer,
+      [  Function()? fun, String reportName='Report', pw.EdgeInsetsGeometry margin =const pw.EdgeInsets.symmetric(vertical: 4,horizontal: 6),
+      PageOrientation? orientation=PageOrientation.portrait, ]) async {
+    // var body = k1;
+
+    final pdf = pw.Document();
+   
+    pdf.addPage(
+      pw.MultiPage(
+        orientation: orientation,
+        pageFormat: PdfPageFormat.a4,
+        margin: margin,
+        header: (pw.Context context) {
+          return header;
+        },
+        footer: (context) {
+          return footer;
+        },
+        build: (context) => body,
+      ),
+    );
+
+    PdfInvoiceApi.openPdFromFile(pdf, reportName, () {
+      if (fun != null) {
+        fun();
+      }
+    });
   }
 }

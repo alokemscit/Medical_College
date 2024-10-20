@@ -5,14 +5,13 @@ import 'package:agmc/core/config/const.dart';
 import 'package:agmc/core/shared/user_data.dart';
 import 'package:agmc/model/model_status.dart';
 import 'package:agmc/moduls/finance/ledger_master_page/model/model_ledger_master.dart';
-import 'package:agmc/widget/custom_awesome_dialog.dart';
-import 'package:agmc/widget/custom_bysy_loader.dart';
+  
 import 'package:agmc/widget/custom_snakbar.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
+ 
 
 import '../../../../core/config/fun_excel.dart';
 import '../../../../widget/custom_dialog.dart';
-import '../../../../widget/custom_textbox.dart';
+ 
 import '../model/model_chart_acc_master.dart';
 
 class LedgerMasterController extends GetxController with MixInController {
@@ -784,12 +783,6 @@ class LedgerMasterController extends GetxController with MixInController {
     api = data_api();
     try {
       user.value = await getUserInfo();
-      if (user.value == null) {
-        isError.value = true;
-        isLoading.value = false;
-        errorMessage.value = "User re-login required!";
-        return;
-      }
       print(user.value.comID);
       isError.value = false;
       isLoading.value = true;

@@ -7,10 +7,10 @@ import 'package:agmc/core/config/const.dart';
 
 import 'package:agmc/core/config/responsive.dart';
 import 'package:agmc/moduls/admin/pagges/home_page/home_page.dart';
-import 'package:agmc/moduls/admin/pagges/home_page/model/model_menu_list.dart';
-import 'package:get/get.dart';
+import 'package:agmc/moduls/admin/pagges/home_page/shared/model_menu_list.dart';
+ 
 
-import 'package:google_fonts/google_fonts.dart';
+ 
  
 
 // ignore: must_be_immutable
@@ -124,7 +124,7 @@ _desktop(List<ModelModuleList> list, BuildContext context) {
                           )),
                       Text(
                         list[index].name!,
-                        style: GoogleFonts.roboto(
+                        style: TextStyle(fontFamily: appFontMuli,
                             fontSize: context.width < 650
                                 ? 13
                                 : (context.width > 650 && context.width < 805)
@@ -141,7 +141,7 @@ _desktop(List<ModelModuleList> list, BuildContext context) {
                         child: Text(
                             list[index].desc!,
                             overflow: TextOverflow.clip,
-                            style: GoogleFonts.roboto(
+                            style:const TextStyle(fontFamily: appFontMuli,
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FontStyle.italic,

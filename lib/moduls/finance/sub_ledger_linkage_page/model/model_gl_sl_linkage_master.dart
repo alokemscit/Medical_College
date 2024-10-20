@@ -18,11 +18,11 @@ class ModelGlSlLinkageMaster {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['GL_ID'] = this.gLID;
-    data['GL_NAME'] = this.gLNAME;
-    data['SL_ID'] = this.sLID;
-    data['SL_NAME'] = this.sLNAME;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['GL_ID'] = gLID;
+    data['GL_NAME'] = gLNAME;
+    data['SL_ID'] = sLID;
+    data['SL_NAME'] = sLNAME;
     return data;
   }
 }
